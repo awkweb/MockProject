@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="base.definition" template="/WEB-INF/jsp/layout.jsp">
+ 		<put-attribute name="head" value="/WEB-INF/jsp/includes/head.jsp"></put-attribute>
+ 		<put-attribute name="title" value=""></put-attribute>
+ 		<put-attribute name="navbar" value="/WEB-INF/jsp/includes/navbar.jsp"></put-attribute>
+ 		<put-attribute name="pageHeader" value="/WEB-INF/jsp/includes/pageHeader.jsp"></put-attribute>
+	</definition>
+
+	<definition name="home" extends="base.definition">
+		<put-attribute name="title" value="Hello, World!"></put-attribute>
+	</definition>
+</tiles-definitions>
