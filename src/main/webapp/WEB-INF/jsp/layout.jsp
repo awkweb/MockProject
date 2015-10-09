@@ -10,6 +10,7 @@
 
 	<div class="container">
 		<tiles:insertAttribute name="pageHeader" />
+		<tiles:insertAttribute name="content" />
 	</div>
 </body>
 </html>
