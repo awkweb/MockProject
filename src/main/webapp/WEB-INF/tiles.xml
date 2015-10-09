@@ -8,9 +8,11 @@
  		<put-attribute name="title" value=""></put-attribute>
  		<put-attribute name="navbar" value="/WEB-INF/jsp/includes/navbar.jsp"></put-attribute>
  		<put-attribute name="pageHeader" value="/WEB-INF/jsp/includes/pageHeader.jsp"></put-attribute>
+ 		<put-attribute name="content" value=""></put-attribute>
 	</definition>
 
 	<definition name="home" extends="base.definition">
 		<put-attribute name="title" value="Hello, World!"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/jsp/testPage.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>
