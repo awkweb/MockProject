@@ -1,14 +1,16 @@
 package com.java.pojo;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
-/**
- * The persistent class for the blocks database table.
- * 
- */
 @Entity
 @Table(name="blocks")
 @NamedQuery(name="Block.findAll", query="SELECT b FROM Block b")
