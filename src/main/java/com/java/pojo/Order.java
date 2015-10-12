@@ -190,4 +190,10 @@ public class Order implements Serializable {
 		this.traderId = traderId;
 	}
 
+	
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + "]";
+	}
+	
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.java.pojo.Order;
 import com.java.pojo.User;
 import com.java.service.UserManager;
 
@@ -22,5 +23,14 @@ public class TraderBlockBlotterViewController {
 		model.addAttribute("pageHeader", "Hello, World!");
 		return "traderBlockBlotterView";
 	}
+	@RequestMapping(value="/test")
+	public String testOrders(Model model){
+		Order order = new Order();
+		System.out.println(order.toString());
+		
+		model.addAttribute("pageHeader", "Tester Works");
+		return "traderBlockBlotterView";
+	}
+	
 
 }

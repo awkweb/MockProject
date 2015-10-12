@@ -151,4 +151,11 @@ public class ExecuteBlock  {
 		this.transactionTime = transactionTime;
 	}
 
+	@Override
+	public String toString() {
+		return "ExecuteBlock [executionId=" + executionId + ", blockId=" + blockId + "]";
+	}
+	
+	
+
 }
