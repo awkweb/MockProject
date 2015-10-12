@@ -13,7 +13,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType( propOrder = {"blockId", })
+@XmlType( propOrder = {"blockId", "executed-quantity", "limit-price", "open-quantity", 
+		"status", "stop-price", "timestamp", "total-quantity"})
 @XmlRootElement( name = "Block")
 @Entity
 @Table(name="blocks")
