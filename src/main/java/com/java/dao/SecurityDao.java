@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.java.pojo.Security;
 
-
 @Repository
 public class SecurityDao {
 	
