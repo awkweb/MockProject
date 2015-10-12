@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="portfolios")
-public class Portfolios {
+public class Portfolio {
 	@Id
 	@Column(name="port_id")
 	private String port_id;
@@ -16,11 +16,11 @@ public class Portfolios {
 	@Column(name="pm_id")
 	private String pm_id;
 	
-	public Portfolios() {
+	public Portfolio() {
 		
 	}
 
-	public Portfolios(String port_id, String name, String pm_id) {
+	public Portfolio(String port_id, String name, String pm_id) {
 		super();
 		this.port_id = port_id;
 		this.name = name;

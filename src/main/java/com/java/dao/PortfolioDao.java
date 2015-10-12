@@ -3,7 +3,7 @@ package com.java.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import com.java.pojo.Portfolios;
+import com.java.pojo.Portfolio;
 
 public class PortfolioDao {
 
@@ -22,8 +22,8 @@ public class PortfolioDao {
 		this.entityManager = entityManager;
 	}
 
-	public Portfolios getPortfolioDetails(String portId) {
-		return entityManager.find(Portfolios.class, portId);
+	public Portfolio getPortfolioDetails(String portId) {
+		return entityManager.find(Portfolio.class, portId);
 	}
 
 }
