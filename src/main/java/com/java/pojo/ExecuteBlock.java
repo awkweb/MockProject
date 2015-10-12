@@ -18,12 +18,14 @@ public class ExecuteBlock  {
 //	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="execution_id")
 	private int executionId;
 
 	@Column(name="allocated_qty")
 	private int allocatedQty;
+
+	@Column(name="average_price")
+	private float averagePrice;
 
 	@Column(name="block_id")
 	private String blockId;
@@ -34,7 +36,18 @@ public class ExecuteBlock  {
 	@Column(name="order_id")
 	private String orderId;
 
+	@Column(name="remaining_qty")
+	private int remainingQty;
+
 	private String status;
+
+	private String symbol;
+
+	@Column(name="trade_price")
+	private float tradePrice;
+
+	@Column(name="transact_fee")
+	private float transactFee;
 
 	@Column(name="transaction_time")
 	private Timestamp transactionTime;
@@ -56,6 +69,14 @@ public class ExecuteBlock  {
 
 	public void setAllocatedQty(int allocatedQty) {
 		this.allocatedQty = allocatedQty;
+	}
+
+	public float getAveragePrice() {
+		return this.averagePrice;
+	}
+
+	public void setAveragePrice(float averagePrice) {
+		this.averagePrice = averagePrice;
 	}
 
 	public String getBlockId() {
@@ -82,12 +103,44 @@ public class ExecuteBlock  {
 		this.orderId = orderId;
 	}
 
+	public int getRemainingQty() {
+		return this.remainingQty;
+	}
+
+	public void setRemainingQty(int remainingQty) {
+		this.remainingQty = remainingQty;
+	}
+
 	public String getStatus() {
 		return this.status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getSymbol() {
+		return this.symbol;
+	}
+
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
+
+	public float getTradePrice() {
+		return this.tradePrice;
+	}
+
+	public void setTradePrice(float tradePrice) {
+		this.tradePrice = tradePrice;
+	}
+
+	public float getTransactFee() {
+		return this.transactFee;
+	}
+
+	public void setTransactFee(float transactFee) {
+		this.transactFee = transactFee;
 	}
 
 	public Timestamp getTransactionTime() {

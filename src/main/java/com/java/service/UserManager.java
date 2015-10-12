@@ -10,14 +10,14 @@ import com.java.pojo.User;
 public class UserManager {
 
 	@Autowired
-	UserDao equitydao;
+	UserDao userdao;
 	
 	public User getUserDetails(String userId) {
-		return equitydao.getUserDetails(userId);
+		return userdao.getUserDetails(userId);
 	}
 
 	public void setUserDetails(User user) {
-		equitydao.saveDetails(user);
+		userdao.saveDetails(user);
 	}
 	
 }
