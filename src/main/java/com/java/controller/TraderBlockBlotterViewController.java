@@ -9,7 +9,7 @@ import com.java.pojo.User;
 import com.java.service.UserManager;
 
 @Controller
-public class MainController {
+public class TraderBlockBlotterViewController {
 	
 	@Autowired
 	private UserManager userManager;
@@ -20,7 +20,7 @@ public class MainController {
 		System.out.println(user.toString());
 	
 		model.addAttribute("pageHeader", "Hello, World!");
-		return "home";
+		return "traderBlockBlotterView";
 	}
 
 }
