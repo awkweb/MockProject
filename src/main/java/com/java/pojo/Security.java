@@ -4,10 +4,12 @@ package com.java.pojo;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
-public class Securities {
+@Table(name="securities")
+public class Security {
 	@Column
 	@Id
 	private String symbol;

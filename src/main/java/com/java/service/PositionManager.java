@@ -4,16 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.java.dao.PositionDao;
-import com.java.pojo.Positions;
+import com.java.pojo.Position;
 
 @Component
-public class PositionsManager {
+public class PositionManager {
 
 	@Autowired
-	PositionDao positionsDao;
+	PositionDao positionDao;
 	
-	public Positions getUserDetails(String positionId) {
-		return positionsDao.getPositionDetails(positionId);
+	public Position getUserDetails(String positionId) {
+		return positionDao.getPositionDetails(positionId);
 	}
 
 	

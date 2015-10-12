@@ -5,11 +5,11 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
-import com.java.pojo.Securities;
+import com.java.pojo.Security;
 
 
 @Repository
-public class SecuritiesDao {
+public class SecurityDao {
 	
 	static{
 	    try {
@@ -26,9 +26,10 @@ public class SecuritiesDao {
 		this.entityManager = entityManager;
 	}
 
-	public Securities getSecuritiesDetails(String symbol) {
-		return entityManager.find(Securities.class, symbol);
+	public Security getSecurityDetails(String symbol) {
+		return entityManager.find(Security.class, symbol);
 	}
+
 	
 	
 

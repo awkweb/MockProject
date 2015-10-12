@@ -8,25 +8,28 @@ import javax.persistence.Table;
 @Entity
 @Table(name="positions")
 public class Position {
-
+	
 	@Id
 	@Column(name="position_id")
-	private int position_id;
+	private String position_id;
 	@Column(name="order_id")
-	private int order_id;
+	private String order_id;
 	@Column(name="port_id")
-	private int portfolio_id;
-
+	private String portfolio_id;
+	
+	
 	public Position(){
-
+		
 	}
 
-	public Position(int position_id, int order_id, int portfolio_id) {
+
+	public Position(String position_id, String order_id, String portfolio_id) {
 		super();
 		this.position_id = position_id;
 		this.order_id = order_id;
 		this.portfolio_id = portfolio_id;
 	}
+
 
 	@Override
 	public String toString() {
@@ -34,28 +37,36 @@ public class Position {
 				+ "]";
 	}
 
-	public int getPosition_id() {
+
+	public String getPosition_id() {
 		return position_id;
 	}
 
-	public void setPosition_id(int position_id) {
+
+	public void setPosition_id(String position_id) {
 		this.position_id = position_id;
 	}
 
-	public int getOrder_id() {
+
+	public String getOrder_id() {
 		return order_id;
 	}
 
-	public void setOrder_id(int order_id) {
+
+	public void setOrder_id(String order_id) {
 		this.order_id = order_id;
 	}
 
-	public int getPortfolio_id() {
+
+	public String getPortfolio_id() {
 		return portfolio_id;
 	}
 
-	public void setPortfolio_id(int portfolio_id) {
+
+	public void setPortfolio_id(String portfolio_id) {
 		this.portfolio_id = portfolio_id;
 	}
+	
+	
 
 }
