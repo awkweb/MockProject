@@ -10,7 +10,7 @@ import com.java.pojo.Security;
 @Component
 public class SecurityManager {
 
-	@Autowired
+	//@Autowired
 	SecurityDao securitydao;
 
 	public Security getSecurityDetails(String symbol) {

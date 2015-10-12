@@ -9,7 +9,7 @@ import com.java.pojo.Position;
 @Component
 public class PositionManager {
 
-	@Autowired
+	//@Autowired
 	PositionDao positionDao;
 	
 	public Position getUserDetails(String positionId) {

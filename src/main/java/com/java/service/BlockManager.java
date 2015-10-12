@@ -11,7 +11,7 @@ import com.java.pojo.Portfolio;
 @Component
 public class BlockManager {
 
-	@Autowired
+	//@Autowired
 	BlockDao blockDao;
 	
 	public Block getUserDetails(String blockId) {

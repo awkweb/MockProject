@@ -9,7 +9,7 @@ import com.java.pojo.ExecuteBlock;
 @Component
 public class ExecuteBlockManager {
 
-	@Autowired
+	//@Autowired
 	ExecuteBlockDao executeblockDao;
 	
 	public ExecuteBlock getUserDetails(int executeBlockId) {

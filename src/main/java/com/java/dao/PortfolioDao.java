@@ -3,8 +3,11 @@ package com.java.dao;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.springframework.stereotype.Repository;
+
 import com.java.pojo.Portfolio;
 
+@Repository
 public class PortfolioDao {
 
 	static {
