@@ -1,6 +1,6 @@
 package com.java.pojo;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +13,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType( propOrder = {"blockId", "executed-quantity", "limit-price", "open-quantity", 
-		"status", "stop-price", "timestamp", "total-quantity"})
+@XmlType( propOrder = {"blockId", "executedQty", "limitPrice", "openQty", 
+		"status", "stopPrice", "timestamp", "totalQty"})
 @XmlRootElement( name = "Block")
 @Entity
 @Table(name="blocks")
@@ -41,12 +41,36 @@ public class Block {
 	@Column(name="stop_price")
 	private float stopPrice;
 
-	private Timestamp timestamp;
+	private Date timestamp;
 
 	@Column(name="total_qty")
 	private int totalQty;
 
 	public Block() {
+	}
+	
+	/**
+	 * Added extended Constructor for testing purposes
+	 * @param blockId
+	 * @param executedQty
+	 * @param limitPrice
+	 * @param openQty
+	 * @param status
+	 * @param stopPrice
+	 * @param timestamp
+	 * @param totalQty
+	 */
+	public Block(String blockId, int executedQty, float limitPrice, int openQty, String status, float stopPrice,
+			Date timestamp, int totalQty) {
+		super();
+		this.blockId = blockId;
+		this.executedQty = executedQty;
+		this.limitPrice = limitPrice;
+		this.openQty = openQty;
+		this.status = status;
+		this.stopPrice = stopPrice;
+		this.timestamp = timestamp;
+		this.totalQty = totalQty;
 	}
 
 	public String getBlockId() {
@@ -102,12 +126,12 @@ public class Block {
 		this.stopPrice = stopPrice;
 	}
 
-	public Timestamp getTimestamp() {
+	public Date getTimestamp() {
 		return this.timestamp;
 	}
 	
 	@XmlElement(name = "Timestamp")
-	public void setTimestamp(Timestamp timestamp) {
+	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -118,6 +142,13 @@ public class Block {
 	@XmlElement(name = "Total-Quantity")
 	public void setTotalQty(int totalQty) {
 		this.totalQty = totalQty;
+	}
+
+	@Override
+	public String toString() {
+		return "Block [blockId=" + blockId + ", executedQty=" + executedQty + ", limitPrice=" + limitPrice
+				+ ", openQty=" + openQty + ", status=" + status + ", stopPrice=" + stopPrice + ", timestamp="
+				+ timestamp + ", totalQty=" + totalQty + "]";
 	}
 
 }
