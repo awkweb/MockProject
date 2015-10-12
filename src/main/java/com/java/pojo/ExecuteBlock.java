@@ -14,8 +14,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="execute_blocks")
 @NamedQuery(name="ExecuteBlock.findAll", query="SELECT e FROM ExecuteBlock e")
-public class ExecuteBlock implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class ExecuteBlock  {
+//	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
