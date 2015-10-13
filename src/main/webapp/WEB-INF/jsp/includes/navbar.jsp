@@ -14,9 +14,10 @@
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="/">Foo<span
+				<li class="active"><a href="/">Open Blocks<span
 						class="sr-only">(current)</span></a></li>
-				<li><a href="/">Bar</a></li>
+				<li><a href="/">Executed Blocks</a></li>
+				<li><a href="/">Assigned Orders</a></li>
 				<li><p class="navbar-text">User: Thomas Meagher</p></li>
 				<li><a href="#">Log Out</a></li>
 			</ul>

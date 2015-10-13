@@ -28,16 +28,6 @@ public class User {
 	public User() {
 		
 	}
-	
-	public User(String username, String password, String firstName, String lastName, String email, String role) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.role = role;
-	}
 
 	@Override
 	public String toString() {

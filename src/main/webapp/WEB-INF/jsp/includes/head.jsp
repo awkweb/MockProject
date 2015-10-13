@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/bootstrap.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styes.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/styles.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-1.11.3.min.js"></script>
 <script src="${pageContext.request.contextPath}/static/js/bootstrap.min.js"></script>
