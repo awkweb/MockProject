@@ -58,6 +58,28 @@ public class Order implements Serializable {
 
 	@Column(name="trader_id")
 	private String traderId;
+	
+	@Column(name="qualifiers")
+	private String qualifier;
+	
+	@Column(name="account_type")
+	private String accountType;
+
+	public String getQualifier() {
+		return qualifier;
+	}
+
+	public void setQualifier(String qualifier) {
+		this.qualifier = qualifier;
+	}
+
+	public String getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
+	}
 
 	public Order() {
 	}
