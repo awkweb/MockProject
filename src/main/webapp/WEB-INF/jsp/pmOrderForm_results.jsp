@@ -8,5 +8,7 @@
 </head>
 <body>
 
+Symbol <br>
+${symbol}
 </body>
 </html>

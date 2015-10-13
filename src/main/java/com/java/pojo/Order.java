@@ -62,8 +62,20 @@ public class Order implements Serializable {
 	@Column(name="qualifiers")
 	private String qualifier;
 	
-	@Column(name="account_type")
+	@Column(name="acc_type")
 	private String accountType;
+	
+	@Column(name="portfolio_id")
+	private String portId;
+
+	
+	public String getPortId() {
+		return portId;
+	}
+
+	public void setPortId(String portId) {
+		this.portId = portId;
+	}
 
 	public String getQualifier() {
 		return qualifier;

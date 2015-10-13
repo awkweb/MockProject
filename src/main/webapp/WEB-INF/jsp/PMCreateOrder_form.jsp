@@ -19,12 +19,12 @@
   		
   		<form:label path="side">Side: </form:label>
   		<form:select path="side"  name="side" >
-  			<form:option value="Buy" selected="selected">Buy</form:option>
-  			<form:option value="Sell">Sell</form:option>
+  			<form:options items = "${sideList}"/>
   		</form:select>
   		
   		<form:label path="ordertype">Order Type: </form:label>
   		<form:select path="ordertype"  name="ordertype" >
+  			<form:options items = "${orderTypeList}"/>
   			<form:option value="Market" selected="selected">Market</form:option>
   			
   			<form:option value="Limit">Limit</form:option>
@@ -41,9 +41,9 @@
   		</form:select>
   		
   		Traders will need to be autofilled from DB
-  		<form:label path="trader">Trader: </form:label>
-  		<form:select path="trader"  name="trader" >
-  			<form:option value="trader_id">Trader 1</form:option>
+  		<form:label path="traderId">Trader: </form:label>
+  		<form:select path="traderId"  name="traderId" >
+  			<form:option value="traderId">Trader 1</form:option>
   		</form:select>
   		
   		<form:label path="accountType">Account Type: </form:label>	
@@ -53,13 +53,13 @@
   		</form:select>
   		
   		Portolios will need to be autofilled from DB
-  		<form:label path="portfolio">Portfolio: </form:label>
-  		<form:select path="portfolio"  name="portfolio" >
-  			<form:option value="port_id" selected="selected">Port1</form:option>
+  		<form:label path="portId">Portfolio: </form:label>
+  		<form:select path="portId"  name="portfolio" >
+  			<form:option value="portId" selected="selected">Port1</form:option>
   		</form:select>
   		
-  		<form:label path="qty">Quantity: </form:label>
-  		<form:input  path="qty"  name="qty" />
+  		<form:label path="totalQty">Quantity: </form:label>
+  		<form:input  path="totalQty"  name="totalQty" />
   		
   		<form:label path="stopPrice">Stop Price: </form:label>
   		<form:input  path="stopPrice"  name="stopPrice" />

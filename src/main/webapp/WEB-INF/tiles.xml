@@ -5,7 +5,7 @@
 <tiles-definitions>
 	<definition name="base.definition" template="/WEB-INF/jsp/layout.jsp">
  		<put-attribute name="head" value="/WEB-INF/jsp/includes/head.jsp"></put-attribute>
- 		<put-attribute name="title" value=""></put-attribute>
+ 		 <put-attribute name="title" value=""></put-attribute> 
  		<put-attribute name="navbar" value="/WEB-INF/jsp/includes/navbar.jsp"></put-attribute>
  		<put-attribute name="pageHeader" value="/WEB-INF/jsp/includes/pageHeader.jsp"></put-attribute>
  		<put-attribute name="content" value=""></put-attribute>
@@ -16,8 +16,8 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/testPage.jsp"></put-attribute>
 	</definition>
 	
-	<definition name="PMCreateOrder_form2" extends="base.definition">
-		<put-attribute name="title" value="Hello, World!"></put-attribute>
+	<definition name="PMCreateOrder_form" extends="base.definition">
+		 <put-attribute name="title" value="Hello, World!"></put-attribute> 
 
 		<put-attribute name="content" value="/WEB-INF/jsp/PMCreateOrder_form.jsp"></put-attribute>
 	</definition>
