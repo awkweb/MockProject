@@ -32,6 +32,8 @@ public class OrderDao {
 	@Transactional
 	public void saveDetails(Order order) {
 		entityManager.persist(order);
+		System.out.println("Order Added to DB");
+		System.out.println(order.toString());
 	}
 
 }

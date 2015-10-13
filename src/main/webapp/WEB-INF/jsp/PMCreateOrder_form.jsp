@@ -10,67 +10,100 @@
 </head>
 <body>
 	<h2>PM Create Order</h2>
-	
-<!-- 	Check to see if names need to match DB -->
-	
-	<form:form action = "orderdetails" method = "post" modelAttribute="order">
-		<form:label path="symbol">Equity Symbol: </form:label>
-  		<form:input  path="symbol"  name="symbol" />
-  		
-  		<form:label path="side">Side: </form:label>
-  		<form:select path="side"  name="side" >
-  			<form:options items = "${sideList}"/>
-  		</form:select>
-  		
-  		<form:label path="ordertype">Order Type: </form:label>
-  		<form:select path="ordertype"  name="ordertype" >
-  			<form:options items = "${orderTypeList}"/>
-  			<form:option value="Market" selected="selected">Market</form:option>
-  			
-  			<form:option value="Limit">Limit</form:option>
-  			
-  			<form:option value="StopLimit">Stop Limit</form:option>
-  			
-  			<form:option value="Stop">Stop</form:option>
-  		</form:select>
-  		
-  		<form:label path="qualifier">Qualifier: </form:label>	
-		<form:select path="qualifier"  name="qualifier" >
-  			<form:option value="DayOrder" selected="selected">Day Order</form:option>
-  			<form:option value="GTC">GTC</form:option>
-  		</form:select>
-  		
-  		Traders will need to be autofilled from DB
-  		<form:label path="traderId">Trader: </form:label>
-  		<form:select path="traderId"  name="traderId" >
-  			<form:option value="traderId">Trader 1</form:option>
-  		</form:select>
-  		
-  		<form:label path="accountType">Account Type: </form:label>	
-		<form:select path="accountType"  name="accountTyp" >
-  			<form:option value="Cash" selected="selected">Cash</form:option>
-  			<form:option value="Margin">Margin</form:option>
-  		</form:select>
-  		
-  		Portolios will need to be autofilled from DB
-  		<form:label path="portId">Portfolio: </form:label>
-  		<form:select path="portId"  name="portfolio" >
-  			<form:option value="portId" selected="selected">Port1</form:option>
-  		</form:select>
-  		
-  		<form:label path="totalQty">Quantity: </form:label>
-  		<form:input  path="totalQty"  name="totalQty" />
-  		
-  		<form:label path="stopPrice">Stop Price: </form:label>
-  		<form:input  path="stopPrice"  name="stopPrice" />
-  		
-  		<form:label path="limitPrice">Limit Price: </form:label>
-  		<form:input  path="limitPrice"  name="limitPrice" />
-  		
-  		<form:label path="notes">Notes: </form:label>
-  		<form:input type="text" path="notes"  name="notes" style="width:160px; height:90;" />
-  		
-  		<input type="submit" value="submit"/>
-	</form:form>
+
+	<!-- 	Check to see if names need to match DB -->
+
+	<table cellspacing="10" frame="box" style="width: 100%">
+
+		<tr>
+			<td style="padding: 3%;"><form:form action="orderdetails"
+					method="post" modelAttribute="order">
+					<div style="float: left; width: 50%">
+						<table cellspacing="10" style="width: 60%" style="height: 100%">
+
+							<tr>
+								<td style="width: 70%"><form:label path="symbol">Equity Symbol: </form:label></td>
+								<td><form:input path="symbol" name="symbol" /></td>
+							</tr>
+
+
+							<tr>
+								<td><form:label path="side">Side: </form:label></td>
+								<td><form:select path="side" name="side">
+										<form:options items="${sideList}" />
+									</form:select></td>
+							</tr>
+
+							<tr>
+								<td><form:label path="ordertype">Order Type: </form:label></td>
+								<td><form:select path="ordertype" name="ordertype">
+										<form:options items="${orderTypeList}" />
+									</form:select></td>
+							</tr>
+
+							<tr>
+								<td><form:label path="qualifier">Qualifier: </form:label></td>
+								<td><form:select path="qualifier" name="qualifier">
+										<form:options items="${qualifierTypeList}" />
+									</form:select></td>
+							</tr>
+
+							<tr>
+								<td><form:label path="traderId">Trader: </form:label></td>
+								<td><form:select path="traderId" name="traderId">
+										<form:option value="traderId">Trader 1</form:option>
+									</form:select></td>
+							</tr>
+
+							<tr>
+								<td><form:label path="accountType">Account Type: </form:label></td>
+								<td><form:select path="accountType" name="accountType">
+										<form:options items="${accountTypeList}" />
+									</form:select></td>
+							</tr>
+
+							<tr>
+								<td><form:label path="portId">Portfolio: </form:label></td>
+								<td><form:select path="portId" name="portfolio">
+										<form:option value="portId" selected="selected">Port1</form:option>
+									</form:select></td>
+							</tr>
+						</table>
+					</div>
+
+					<div style="float: right; width: 50%">
+						<table cellspacing="20" style="width: 80%" style="height:100%">
+							<tr>
+								<td style="width: 50%"><form:label path="totalQty">Quantity: </form:label></td>
+								<td><form:input path="totalQty" name="totalQty" /></td>
+							</tr>
+
+							<tr>
+								<td><form:label path="stopPrice">Stop Price: </form:label></td>
+								<td><form:input path="stopPrice" name="stopPrice" /></td>
+							</tr>
+
+							<tr>
+								<td><form:label path="limitPrice">Limit Price: </form:label></td>
+								<td><form:input path="limitPrice" name="limitPrice" /></td>
+							</tr>
+
+							<tr>
+								<td><form:label path="notes">Notes: </form:label></td>
+								<td><form:input type="text" path="notes" name="notes"
+										style="width:100; height:500;" /></td>
+							</tr>
+
+							<tr>
+								<td><input type="submit" value="submit" /></td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</form:form></td>
+		</tr>
+	</table>
+
+
 </body>
 </html>

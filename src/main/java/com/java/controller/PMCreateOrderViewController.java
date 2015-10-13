@@ -1,6 +1,7 @@
 package com.java.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import com.java.service.OrderManager;
 
 @Controller
 public class PMCreateOrderViewController {
+	
+	Calendar calendar = Calendar.getInstance();
 
 	@Autowired
 	private OrderManager orderManager;
@@ -57,15 +60,17 @@ public class PMCreateOrderViewController {
 //		order.setStopPrice(order.getStopPrice());
 //		order.setLimitPrice(order.getLimitPrice());
 //		order.setTraderId(order.getNotes());
-		//orderManager.
-		
+		order.setOrderId("2");
+		order.setPortId("1");
+		order.setTimestamp(new java.sql.Timestamp(calendar.getTime().getTime()));
 		System.out.println(order.toString());
+//		orderManager.saveOrderDetails(order);
 			
 			return "pmOrderForm_results";
 		}
 	
 	@ModelAttribute("sideList")
-	public List<String> provideEquityType()
+	public List<String> provideEquitySide()
 	{
 		List<String> sideList = new ArrayList<String>();
 		sideList.add("Buy");
@@ -74,4 +79,58 @@ public class PMCreateOrderViewController {
 
 	}
 	
+	@ModelAttribute("orderTypeList")
+	public List<String> provideEquityOrderType()
+	{
+		List<String> orderTypeList = new ArrayList<String>();
+		orderTypeList.add("Market");
+		orderTypeList.add("Limit");
+		orderTypeList.add("Stop Limit");
+		orderTypeList.add("Stop");
+		return orderTypeList;
+
+	}
+	
+	@ModelAttribute("qualifierTypeList")
+	public List<String> provideEquityQualifierType()
+	{
+		List<String> qualifierTypeList = new ArrayList<String>();
+		qualifierTypeList.add("Day Order");
+		qualifierTypeList.add("GTC");
+		return qualifierTypeList;
+
+	}
+	
+/*	@ModelAttribute("TraderTypeList")
+	public List<String> provideEquityTrader()
+	{
+		List<String> TraderTypeList = new ArrayList<String>();
+		TraderTypeList.add("Day Order");
+		TraderTypeList.add("GTC");
+		return TraderTypeList;
+
+	}
+*/
+	
+	@ModelAttribute("accountTypeList")
+	public List<String> provideEquityAccountType()
+	{
+		List<String> accountTypeList = new ArrayList<String>();
+		accountTypeList.add("Cash");
+		accountTypeList.add("Margin");
+		return accountTypeList;
+
+	}
+	
+	
+/*	@ModelAttribute("portfolioTypeList")
+	public List<String> provideEquityportfolioType()
+	{
+		List<String> portfolioTypeList = new ArrayList<String>();
+		portfolioTypeList.add("Cash");
+		portfolioTypeList.add("Margin");
+		return portfolioTypeList;
+
+	}
+*/	
 }

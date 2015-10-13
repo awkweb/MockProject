@@ -224,10 +224,17 @@ public class Order implements Serializable {
 		this.traderId = traderId;
 	}
 
-	
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + "]";
+		return "Order [orderId=" + orderId + ", allocQty=" + allocQty
+				+ ", blockId=" + blockId + ", limitPrice=" + limitPrice
+				+ ", notes=" + notes + ", openQty=" + openQty + ", ordertype="
+				+ ordertype + ", pmId=" + pmId + ", securityType="
+				+ securityType + ", side=" + side + ", status=" + status
+				+ ", stopPrice=" + stopPrice + ", symbol=" + symbol
+				+ ", timestamp=" + timestamp + ", totalQty=" + totalQty
+				+ ", traderId=" + traderId + ", qualifier=" + qualifier
+				+ ", accountType=" + accountType + ", portId=" + portId + "]";
 	}
 	
 }

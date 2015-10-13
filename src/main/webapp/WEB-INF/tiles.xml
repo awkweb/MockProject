@@ -18,7 +18,11 @@
 	
 	<definition name="PMCreateOrder_form" extends="base.definition">
 		 <put-attribute name="title" value="Hello, World!"></put-attribute> 
-
 		<put-attribute name="content" value="/WEB-INF/jsp/PMCreateOrder_form.jsp"></put-attribute>
+	</definition>
+	
+		<definition name="pmOrderForm_results" extends="base.definition">
+		 <put-attribute name="title" value="Hello, World!"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/jsp/pmOrderForm_results.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>
