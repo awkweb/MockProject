@@ -21,4 +21,17 @@
 
 		<put-attribute name="content" value="/WEB-INF/jsp/PMCreateOrder_form.jsp"></put-attribute>
 	</definition>
+	<definition name="button" extends="base.definition">
+		 <put-attribute name="title" value="positionsdashboard!"></put-attribute> 
+
+		<put-attribute name="content" value="/WEB-INF/jsp/button.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="pmPositionDashboardView" extends="base.definition">
+		 <put-attribute name="title" value="positionsdashboard!"></put-attribute> 
+
+		<put-attribute name="content" value="/WEB-INF/jsp/pmPositionDashboardView.jsp"></put-attribute>
+	</definition>
+	
+	
 </tiles-definitions>
