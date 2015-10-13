@@ -25,5 +25,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/acato/.m2/repository/org/springframework/spring-webmvc/3.1.2.RELEASE/spring-webmvc-3.1.2.RELEASE.jar"/>
+	<classpathentry kind="lib" path="C:/Users/acato/Documents/JAR Files/apache-activemq-5.12.0-bin/apache-activemq-5.12.0/activemq-all-5.12.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
