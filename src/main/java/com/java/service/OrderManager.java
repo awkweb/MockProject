@@ -10,7 +10,7 @@ import com.java.pojo.Order;
 @Component
 public class OrderManager {
 
-	//@Autowired
+	@Autowired
 	OrderDao orderDao;
 	
 	public Order getUserDetails(String orderId) {

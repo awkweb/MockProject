@@ -25,6 +25,11 @@
 	</servlet-mapping>
 	
 	<servlet-mapping>
+		<servlet-name>jsp</servlet-name>
+		<url-pattern>/WEB-INF/jsp/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
 	    <servlet-name>default</servlet-name>
 	    <url-pattern>*.css</url-pattern>
 	    <url-pattern>*.js</url-pattern>

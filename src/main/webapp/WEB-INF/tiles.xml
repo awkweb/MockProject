@@ -13,6 +13,17 @@
 
 	<definition name="traderBlockBlotterView" extends="base.definition">
 		<put-attribute name="title" value="Hello, World!"></put-attribute>
-		<put-attribute name="content" value="/WEB-INF/jsp/testPage.jsp"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/testPage.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="Edit_Block" extends="base.definition">
+		<put-attribute name="title" value="Hello"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/jsp/Edit_Block.jsp"></put-attribute>
+	</definition>
+	
+		<definition name="success" extends="base.definition">
+		<put-attribute name="title" value="Hello"></put-attribute>
+		<put-attribute name="body" value="/WEB-INF/jsp/success.jsp"></put-attribute>
+	</definition>
+	
 </tiles-definitions>
