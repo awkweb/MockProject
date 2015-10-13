@@ -6,7 +6,6 @@ import java.util.Date;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 
 import com.java.pojo.Block;
 
@@ -21,16 +20,12 @@ public class MarshalBlockIntoXmlElement {
 		
 		JAXBContext jaxbContext = JAXBContext.newInstance( Block.class );
 		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-		Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 		
-		jaxbMarshaller.marshal( block, blockFile );
-		//jaxbMarshaller.marshal( block, System.out );
-		
+
 		jaxbMarshaller.setProperty( Marshaller.JAXB_FORMATTED_OUTPUT, true );
 		
-		Block unmarshalBlock = (Block) jaxbUnmarshaller.unmarshal(blockFile);
+		jaxbMarshaller.marshal( block, blockFile );
+		jaxbMarshaller.marshal( block, System.out );
 		
-		System.out.println(unmarshalBlock.toString());
-
 	}
 }

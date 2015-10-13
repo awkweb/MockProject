@@ -1,1 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Block><BlockId>101</BlockId><Executed-Quantity>100</Executed-Quantity><Limit-Price>2.5</Limit-Price><Open-Quantity>200</Open-Quantity><Status>Open</Status><Stop-Price>0.0</Stop-Price><Timestamp>2015-10-12T05:45:05.880-04:00</Timestamp><Total-Quantity>500</Total-Quantity></Block>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Block>
+    <BlockId>101</BlockId>
+    <Executed-Quantity>100</Executed-Quantity>
+    <Limit-Price>2.5</Limit-Price>
+    <Open-Quantity>200</Open-Quantity>
+    <Status>Open</Status>
+    <Stop-Price>0.0</Stop-Price>
+    <Timestamp>2015-10-13T02:26:19.818-04:00</Timestamp>
+    <Total-Quantity>500</Total-Quantity>
+</Block>
