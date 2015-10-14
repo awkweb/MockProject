@@ -7,14 +7,16 @@
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="headingOne">
 				<h4 class="panel-title">
-					<a role="button" data-toggle="collapse" data-parent="#accordion"
-						href="#collapse${block.getBlockId()}" aria-expanded="true"
-						aria-controls="collapseOne">Block ${block.getBlockId()} SYMBOL
-						SIDE</a>  <small>Total Quantity. ${block.getTotalQty()}, PRICE</small>
+					<a class="collapsed" role="button" data-toggle="collapse"
+						data-parent="#accordion" href="#collapse${block.getBlockId()}"
+						aria-expanded=false aria-controls="collapseOne">Block
+						#${block.getBlockId()} ${block.getOrders().get(0).getSymbol()}
+						${block.getOrders().get(0).getSide()}</a> <small>Total
+						Quantity: ${block.getTotalQty()}</small>
 				</h4>
 			</div>
 			<div id="collapse${block.getBlockId()}"
-				class="panel-collapse collapse in" role="tabpanel"
+				class="panel-collapse collapse" role="tabpanel"
 				aria-labelledby="headingOne">
 
 				<table class="table table-bordered table-hover ">

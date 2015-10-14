@@ -14,6 +14,7 @@
 		<put-attribute name="head" value="/WEB-INF/jsp/includes/head.jsp" />
 		<put-attribute name="title" value="" />
 		<put-attribute name="navbar" value="/WEB-INF/jsp/includes/navbar.jsp" />
+		<put-attribute name="toolbar" value="/WEB-INF/jsp/includes/toolbar.jsp" />
 		<put-attribute name="content" value="" />
 	</definition>
 	
@@ -36,7 +37,7 @@
 	<!-- TRADER -->
 	<definition name="block-blotter" extends="trader-layout.definition">
 		<put-attribute name="title" value="Block Blotter" />
-		<put-attribute name="content" value="/WEB-INF/jsp/blockBlotter.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/traderBlockBlotter.jsp" />
 	</definition>
 	
 	<!-- PM -->

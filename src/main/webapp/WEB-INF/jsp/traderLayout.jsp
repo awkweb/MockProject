@@ -12,11 +12,12 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="page-header">
-					<h1><tiles:insertAttribute name="title" ignore="true" /></h1>
+					<h2><tiles:insertAttribute name="title" ignore="true" /></h2>
 				</div>
 			</div>
 		</div>
-
+		
+		<tiles:insertAttribute name="toolbar" />
 		<tiles:insertAttribute name="content" />
 	</div>
 </body>
