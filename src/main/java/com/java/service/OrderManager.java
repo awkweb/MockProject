@@ -13,8 +13,14 @@ public class OrderManager {
 	//@Autowired
 	OrderDao orderDao;
 	
-	public Order getUserDetails(String orderId) {
+	public Order getOrderDetails(String orderId) {
 		return orderDao.getOrderDetails(orderId);
+	}
+	
+		System.out.println("in manager");
+		System.out.println(order==null);
+		System.out.println(order.toString());
+		 orderDao.saveDetails(order);
 	}
 
 	
