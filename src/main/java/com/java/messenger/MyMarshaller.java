@@ -29,7 +29,10 @@ public class MyMarshaller {
 	 * @throws JAXBException 
 	 */
 	public void marshalObject(Block block) throws JAXBException {
-		this.marshaller.marshal(block, blockFile);
+//		System.out.println("The block is " + block);
+//		System.out.println("this.blockFile is " + this.blockFile);
+//		System.out.println("blockFile is " + blockFile);
+		this.marshaller.marshal(block, this.blockFile);
 		System.out.println("Block has been marhsalled!");
 	}
 	
@@ -38,10 +41,16 @@ public class MyMarshaller {
 	 * @throws JAXBException 
 	 */
 	public Block unmarshalObject(File fileBlock) throws JAXBException {
-		System.out.println("In unmarshal function");
-		return (Block) this.unmarshaller.unmarshal(fileBlock);
-		
+//		System.out.println("In unmarshal function");
+		return (Block) this.unmarshaller.unmarshal(fileBlock);	
 	}
-	
+
+	public File getBlockFile() {
+		return blockFile;
+	}
+
+	public void setBlockFile(String fileName) {
+		this.blockFile = new File(fileName);
+	}
 	
 }

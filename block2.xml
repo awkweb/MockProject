@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Block>
+    <BlockId>102</BlockId>
+    <Executed-Quantity>200</Executed-Quantity>
+    <Limit-Price>3.5</Limit-Price>
+    <Open-Quantity>300</Open-Quantity>
+    <Status>Closed</Status>
+    <Stop-Price>1.0</Stop-Price>
+    <Timestamp>2015-10-14T02:39:54.784-04:00</Timestamp>
+    <Total-Quantity>600</Total-Quantity>
+</Block>
