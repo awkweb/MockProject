@@ -71,13 +71,124 @@ public class Order implements Serializable {
 	@Column(name="portfolioid")
 	private String portId;
 
-	
-	public String getPortId() {
-		return portId;
+	public String getOrderId() {
+		return orderId;
 	}
 
-	public void setPortId(String portId) {
-		this.portId = portId;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+
+	public int getAllocQty() {
+		return allocQty;
+	}
+
+	public void setAllocQty(int allocQty) {
+		this.allocQty = allocQty;
+	}
+
+	public String getBlockId() {
+		return blockId;
+	}
+
+	public void setBlockId(String blockId) {
+		this.blockId = blockId;
+	}
+
+	public float getLimitPrice() {
+		return limitPrice;
+	}
+
+	public void setLimitPrice(float limitPrice) {
+		this.limitPrice = limitPrice;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public int getOpenQty() {
+		return openQty;
+	}
+
+	public void setOpenQty(int openQty) {
+		this.openQty = openQty;
+	}
+
+	public String getOrdertype() {
+		return ordertype;
+	}
+
+	public void setOrdertype(String ordertype) {
+		this.ordertype = ordertype;
+	}
+
+	public String getPmId() {
+		return pmId;
+	}
+
+	public void setPmId(String pmId) {
+		this.pmId = pmId;
+	}
+
+	public String getSide() {
+		return side;
+	}
+
+	public void setSide(String side) {
+		this.side = side;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public float getStopPrice() {
+		return stopPrice;
+	}
+
+	public void setStopPrice(float stopPrice) {
+		this.stopPrice = stopPrice;
+	}
+
+	public String getSymbol() {
+		return symbol;
+	}
+
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	public int getTotalQty() {
+		return totalQty;
+	}
+
+	public void setTotalQty(int totalQty) {
+		this.totalQty = totalQty;
+	}
+
+	public String getTraderId() {
+		return traderId;
+	}
+
+	public void setTraderId(String traderId) {
+		this.traderId = traderId;
 	}
 
 	public String getQualifier() {
@@ -96,127 +207,16 @@ public class Order implements Serializable {
 		this.accountType = accountType;
 	}
 
-	public Order() {
+	public String getPortId() {
+		return portId;
 	}
 
-	public String getOrderId() {
-		return this.orderId;
+	public void setPortId(String portId) {
+		this.portId = portId;
 	}
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
-	}
-
-	public int getAllocQty() {
-		return this.allocQty;
-	}
-
-	public void setAllocQty(int allocQty) {
-		this.allocQty = allocQty;
-	}
-
-	public String getBlockId() {
-		return this.blockId;
-	}
-
-	public void setBlockId(String blockId) {
-		this.blockId = blockId;
-	}
-
-	public float getLimitPrice() {
-		return this.limitPrice;
-	}
-
-	public void setLimitPrice(float limitPrice) {
-		this.limitPrice = limitPrice;
-	}
-
-	public String getNotes() {
-		return this.notes;
-	}
-
-	public void setNotes(String notes) {
-		this.notes = notes;
-	}
-
-	public int getOpenQty() {
-		return this.openQty;
-	}
-
-	public void setOpenQty(int openQty) {
-		this.openQty = openQty;
-	}
-
-	public String getOrdertype() {
-		return this.ordertype;
-	}
-
-	public void setOrdertype(String ordertype) {
-		this.ordertype = ordertype;
-	}
-
-	public String getPmId() {
-		return this.pmId;
-	}
-
-	public void setPmId(String pmId) {
-		this.pmId = pmId;
-	}
-
-	public String getSide() {
-		return this.side;
-	}
-
-	public void setSide(String side) {
-		this.side = side;
-	}
-
-	public String getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public float getStopPrice() {
-		return this.stopPrice;
-	}
-
-	public void setStopPrice(float stopPrice) {
-		this.stopPrice = stopPrice;
-	}
-
-	public String getSymbol() {
-		return this.symbol;
-	}
-
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-
-	public Timestamp getTimestamp() {
-		return this.timestamp;
-	}
-
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public int getTotalQty() {
-		return this.totalQty;
-	}
-
-	public void setTotalQty(int totalQty) {
-		this.totalQty = totalQty;
-	}
-
-	public String getTraderId() {
-		return this.traderId;
-	}
-
-	public void setTraderId(String traderId) {
-		this.traderId = traderId;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	@Override
@@ -224,11 +224,14 @@ public class Order implements Serializable {
 		return "Order [orderId=" + orderId + ", allocQty=" + allocQty
 				+ ", blockId=" + blockId + ", limitPrice=" + limitPrice
 				+ ", notes=" + notes + ", openQty=" + openQty + ", ordertype="
-				+ ordertype + ", pmId=" + pmId + ", side=" + side + ", status=" + status
-				+ ", stopPrice=" + stopPrice + ", symbol=" + symbol
+				+ ordertype + ", pmId=" + pmId + ", side=" + side + ", status="
+				+ status + ", stopPrice=" + stopPrice + ", symbol=" + symbol
 				+ ", timestamp=" + timestamp + ", totalQty=" + totalQty
 				+ ", traderId=" + traderId + ", qualifier=" + qualifier
 				+ ", accountType=" + accountType + ", portId=" + portId + "]";
 	}
+
+	
+
 	
 }

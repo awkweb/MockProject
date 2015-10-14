@@ -32,6 +32,7 @@ public class OrderDao {
 	
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveDetails(Order order) {
+		System.out.println("in dao");
 		entityManager.persist(order);
 		System.out.println("Order Added to DB");
 		System.out.println(order.toString());

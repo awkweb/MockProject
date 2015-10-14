@@ -50,7 +50,7 @@ public class PMCreateOrderViewController {
 		*/
 
 		order.setStatus("New");
-		order.setOrderId("2");
+//		order.setOrderId("2");
 		order.setPortId("1");
 		order.setTraderId("2");
 		order.setPmId("1");
@@ -58,7 +58,6 @@ public class PMCreateOrderViewController {
 		
 		System.out.println(order.toString());
 		System.out.println("in controller");
-		System.out.println(order==null);
 		
 		orderManager.saveOrderDetails(order);
 			

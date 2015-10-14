@@ -22,9 +22,9 @@
 						<table cellspacing="10" style="width: 100%" style="height: 100%">
 
 							<tr>
-								<td style="width: 50%"><form:label path="symbol">Equity Symbol: </form:label></td>
-								<td style="width: 50%"><form:input path="symbol" name="symbol" /></td>
-								<td style="width: 50%"><a style="text-align: left" href="#">Symbol Lookup</a></td>
+								<td style="width: 30%"><form:label path="symbol">Equity Symbol: </form:label></td>
+								<td style="width: 31%"><form:input path="symbol" name="symbol" /></td>
+								<td align="left" style="width: 39%"><a href="#">Symbol Lookup</a></td>
 							</tr>
 							
 							
