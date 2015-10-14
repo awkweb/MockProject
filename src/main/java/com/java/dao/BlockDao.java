@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.java.pojo.Block;
+import com.java.pojo.User;
 
 @Repository
 public class BlockDao {
@@ -32,10 +33,10 @@ public class BlockDao {
 		return entityManager.find(Block.class, blockId);
 	}
 	
-	public List<Block> getBlocksWithTraderId(String traderId) {
-		String sql = "FROM Block b WHERE b.traderId = :traderId";
+	public List<Block> getBlocksForUser(User user) {
+		String sql = "FROM Block b WHERE b.user = :user";
 		List<Block> blocks = entityManager.createQuery(sql, Block.class)
-				.setParameter("traderId", traderId)
+				.setParameter("user", user)
 				.getResultList();
 		return blocks;
 	}

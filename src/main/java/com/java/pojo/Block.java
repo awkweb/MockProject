@@ -17,6 +17,7 @@ public class Block implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="block_id")
 	private String blockId;
 
@@ -46,7 +47,7 @@ public class Block implements Serializable {
 
 	//bi-directional many-to-one association to Executeblock
 	@OneToMany(mappedBy="block")
-	private List<Executeblock> executeblocks;
+	private List<ExecuteBlock> executeblocks;
 
 	//bi-directional many-to-one association to Order
 	@OneToMany(mappedBy="block")
@@ -127,22 +128,22 @@ public class Block implements Serializable {
 		this.user = user;
 	}
 
-	public List<Executeblock> getExecuteblocks() {
+	public List<ExecuteBlock> getExecuteblocks() {
 		return this.executeblocks;
 	}
 
-	public void setExecuteblocks(List<Executeblock> executeblocks) {
+	public void setExecuteblocks(List<ExecuteBlock> executeblocks) {
 		this.executeblocks = executeblocks;
 	}
 
-	public Executeblock addExecuteblock(Executeblock executeblock) {
+	public ExecuteBlock addExecuteblock(ExecuteBlock executeblock) {
 		getExecuteblocks().add(executeblock);
 		executeblock.setBlock(this);
 
 		return executeblock;
 	}
 
-	public Executeblock removeExecuteblock(Executeblock executeblock) {
+	public ExecuteBlock removeExecuteblock(ExecuteBlock executeblock) {
 		getExecuteblocks().remove(executeblock);
 		executeblock.setBlock(null);
 

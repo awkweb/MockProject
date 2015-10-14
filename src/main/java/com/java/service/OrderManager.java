@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.java.dao.OrderDao;
+import com.java.pojo.Block;
 import com.java.pojo.Order;
 
 @Component
@@ -18,8 +19,8 @@ public class OrderManager {
 		return orderDao.getOrderWithId(orderId);
 	}
 	
-	public List<Order> getOrdersWithBlockId(String blockId) {
-		return orderDao.getOrdersWithBlockId(blockId);
+	public List<Order> getOrdersForBlock(Block block) {
+		return orderDao.getOrdersForBlock(block);
 	}
 	
 	public void saveOrder(Order order) {

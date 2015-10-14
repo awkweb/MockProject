@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.java.dao.BlockDao;
 import com.java.pojo.Block;
+import com.java.pojo.User;
 
 @Component
 public class BlockManager {
@@ -18,8 +19,8 @@ public class BlockManager {
 		return blockDao.getBlockWithId(blockId);
 	}
 	
-	public List<Block> getBlocksWithTraderId(String traderId) {
-		return blockDao.getBlocksWithTraderId(traderId);
+	public List<Block> getBlocksForUser(User user) {
+		return blockDao.getBlocksForUser(user);
 	}
 	
 	public void saveBlock(Block block) {

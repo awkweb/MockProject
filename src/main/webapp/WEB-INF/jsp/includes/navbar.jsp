@@ -11,7 +11,8 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/mt/pm-positions-view.jsp">Acme
+			<a class="navbar-brand"
+				href="${pageContext.request.contextPath}/block-blotter">Acme
 				Inc.</a>
 		</div>
 
@@ -40,8 +41,7 @@
 					</c:otherwise>
 				</c:choose>
 				<li><p class="navbar-text">User:
-						${authenticatedUser.getFirstName()}
-						${authenticatedUser.getLastName()}</p></li>
+						${authenticatedUser.getFName()} ${authenticatedUser.getLName()}</p></li>
 				<li><a href="${pageContext.request.contextPath}/logout">Log
 						Out</a></li>
 			</ul>
