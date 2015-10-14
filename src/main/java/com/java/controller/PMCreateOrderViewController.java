@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.pojo.Order;
+import com.java.pojo.Portfolio;
+import com.java.pojo.User;
 import com.java.service.OrderManager;
+import com.java.service.PortfolioManager;
+import com.java.service.UserManager;
 
 @Controller
 public class PMCreateOrderViewController {
@@ -22,6 +26,12 @@ public class PMCreateOrderViewController {
 
 	@Autowired
 	private OrderManager orderManager;
+	
+	@Autowired
+	private UserManager userManager;
+	
+	@Autowired
+	private PortfolioManager portfolioManager;
 	
 	@RequestMapping(value="/PMCreateOrder_form", method = RequestMethod.GET)
 	public ModelAndView loadEmptyModelBeanOrder(Model model){
@@ -48,12 +58,20 @@ public class PMCreateOrderViewController {
 		model.addAttribute("limitPrice", order.getLimitPrice());
 		model.addAttribute("notes", order.getNotes());
 		*/
+		User pm = new User();
+		User trader = new User();
+		pm = userManager.getUserDetails("1");
+		trader = userManager.getUserDetails("2");
+		
+		Portfolio port = new Portfolio();
+		port = portfolioManager.getUserDetails("1");
+		
+		order.setPortfolio(port);
+
+		order.setUser2(trader);
+		order.setUser1(pm);
 
 		order.setStatus("New");
-//		order.setOrderId("2");
-		order.setPortId("1");
-		order.setTraderId("2");
-		order.setPmId("1");
 		order.setTimestamp(new java.sql.Timestamp(calendar.getTime().getTime()));
 		
 		System.out.println(order.toString());

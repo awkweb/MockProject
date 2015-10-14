@@ -1,34 +1,29 @@
 package com.java.pojo;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 
+/**
+ * The persistent class for the executeblocks database table.
+ * 
+ */
 @Entity
-@Table(name="execute_blocks")
-@NamedQuery(name="ExecuteBlock.findAll", query="SELECT e FROM ExecuteBlock e")
-public class ExecuteBlock  {
-//	private static final long serialVersionUID = 1L;
+@Table(name="executeblocks")
+@NamedQuery(name="Executeblock.findAll", query="SELECT e FROM Executeblock e")
+public class Executeblock implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="execution_id")
-	private int executionId;
+	private String executionId;
 
 	@Column(name="allocated_qty")
 	private int allocatedQty;
 
 	@Column(name="average_price")
 	private float averagePrice;
-
-	@Column(name="block_id")
-	private String blockId;
 
 	@Column(name="executed_qty")
 	private int executedQty;
@@ -41,8 +36,6 @@ public class ExecuteBlock  {
 
 	private String status;
 
-	private String symbol;
-
 	@Column(name="trade_price")
 	private float tradePrice;
 
@@ -52,14 +45,29 @@ public class ExecuteBlock  {
 	@Column(name="transaction_time")
 	private Timestamp transactionTime;
 
-	public ExecuteBlock() {
+	//bi-directional many-to-one association to Block
+	@ManyToOne
+	@JoinColumn(name="blockid")
+	private Block block;
+
+	//bi-directional many-to-one association to Order
+	@ManyToOne
+	@JoinColumn(name="orderid")
+	private Order order;
+
+	//bi-directional many-to-one association to Security
+	@ManyToOne
+	@JoinColumn(name="symbol")
+	private Security security;
+
+	public Executeblock() {
 	}
 
-	public int getExecutionId() {
+	public String getExecutionId() {
 		return this.executionId;
 	}
 
-	public void setExecutionId(int executionId) {
+	public void setExecutionId(String executionId) {
 		this.executionId = executionId;
 	}
 
@@ -77,14 +85,6 @@ public class ExecuteBlock  {
 
 	public void setAveragePrice(float averagePrice) {
 		this.averagePrice = averagePrice;
-	}
-
-	public String getBlockId() {
-		return this.blockId;
-	}
-
-	public void setBlockId(String blockId) {
-		this.blockId = blockId;
 	}
 
 	public int getExecutedQty() {
@@ -119,14 +119,6 @@ public class ExecuteBlock  {
 		this.status = status;
 	}
 
-	public String getSymbol() {
-		return this.symbol;
-	}
-
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-
 	public float getTradePrice() {
 		return this.tradePrice;
 	}
@@ -151,11 +143,28 @@ public class ExecuteBlock  {
 		this.transactionTime = transactionTime;
 	}
 
-	@Override
-	public String toString() {
-		return "ExecuteBlock [executionId=" + executionId + ", blockId=" + blockId + "]";
+	public Block getBlock() {
+		return this.block;
 	}
-	
-	
+
+	public void setBlock(Block block) {
+		this.block = block;
+	}
+
+	public Order getOrder() {
+		return this.order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
+	public Security getSecurity() {
+		return this.security;
+	}
+
+	public void setSecurity(Security security) {
+		this.security = security;
+	}
 
 }

@@ -1,16 +1,17 @@
 package com.java.pojo;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
 
+/**
+ * The persistent class for the orders database table.
+ * 
+ */
 @Entity
+@Table(name="orders")
 @NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -20,83 +21,106 @@ public class Order implements Serializable {
 	@Column(name="order_id")
 	private String orderId;
 
+	@Column(name="acc_type")
+	private String accType;
+
 	@Column(name="alloc_qty")
 	private int allocQty;
-
-	@Column(name="blockid")
-	private String blockId;
 
 	@Column(name="limit_price")
 	private float limitPrice;
 
-	@Column(name="notes")
 	private String notes;
 
 	@Column(name="open_qty")
 	private int openQty;
 
-	@Column(name="ordertype")
+	private int orderid;
+
 	private String ordertype;
 
-	@Column(name="pmid")
-	private String pmId;
+	private String qualifiers;
 
-	@Column(name="side")
 	private String side;
 
-	@Column(name="status")
 	private String status;
 
 	@Column(name="stop_price")
 	private float stopPrice;
 
-	@Column(name="symbol")
 	private String symbol;
 
-	@Column(name="timestamp")
 	private Timestamp timestamp;
 
 	@Column(name="total_qty")
 	private int totalQty;
 
-	@Column(name="traderid")
-	private String traderId;
-	
-	@Column(name="qualifiers")
-	private String qualifier;
-	
-	@Column(name="acc_type")
-	private String accountType;
-	
-	@Column(name="portfolioid")
-	private String portId;
+	//bi-directional many-to-one association to Executeblock
+	@OneToMany(mappedBy="order")
+	private List<Executeblock> executeblocks;
+
+	//bi-directional many-to-one association to Block
+	@ManyToOne
+	@JoinColumn(name="blockid")
+	private Block block;
+
+	//bi-directional one-to-one association to Order
+	@OneToOne
+	@JoinColumn(name="order_id")
+	private Order order1;
+
+	//bi-directional one-to-one association to Order
+	@OneToOne(mappedBy="order1")
+	private Order order2;
+
+	//bi-directional many-to-one association to Portfolio
+	@ManyToOne
+	@JoinColumn(name="portfolioid")
+	private Portfolio portfolio;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="pmid")
+	private User user1;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="traderid")
+	private User user2;
+
+	//bi-directional many-to-one association to Position
+	@OneToMany(mappedBy="order")
+	private List<Position> positions;
+
+	public Order() {
+	}
 
 	public String getOrderId() {
-		return orderId;
+		return this.orderId;
 	}
 
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
 
+	public String getAccType() {
+		return this.accType;
+	}
+
+	public void setAccType(String accType) {
+		this.accType = accType;
+	}
+
 	public int getAllocQty() {
-		return allocQty;
+		return this.allocQty;
 	}
 
 	public void setAllocQty(int allocQty) {
 		this.allocQty = allocQty;
 	}
 
-	public String getBlockId() {
-		return blockId;
-	}
-
-	public void setBlockId(String blockId) {
-		this.blockId = blockId;
-	}
-
 	public float getLimitPrice() {
-		return limitPrice;
+		return this.limitPrice;
 	}
 
 	public void setLimitPrice(float limitPrice) {
@@ -104,7 +128,7 @@ public class Order implements Serializable {
 	}
 
 	public String getNotes() {
-		return notes;
+		return this.notes;
 	}
 
 	public void setNotes(String notes) {
@@ -112,31 +136,39 @@ public class Order implements Serializable {
 	}
 
 	public int getOpenQty() {
-		return openQty;
+		return this.openQty;
 	}
 
 	public void setOpenQty(int openQty) {
 		this.openQty = openQty;
 	}
 
+	public int getOrderid() {
+		return this.orderid;
+	}
+
+	public void setOrderid(int orderid) {
+		this.orderid = orderid;
+	}
+
 	public String getOrdertype() {
-		return ordertype;
+		return this.ordertype;
 	}
 
 	public void setOrdertype(String ordertype) {
 		this.ordertype = ordertype;
 	}
 
-	public String getPmId() {
-		return pmId;
+	public String getQualifiers() {
+		return this.qualifiers;
 	}
 
-	public void setPmId(String pmId) {
-		this.pmId = pmId;
+	public void setQualifiers(String qualifiers) {
+		this.qualifiers = qualifiers;
 	}
 
 	public String getSide() {
-		return side;
+		return this.side;
 	}
 
 	public void setSide(String side) {
@@ -144,7 +176,7 @@ public class Order implements Serializable {
 	}
 
 	public String getStatus() {
-		return status;
+		return this.status;
 	}
 
 	public void setStatus(String status) {
@@ -152,7 +184,7 @@ public class Order implements Serializable {
 	}
 
 	public float getStopPrice() {
-		return stopPrice;
+		return this.stopPrice;
 	}
 
 	public void setStopPrice(float stopPrice) {
@@ -160,7 +192,7 @@ public class Order implements Serializable {
 	}
 
 	public String getSymbol() {
-		return symbol;
+		return this.symbol;
 	}
 
 	public void setSymbol(String symbol) {
@@ -168,7 +200,7 @@ public class Order implements Serializable {
 	}
 
 	public Timestamp getTimestamp() {
-		return timestamp;
+		return this.timestamp;
 	}
 
 	public void setTimestamp(Timestamp timestamp) {
@@ -176,62 +208,103 @@ public class Order implements Serializable {
 	}
 
 	public int getTotalQty() {
-		return totalQty;
+		return this.totalQty;
 	}
 
 	public void setTotalQty(int totalQty) {
 		this.totalQty = totalQty;
 	}
 
-	public String getTraderId() {
-		return traderId;
+	public List<Executeblock> getExecuteblocks() {
+		return this.executeblocks;
 	}
 
-	public void setTraderId(String traderId) {
-		this.traderId = traderId;
+	public void setExecuteblocks(List<Executeblock> executeblocks) {
+		this.executeblocks = executeblocks;
 	}
 
-	public String getQualifier() {
-		return qualifier;
+	public Executeblock addExecuteblock(Executeblock executeblock) {
+		getExecuteblocks().add(executeblock);
+		executeblock.setOrder(this);
+
+		return executeblock;
 	}
 
-	public void setQualifier(String qualifier) {
-		this.qualifier = qualifier;
+	public Executeblock removeExecuteblock(Executeblock executeblock) {
+		getExecuteblocks().remove(executeblock);
+		executeblock.setOrder(null);
+
+		return executeblock;
 	}
 
-	public String getAccountType() {
-		return accountType;
+	public Block getBlock() {
+		return this.block;
 	}
 
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
+	public void setBlock(Block block) {
+		this.block = block;
 	}
 
-	public String getPortId() {
-		return portId;
+	public Order getOrder1() {
+		return this.order1;
 	}
 
-	public void setPortId(String portId) {
-		this.portId = portId;
+	public void setOrder1(Order order1) {
+		this.order1 = order1;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public Order getOrder2() {
+		return this.order2;
 	}
 
-	@Override
-	public String toString() {
-		return "Order [orderId=" + orderId + ", allocQty=" + allocQty
-				+ ", blockId=" + blockId + ", limitPrice=" + limitPrice
-				+ ", notes=" + notes + ", openQty=" + openQty + ", ordertype="
-				+ ordertype + ", pmId=" + pmId + ", side=" + side + ", status="
-				+ status + ", stopPrice=" + stopPrice + ", symbol=" + symbol
-				+ ", timestamp=" + timestamp + ", totalQty=" + totalQty
-				+ ", traderId=" + traderId + ", qualifier=" + qualifier
-				+ ", accountType=" + accountType + ", portId=" + portId + "]";
+	public void setOrder2(Order order2) {
+		this.order2 = order2;
 	}
 
-	
+	public Portfolio getPortfolio() {
+		return this.portfolio;
+	}
 
-	
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
+	}
+
+	public User getUser1() {
+		return this.user1;
+	}
+
+	public void setUser1(User user1) {
+		this.user1 = user1;
+	}
+
+	public User getUser2() {
+		return this.user2;
+	}
+
+	public void setUser2(User user2) {
+		this.user2 = user2;
+	}
+
+	public List<Position> getPositions() {
+		return this.positions;
+	}
+
+	public void setPositions(List<Position> positions) {
+		this.positions = positions;
+	}
+
+	public Position addPosition(Position position) {
+		getPositions().add(position);
+		position.setOrder(this);
+
+		return position;
+	}
+
+	public Position removePosition(Position position) {
+		getPositions().remove(position);
+		position.setOrder(null);
+
+		return position;
+	}
+
 }

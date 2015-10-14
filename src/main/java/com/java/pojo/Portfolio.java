@@ -1,65 +1,108 @@
 package com.java.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
+
+/**
+ * The persistent class for the portfolios database table.
+ * 
+ */
 @Entity
 @Table(name="portfolios")
-public class Portfolio {
+@NamedQuery(name="Portfolio.findAll", query="SELECT p FROM Portfolio p")
+public class Portfolio implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="port_id")
-	private String port_id;
-	@Column(name="name")
+	private String portId;
+
 	private String name;
-	@Column(name="pm_id")
-	private String pm_id;
-	
+
+	//bi-directional many-to-one association to Order
+	@OneToMany(mappedBy="portfolio")
+	private List<Order> orders;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="pm_id")
+	private User user;
+
+	//bi-directional many-to-one association to Position
+	@OneToMany(mappedBy="portfolio")
+	private List<Position> positions;
+
 	public Portfolio() {
-		
 	}
 
-	public Portfolio(String port_id, String name, String pm_id) {
-		super();
-		this.port_id = port_id;
-		this.name = name;
-		this.pm_id = pm_id;
+	public String getPortId() {
+		return this.portId;
 	}
 
-	public String getPort_id() {
-		return port_id;
-	}
-
-	public void setPort_id(String port_id) {
-		this.port_id = port_id;
+	public void setPortId(String portId) {
+		this.portId = portId;
 	}
 
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public String getPm_id() {
-		return pm_id;
+	public List<Order> getOrders() {
+		return this.orders;
 	}
 
-	public void setPm_id(String pm_id) {
-		this.pm_id = pm_id;
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
 	}
 
-	@Override
-	public String toString() {
-		return "Portfolios [port_id=" + port_id + ", name=" + name + ", pm_id="
-				+ pm_id + "]";
+	public Order addOrder(Order order) {
+		getOrders().add(order);
+		order.setPortfolio(this);
+
+		return order;
 	}
-	
-	
+
+	public Order removeOrder(Order order) {
+		getOrders().remove(order);
+		order.setPortfolio(null);
+
+		return order;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Position> getPositions() {
+		return this.positions;
+	}
+
+	public void setPositions(List<Position> positions) {
+		this.positions = positions;
+	}
+
+	public Position addPosition(Position position) {
+		getPositions().add(position);
+		position.setPortfolio(this);
+
+		return position;
+	}
+
+	public Position removePosition(Position position) {
+		getPositions().remove(position);
+		position.setPortfolio(null);
+
+		return position;
+	}
 
 }

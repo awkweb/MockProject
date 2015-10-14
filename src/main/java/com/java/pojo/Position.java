@@ -1,75 +1,80 @@
 package com.java.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+import javax.persistence.*;
 
+
+/**
+ * The persistent class for the positions database table.
+ * 
+ */
 @Entity
 @Table(name="positions")
-public class Position {
-	
+@NamedQuery(name="Position.findAll", query="SELECT p FROM Position p")
+public class Position implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="position_id")
-	private String position_id;
+	private String positionId;
+
 	@Column(name="order_id")
-	private String order_id;
+	private String orderId;
+
 	@Column(name="port_id")
-	private String portfolio_id;
-	
-	
-	public Position(){
-		
+	private String portId;
+
+	//bi-directional many-to-one association to Order
+	@ManyToOne
+	@JoinColumn(name="orderid")
+	private Order order;
+
+	//bi-directional many-to-one association to Portfolio
+	@ManyToOne
+	@JoinColumn(name="portid")
+	private Portfolio portfolio;
+
+	public Position() {
 	}
 
-
-	public Position(String position_id, String order_id, String portfolio_id) {
-		super();
-		this.position_id = position_id;
-		this.order_id = order_id;
-		this.portfolio_id = portfolio_id;
+	public String getPositionId() {
+		return this.positionId;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Positions [position_id=" + position_id + ", order_id=" + order_id + ", portfolio_id=" + portfolio_id
-				+ "]";
+	public void setPositionId(String positionId) {
+		this.positionId = positionId;
 	}
 
-
-	public String getPosition_id() {
-		return position_id;
+	public String getOrderId() {
+		return this.orderId;
 	}
 
-
-	public void setPosition_id(String position_id) {
-		this.position_id = position_id;
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
 	}
 
-
-	public String getOrder_id() {
-		return order_id;
+	public String getPortId() {
+		return this.portId;
 	}
 
-
-	public void setOrder_id(String order_id) {
-		this.order_id = order_id;
+	public void setPortId(String portId) {
+		this.portId = portId;
 	}
 
-
-	public String getPortfolio_id() {
-		return portfolio_id;
+	public Order getOrder() {
+		return this.order;
 	}
 
-
-	public void setPortfolio_id(String portfolio_id) {
-		this.portfolio_id = portfolio_id;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
-	
-	
+
+	public Portfolio getPortfolio() {
+		return this.portfolio;
+	}
+
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
+	}
 
 }

@@ -1,55 +1,90 @@
-
 package com.java.pojo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.List;
 
 
+/**
+ * The persistent class for the securities database table.
+ * 
+ */
 @Entity
 @Table(name="securities")
-public class Security {
-	@Column
+@NamedQuery(name="Security.findAll", query="SELECT s FROM Security s")
+public class Security implements Serializable {
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	private String symbol;
-	@Column
+
+	@Column(name="closing_price")
+	private float closingPrice;
+
+	@Column(name="market_price")
+	private float marketPrice;
+
 	private String name;
-	@Column
-	private float market_price;
-	@Column
-	private float closing_price;
-	public String getSymbol() {
-		return symbol;
+
+	//bi-directional many-to-one association to Executeblock
+	@OneToMany(mappedBy="security")
+	private List<Executeblock> executeblocks;
+
+	public Security() {
 	}
+
+	public String getSymbol() {
+		return this.symbol;
+	}
+
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
-	public String getName() {
-		return name;
+
+	public float getClosingPrice() {
+		return this.closingPrice;
 	}
+
+	public void setClosingPrice(float closingPrice) {
+		this.closingPrice = closingPrice;
+	}
+
+	public float getMarketPrice() {
+		return this.marketPrice;
+	}
+
+	public void setMarketPrice(float marketPrice) {
+		this.marketPrice = marketPrice;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	public float getMarket_price() {
-		return market_price;
+
+	public List<Executeblock> getExecuteblocks() {
+		return this.executeblocks;
 	}
-	public void setMarket_price(float market_price) {
-		this.market_price = market_price;
+
+	public void setExecuteblocks(List<Executeblock> executeblocks) {
+		this.executeblocks = executeblocks;
 	}
-	public float getClosing_price() {
-		return closing_price;
+
+	public Executeblock addExecuteblock(Executeblock executeblock) {
+		getExecuteblocks().add(executeblock);
+		executeblock.setSecurity(this);
+
+		return executeblock;
 	}
-	public void setClosing_price(float closing_price) {
-		this.closing_price = closing_price;
+
+	public Executeblock removeExecuteblock(Executeblock executeblock) {
+		getExecuteblocks().remove(executeblock);
+		executeblock.setSecurity(null);
+
+		return executeblock;
 	}
-	@Override
-	public String toString() {
-		return "Securities [symbol=" + symbol + ", name=" + name
-				+ ", market_price=" + market_price + ", closing_price="
-				+ closing_price + "]";
-	}
-	
-	
+
 }
-	

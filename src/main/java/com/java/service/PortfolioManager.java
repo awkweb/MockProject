@@ -9,7 +9,7 @@ import com.java.pojo.Portfolio;
 @Component
 public class PortfolioManager {
 
-	//@Autowired
+	@Autowired
 	PortfolioDao portfolioDao;
 	
 	public Portfolio getUserDetails(String portId) {
