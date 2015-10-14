@@ -18,6 +18,9 @@ public class OrderManager {
 	}
 	
 	public void saveOrderDetails(Order order){
+		System.out.println("in manager");
+		System.out.println(order==null);
+		System.out.println(order.toString());
 		 orderDao.saveDetails(order);
 	}
 

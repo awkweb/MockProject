@@ -25,7 +25,6 @@ public class PMCreateOrderViewController {
 	
 	@RequestMapping(value="/PMCreateOrder_form", method = RequestMethod.GET)
 	public ModelAndView loadEmptyModelBeanOrder(Model model){
-		//model.addAttribute("equity", new Equity());
 		model.addAttribute("pageHeader", "Hello, World!");
 		return new ModelAndView("PMCreateOrder_form", "order", new Order());
 			   
@@ -38,7 +37,7 @@ public class PMCreateOrderViewController {
 		{
 		
 		model.addAttribute("symbol", order.getSymbol());	
-		model.addAttribute("side", order.getSide());
+/*		model.addAttribute("side", order.getSide());
 		model.addAttribute("ordertype", order.getOrdertype());
 		model.addAttribute("qualifier", order.getQualifier());
 		model.addAttribute("trader", order.getTraderId());
@@ -48,23 +47,20 @@ public class PMCreateOrderViewController {
 		model.addAttribute("stopPrice", order.getStopPrice());
 		model.addAttribute("limitPrice", order.getLimitPrice());
 		model.addAttribute("notes", order.getNotes());
-		
-//		order.setSymbol(order.getSymbol());
-//		order.setSide(order.getSide());
-//		order.setOrdertype(order.getOrdertype());
-//		order.setQualifier(order.getQualifier());
-//		order.setTraderId(order.getTraderId());
-//		order.setAccountType(order.getAccountType());
-//		order.setPortId(order.getPortId());
-//		order.setTotalQty(order.getTotalQty());
-//		order.setStopPrice(order.getStopPrice());
-//		order.setLimitPrice(order.getLimitPrice());
-//		order.setTraderId(order.getNotes());
+		*/
+
+		order.setStatus("New");
 		order.setOrderId("2");
 		order.setPortId("1");
+		order.setTraderId("2");
+		order.setPmId("1");
 		order.setTimestamp(new java.sql.Timestamp(calendar.getTime().getTime()));
+		
 		System.out.println(order.toString());
-//		orderManager.saveOrderDetails(order);
+		System.out.println("in controller");
+		System.out.println(order==null);
+		
+		orderManager.saveOrderDetails(order);
 			
 			return "pmOrderForm_results";
 		}

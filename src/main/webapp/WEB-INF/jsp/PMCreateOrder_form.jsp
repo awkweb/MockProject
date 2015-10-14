@@ -19,13 +19,20 @@
 			<td style="padding: 3%;"><form:form action="orderdetails"
 					method="post" modelAttribute="order">
 					<div style="float: left; width: 50%">
-						<table cellspacing="10" style="width: 60%" style="height: 100%">
+						<table cellspacing="10" style="width: 100%" style="height: 100%">
 
 							<tr>
-								<td style="width: 70%"><form:label path="symbol">Equity Symbol: </form:label></td>
-								<td><form:input path="symbol" name="symbol" /></td>
+								<td style="width: 50%"><form:label path="symbol">Equity Symbol: </form:label></td>
+								<td style="width: 50%"><form:input path="symbol" name="symbol" /></td>
+								<td style="width: 50%"><a style="text-align: left" href="#">Symbol Lookup</a></td>
 							</tr>
+							
+							
 
+						<%-- 	<tr>
+								<td><form:label path="securityName">Security Name: </form:label></td>
+								<td><form:input path="securityName" name="securityName" value="Security Name" /></td>
+							</tr> --%>
 
 							<tr>
 								<td><form:label path="side">Side: </form:label></td>
@@ -75,17 +82,17 @@
 						<table cellspacing="20" style="width: 80%" style="height:100%">
 							<tr>
 								<td style="width: 50%"><form:label path="totalQty">Quantity: </form:label></td>
-								<td><form:input path="totalQty" name="totalQty" /></td>
+								<td><form:input type="number" min="0" step="1" path="totalQty" name="totalQty" /></td>
 							</tr>
 
 							<tr>
 								<td><form:label path="stopPrice">Stop Price: </form:label></td>
-								<td><form:input path="stopPrice" name="stopPrice" /></td>
+								<td><form:input type="number" min="0" step="0.01" path="stopPrice" name="stopPrice" /></td>
 							</tr>
 
 							<tr>
 								<td><form:label path="limitPrice">Limit Price: </form:label></td>
-								<td><form:input path="limitPrice" name="limitPrice" /></td>
+								<td><form:input type="number" min="0" step="0.01" path="limitPrice" name="limitPrice" /></td>
 							</tr>
 
 							<tr>

@@ -23,40 +23,43 @@ public class Order implements Serializable {
 	@Column(name="alloc_qty")
 	private int allocQty;
 
-	@Column(name="block_id")
+	@Column(name="blockid")
 	private String blockId;
 
 	@Column(name="limit_price")
 	private float limitPrice;
 
+	@Column(name="notes")
 	private String notes;
 
 	@Column(name="open_qty")
 	private int openQty;
 
+	@Column(name="ordertype")
 	private String ordertype;
 
-	@Column(name="pm_id")
+	@Column(name="pmid")
 	private String pmId;
 
-	@Column(name="security_type")
-	private String securityType;
-
+	@Column(name="side")
 	private String side;
 
+	@Column(name="status")
 	private String status;
 
 	@Column(name="stop_price")
 	private float stopPrice;
 
+	@Column(name="symbol")
 	private String symbol;
 
+	@Column(name="timestamp")
 	private Timestamp timestamp;
 
 	@Column(name="total_qty")
 	private int totalQty;
 
-	@Column(name="trader_id")
+	@Column(name="traderid")
 	private String traderId;
 	
 	@Column(name="qualifiers")
@@ -65,7 +68,7 @@ public class Order implements Serializable {
 	@Column(name="acc_type")
 	private String accountType;
 	
-	@Column(name="portfolio_id")
+	@Column(name="portfolioid")
 	private String portId;
 
 	
@@ -160,14 +163,6 @@ public class Order implements Serializable {
 		this.pmId = pmId;
 	}
 
-	public String getSecurityType() {
-		return this.securityType;
-	}
-
-	public void setSecurityType(String securityType) {
-		this.securityType = securityType;
-	}
-
 	public String getSide() {
 		return this.side;
 	}
@@ -229,8 +224,7 @@ public class Order implements Serializable {
 		return "Order [orderId=" + orderId + ", allocQty=" + allocQty
 				+ ", blockId=" + blockId + ", limitPrice=" + limitPrice
 				+ ", notes=" + notes + ", openQty=" + openQty + ", ordertype="
-				+ ordertype + ", pmId=" + pmId + ", securityType="
-				+ securityType + ", side=" + side + ", status=" + status
+				+ ordertype + ", pmId=" + pmId + ", side=" + side + ", status=" + status
 				+ ", stopPrice=" + stopPrice + ", symbol=" + symbol
 				+ ", timestamp=" + timestamp + ", totalQty=" + totalQty
 				+ ", traderId=" + traderId + ", qualifier=" + qualifier

@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.java.pojo.Order;
@@ -29,7 +30,7 @@ public class OrderDao {
 		return entityManager.find(Order.class, orderId);
 	}
 	
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveDetails(Order order) {
 		entityManager.persist(order);
 		System.out.println("Order Added to DB");
