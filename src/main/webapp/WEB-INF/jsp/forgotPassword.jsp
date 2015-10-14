@@ -35,7 +35,7 @@
 
 		<c:if test="${error}">
 			<div class="alert alert-danger" role="alert">
-				Oops! Try submitting again.
+				Unable to reset password. Try again.
 				<button type="button" class="close" data-dismiss="alert"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>

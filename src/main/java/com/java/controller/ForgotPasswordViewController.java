@@ -25,7 +25,8 @@ public class ForgotPasswordViewController {
 	@RequestMapping(value="/reset", method = RequestMethod.POST)
 	public String resetPassword( @ModelAttribute("user") User user, Model model) {
 		if (userManager.updatePasswordForUsernameAndEmail(user.getUsername(),
-				user.getEmail(), user.getPassword())) {
+				user.getEmail(), user.getPassword()) && user.getPassword().length() > 0) {
+			model.addAttribute("resetSuccess", true);
 			return "login";
 		} else {
 			model.addAttribute("error", true);

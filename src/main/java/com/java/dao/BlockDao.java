@@ -1,5 +1,7 @@
 package com.java.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -26,14 +28,21 @@ public class BlockDao {
 		this.entityManager = entityManager;
 	}
 
-	public Block getBlockDetails(String blockId) {
+	public Block getBlockWithId(String blockId) {
 		return entityManager.find(Block.class, blockId);
 	}
 	
-	@Transactional
-	public void saveDetails(Block block) {
-		entityManager.persist(block);
+	public List<Block> getBlocksWithTraderId(String traderId) {
+		String sql = "FROM Block b WHERE b.traderId = :traderId";
+		List<Block> blocks = entityManager.createQuery(sql, Block.class)
+				.setParameter("traderId", traderId)
+				.getResultList();
+		return blocks;
 	}
 	
+	@Transactional
+	public void saveBlock(Block block) {
+		entityManager.persist(block);
+	}
 
 }

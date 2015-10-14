@@ -1,9 +1,8 @@
 package com.java.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,10 +33,14 @@ public class UserDao {
 
 	public User getUserWithUsername(String username) {
 		String sql = "FROM User u WHERE u.username = :username";
-		User user = entityManager.createQuery(sql, User.class)
-				.setParameter("username", username)
-				.getSingleResult();
-		return user;
+		try {
+			User user = entityManager.createQuery(sql, User.class)
+					.setParameter("username", username)
+					.getSingleResult();
+			return user;
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 	
 	@Transactional

@@ -1,117 +1,140 @@
 package com.java.pojo;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 @Entity
-@NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
-public class Order implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Table(name="orders")
+public class Order {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="order_id")
 	private String orderId;
-
-	@Column(name="alloc_qty")
-	private int allocQty;
-
-	@Column(name="block_id")
-	private String blockId;
-
-	@Column(name="limit_price")
-	private float limitPrice;
-
-	private String notes;
-
-	@Column(name="open_qty")
-	private int openQty;
-
-	private String ordertype;
-
-	@Column(name="pm_id")
-	private String pmId;
-
-	@Column(name="security_type")
-	private String securityType;
-
-	private String side;
-
-	private String status;
-
-	@Column(name="stop_price")
-	private float stopPrice;
-
+	@Column(name="symbol")
 	private String symbol;
-
-	private Timestamp timestamp;
-
 	@Column(name="total_qty")
 	private int totalQty;
-
-	@Column(name="trader_id")
+	@Column(name="limit_price")
+	private float limitPrice;
+	@Column(name="stop_price")
+	private float stopPrice;
+	@Column(name="side")
+	private String side;
+	@Column(name="open_qty")
+	private int openQty;
+	@Column(name="alloc_qty")
+	private int allocQty;
+	@Column(name="status")
+	private String status;
+	@Column(name="timestamp")
+	private Timestamp timestamp;
+	@Column(name="ordertype")
+	private String ordertype;
+	@Column(name="pmid")
+	private String pmId;
+	@Column(name="traderid")
 	private String traderId;
+	@Column(name="blockid")
+	private String blockId;
+	@Column(name="notes")
+	private String notes;
+	@Column(name="qualifiers")
+	private String qualifiers;
+	@Column(name="acc_type")
+	private String accType;
+	@Column(name="portfolioid")
+	private String portfolioId;
 
 	public Order() {
 	}
 
-	public String getOrderId() {
-		return this.orderId;
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", symbol=" + symbol + ", totalQty=" + totalQty + ", limitPrice="
+				+ limitPrice + ", stopPrice=" + stopPrice + ", side=" + side + ", openQty=" + openQty + ", allocQty="
+				+ allocQty + ", status=" + status + ", timestamp=" + timestamp + ", ordertype=" + ordertype + ", pmId="
+				+ pmId + ", traderId=" + traderId + ", blockId=" + blockId + ", notes=" + notes + ", qualifiers="
+				+ qualifiers + ", accType=" + accType + ", portfolioId=" + portfolioId + "]";
 	}
 
-	public void setOrderId(String orderId) {
-		this.orderId = orderId;
+	public String getSymbol() {
+		return symbol;
 	}
 
-	public int getAllocQty() {
-		return this.allocQty;
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
 	}
 
-	public void setAllocQty(int allocQty) {
-		this.allocQty = allocQty;
+	public int getTotalQty() {
+		return totalQty;
 	}
 
-	public String getBlockId() {
-		return this.blockId;
-	}
-
-	public void setBlockId(String blockId) {
-		this.blockId = blockId;
+	public void setTotalQty(int totalQty) {
+		this.totalQty = totalQty;
 	}
 
 	public float getLimitPrice() {
-		return this.limitPrice;
+		return limitPrice;
 	}
 
 	public void setLimitPrice(float limitPrice) {
 		this.limitPrice = limitPrice;
 	}
 
-	public String getNotes() {
-		return this.notes;
+	public float getStopPrice() {
+		return stopPrice;
 	}
 
-	public void setNotes(String notes) {
-		this.notes = notes;
+	public void setStopPrice(float stopPrice) {
+		this.stopPrice = stopPrice;
+	}
+
+	public String getSide() {
+		return side;
+	}
+
+	public void setSide(String side) {
+		this.side = side;
 	}
 
 	public int getOpenQty() {
-		return this.openQty;
+		return openQty;
 	}
 
 	public void setOpenQty(int openQty) {
 		this.openQty = openQty;
 	}
 
+	public int getAllocQty() {
+		return allocQty;
+	}
+
+	public void setAllocQty(int allocQty) {
+		this.allocQty = allocQty;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public Timestamp getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
+	}
+
 	public String getOrdertype() {
-		return this.ordertype;
+		return ordertype;
 	}
 
 	public void setOrdertype(String ordertype) {
@@ -119,75 +142,59 @@ public class Order implements Serializable {
 	}
 
 	public String getPmId() {
-		return this.pmId;
+		return pmId;
 	}
 
 	public void setPmId(String pmId) {
 		this.pmId = pmId;
 	}
 
-	public String getSecurityType() {
-		return this.securityType;
-	}
-
-	public void setSecurityType(String securityType) {
-		this.securityType = securityType;
-	}
-
-	public String getSide() {
-		return this.side;
-	}
-
-	public void setSide(String side) {
-		this.side = side;
-	}
-
-	public String getStatus() {
-		return this.status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public float getStopPrice() {
-		return this.stopPrice;
-	}
-
-	public void setStopPrice(float stopPrice) {
-		this.stopPrice = stopPrice;
-	}
-
-	public String getSymbol() {
-		return this.symbol;
-	}
-
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-
-	public Timestamp getTimestamp() {
-		return this.timestamp;
-	}
-
-	public void setTimestamp(Timestamp timestamp) {
-		this.timestamp = timestamp;
-	}
-
-	public int getTotalQty() {
-		return this.totalQty;
-	}
-
-	public void setTotalQty(int totalQty) {
-		this.totalQty = totalQty;
-	}
-
 	public String getTraderId() {
-		return this.traderId;
+		return traderId;
 	}
 
 	public void setTraderId(String traderId) {
 		this.traderId = traderId;
+	}
+
+	public String getBlockId() {
+		return blockId;
+	}
+
+	public void setBlockId(String blockId) {
+		this.blockId = blockId;
+	}
+
+	public String getNotes() {
+		return notes;
+	}
+
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
+
+	public String getQualifiers() {
+		return qualifiers;
+	}
+
+	public void setQualifiers(String qualifiers) {
+		this.qualifiers = qualifiers;
+	}
+
+	public String getAccType() {
+		return accType;
+	}
+
+	public void setAccType(String accType) {
+		this.accType = accType;
+	}
+
+	public String getPortfolioId() {
+		return portfolioId;
+	}
+
+	public void setPortfolioId(String portfolioId) {
+		this.portfolioId = portfolioId;
 	}
 
 }

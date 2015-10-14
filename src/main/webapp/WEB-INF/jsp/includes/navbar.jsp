@@ -1,3 +1,6 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <nav class="navbar navbar-default">
 	<div class="container">
 		<div class="navbar-header">
@@ -8,18 +11,39 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/mt/pm-positions-view.jsp">Acme Inc.</a>
+			<a class="navbar-brand" href="/mt/pm-positions-view.jsp">Acme
+				Inc.</a>
 		</div>
 
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
-				<li class="active"><a href="/">Open Blocks<span
-						class="sr-only">(current)</span></a></li>
-				<li><a href="/">Executed Blocks</a></li>
-				<li><a href="/">Assigned Orders</a></li>
-				<li><p class="navbar-text">User: Thomas Meagher</p></li>
-				<li><a href="#">Log Out</a></li>
+				<c:choose>
+					<c:when test="${authenticatedUser.getRole() == 'et'}">
+						<li class="active"><a
+							href="${pageContext.request.contextPath}/block-blotter">Block
+								Blotter<span class="sr-only">(current)</span>
+						</a></li>
+						<li><a href="${pageContext.request.contextPath}/#">Executed
+								Blotter</a></li>
+						<li><a href="${pageContext.request.contextPath}/#">Open
+								Orders</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="active"><a
+							href="${pageContext.request.contextPath}/#">PM Link 1<span
+								class="sr-only">(current)</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/#">PM
+								Link 2</a></li>
+						<li><a href="${pageContext.request.contextPath}/#">PM
+								Link 3</a></li>
+					</c:otherwise>
+				</c:choose>
+				<li><p class="navbar-text">User:
+						${authenticatedUser.getFirstName()}
+						${authenticatedUser.getLastName()}</p></li>
+				<li><a href="${pageContext.request.contextPath}/logout">Log
+						Out</a></li>
 			</ul>
 		</div>
 	</div>

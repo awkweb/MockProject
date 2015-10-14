@@ -4,30 +4,44 @@
        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
 	<!-- TEMPLATES -->
-	<definition name="base.definition" template="/WEB-INF/jsp/layout.jsp">
+	<definition name="login-layout.definition" template="/WEB-INF/jsp/loginLayout.jsp">
 		<put-attribute name="head" value="/WEB-INF/jsp/includes/head.jsp" />
 		<put-attribute name="title" value="" />
 		<put-attribute name="content" value="" />
 	</definition>
 	
+	<definition name="trader-layout.definition" template="/WEB-INF/jsp/traderLayout.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/includes/head.jsp" />
+		<put-attribute name="title" value="" />
+		<put-attribute name="navbar" value="/WEB-INF/jsp/includes/navbar.jsp" />
+		<put-attribute name="content" value="" />
+	</definition>
+	
 	<!-- LOGIN -->
-	<definition name="login" extends="base.definition">
+	<definition name="login" extends="login-layout.definition">
 		<put-attribute name="title" value="Login" />
 		<put-attribute name="content" value="/WEB-INF/jsp/login.jsp" />
 	</definition>
 	
-	<definition name="forgot-password" extends="base.definition">
+	<definition name="forgot-password" extends="login-layout.definition">
 		<put-attribute name="title" value="Forgot Password" />
 		<put-attribute name="content" value="/WEB-INF/jsp/forgotPassword.jsp" />
 	</definition>
 	
-	<definition name="choose-role" extends="base.definition">
+	<definition name="choose-role" extends="login-layout.definition">
 		<put-attribute name="title" value="Choose Role" />
 		<put-attribute name="content" value="/WEB-INF/jsp/chooseRole.jsp" />
 	</definition>
-
-	<definition name="landing" extends="base.definition">
-		<put-attribute name="title" value="Success" />
+	
+	<!-- TRADER -->
+	<definition name="block-blotter" extends="trader-layout.definition">
+		<put-attribute name="title" value="Block Blotter" />
+		<put-attribute name="content" value="/WEB-INF/jsp/blockBlotter.jsp" />
+	</definition>
+	
+	<!-- PM -->
+	<definition name="landing" extends="trader-layout.definition">
+		<put-attribute name="title" value="PM Dashboard" />
 		<put-attribute name="content" value="/WEB-INF/jsp/landing.jsp" />
 	</definition>
 

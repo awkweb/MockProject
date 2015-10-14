@@ -14,7 +14,7 @@ public class MarshalBlockIntoXmlElement {
 
 	public static void main(String[] args) throws JAXBException {
 		Date time = new Date();
-		Block block = new Block("101", 100, (float)2.50, 200, "Open",
+		Block block = new Block(100, (float)2.50, 200, "Open",
 				(float)0.00, time, 500);
 		
 		File blockFile = new File("blocks.xml");

@@ -35,6 +35,16 @@
 				</button>
 			</div>
 		</c:if>
+		
+		<c:if test="${resetSuccess}">
+			<div class="alert alert-success" role="alert">
+				Reset password successful!
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		</c:if>
 
 		<p class="text-center">
 			<a href="${pageContext.request.contextPath}/forgot">Forgot
