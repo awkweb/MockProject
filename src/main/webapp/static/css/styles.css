@@ -1,5 +1,9 @@
-//
-Login Page
+/* Toolbar */
+.toolbar {
+	margin-bottom: 2rem;
+}
+
+/* Login Page */
 .login {
 	margin-top: 6rem;
 }
@@ -7,3 +11,4 @@ Login Page
 .alert {
 	margin-top: 2rem;
 }
+
