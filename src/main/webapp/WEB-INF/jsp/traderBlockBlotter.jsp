@@ -11,9 +11,20 @@
 						class="collapsed" role="button" data-toggle="collapse"
 						data-parent="#accordion" href="#collapse${block.getBlockId()}"
 						aria-expanded=false aria-controls="collapseOne">Block
-						#${block.getBlockId()} ${block.getOrders().get(0).getSymbol()}
-						${block.getOrders().get(0).getSide()}</a> <small>Total
-						Quantity: ${block.getTotalQty()}</small>
+						#${block.getBlockId()} ${block.getSymbol()} ${block.getSide()}</a> <small>Type:
+						${block.getOrders().get(0).getOrdertype()}, <c:choose>
+							<c:when
+								test="${block.getOrders().get(0).getOrdertype().equals('Limit')}">
+									Limit Price: $${block.getLimitPrice()}, 
+								</c:when>
+							<c:when
+								test="${block.getOrders().get(0).getOrdertype().equals('Stop Loss')}">
+									Stop Price: $${block.getStopPrice()}, 
+								</c:when>
+							<c:otherwise />
+						</c:choose>
+						Total Quantity: ${block.getTotalQty()}
+					</small>
 				</h4>
 			</div>
 			<div id="collapse${block.getBlockId()}"
@@ -31,17 +42,20 @@
 						<th>Allocated Quantity</th>
 
 						<c:choose>
-							<c:when test="${order.getLimitPrice() > 0.00}">
+							<c:when
+								test="${block.getOrders().get(0).getOrdertype().equals('Limit')}">
 								<th>Limit Price</th>
 							</c:when>
-							<c:when test="${order.getStopPrice() > 0.00}">
+							<c:when
+								test="${block.getOrders().get(0).getOrdertype().equals('Stop Loss')}">
 								<th>Stop Price</th>
 							</c:when>
-							<c:otherwise/>
+							<c:otherwise />
 						</c:choose>
-						
+
 						<th>Account Type</th>
 						<th>Status</th>
+						<th>Notes</th>
 						<th></th>
 					</tr>
 					<c:forEach items="${block.getOrders()}" var="order">
@@ -57,17 +71,29 @@
 							<td>${order.getAllocQty()}</td>
 
 							<c:choose>
-								<c:when test="${order.getLimitPrice() > 0.00}">
-									<td>${order.getLimitPrice()}</td>
+								<c:when test="${order.getOrdertype().equals('Limit')}">
+									<td>$${order.getLimitPrice()}</td>
 								</c:when>
-								<c:when test="${order.getStopPrice() > 0.00}">
-									<td>${order.getStopPrice()}</td>
+								<c:when test="${order.getOrdertype().equals('Stop Loss')}">
+									<td>$${order.getStopPrice()}</td>
 								</c:when>
 								<c:otherwise />
 							</c:choose>
-							
+
 							<td>${order.getAccType()}</td>
 							<td>${order.getStatus()}</td>
+
+							<c:choose>
+								<c:when test="${order.getNotes().length() > 0}">
+									<td><a tabindex="0" role="button" data-toggle="popover"
+										data-trigger="focus" title="Notes"
+										data-content="${order.getNotes()}">Display</a></td>
+								</c:when>
+								<c:otherwise>
+									<td>None</td>
+								</c:otherwise>
+							</c:choose>
+
 							<td class="text-center"><a href="#">Edit</a></td>
 						</tr>
 					</c:forEach>
