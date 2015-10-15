@@ -4,28 +4,27 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the users database table.
  * 
  */
 @Entity
-@Table(name="users")
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@Table(name = "users")
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="user_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "user_id")
 	private String userId;
 
 	private String email;
 
-	@Column(name="f_name")
+	@Column(name = "f_name")
 	private String fName;
 
-	@Column(name="l_name")
+	@Column(name = "l_name")
 	private String lName;
 
 	private String password;
@@ -34,20 +33,20 @@ public class User implements Serializable {
 
 	private String username;
 
-	//bi-directional many-to-one association to Block
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Block
+	@OneToMany(mappedBy = "user")
 	private List<Block> blocks;
 
-	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="user1")
+	// bi-directional many-to-one association to Order
+	@OneToMany(mappedBy = "user1")
 	private List<Order> orders1;
 
-	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="user2")
+	// bi-directional many-to-one association to Order
+	@OneToMany(mappedBy = "user2")
 	private List<Order> orders2;
 
-	//bi-directional many-to-one association to Portfolio
-	@OneToMany(mappedBy="user")
+	// bi-directional many-to-one association to Portfolio
+	@OneToMany(mappedBy = "user")
 	private List<Portfolio> portfolios;
 
 	public User() {

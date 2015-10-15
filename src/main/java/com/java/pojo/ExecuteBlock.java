@@ -144,16 +144,7 @@ public class ExecuteBlock implements Serializable {
 		this.transactionTime = transactionTime;
 	}
 
-<<<<<<< HEAD
-	@Override
-	public String toString() {
-		return "ExecuteBlock [executionId=" + executionId + ", blockId=" + blockId + "]";
-	}
-	
-	
 
-}
-=======
 	public Block getBlock() {
 		return this.block;
 	}
@@ -179,4 +170,4 @@ public class ExecuteBlock implements Serializable {
 	}
 
 }
->>>>>>> 7e5d21be20c4bec49dd167a62057750f51a34fa6
+

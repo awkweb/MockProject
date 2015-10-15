@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.java.pojo.Block;
 import com.java.pojo.Order;
+import com.java.pojo.User;
 
 @Repository
 public class OrderDao {
@@ -40,6 +41,17 @@ public class OrderDao {
 				.getResultList();
 		return orders;
 	}
+	
+	public List<Order> getTraderOrders(User trader) {
+		String sql = "FROM Order o WHERE o.user2 = :trader";
+		List<Order> orders = entityManager.createQuery(sql, Order.class)
+				.setParameter("trader", trader)
+				.getResultList();
+		return orders;
+	}
+	
+	
+	
 	
 	@Transactional
 	public void saveOrder(Order order) {

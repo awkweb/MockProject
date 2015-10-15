@@ -5,34 +5,33 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
-
 /**
  * The persistent class for the orders database table.
  * 
  */
 @Entity
-@Table(name="orders")
-@NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
+@Table(name = "orders")
+@NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="order_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "order_id")
 	private String orderId;
 
-	@Column(name="acc_type")
+	@Column(name = "acc_type")
 	private String accType;
 
-	@Column(name="alloc_qty")
+	@Column(name = "alloc_qty")
 	private int allocQty;
 
-	@Column(name="limit_price")
+	@Column(name = "limit_price")
 	private float limitPrice;
 
 	private String notes;
 
-	@Column(name="open_qty")
+	@Column(name = "open_qty")
 	private int openQty;
 
 	private int orderid;
@@ -45,51 +44,52 @@ public class Order implements Serializable {
 
 	private String status;
 
-	@Column(name="stop_price")
+	@Column(name = "stop_price")
 	private float stopPrice;
 
 	private String symbol;
 
 	private Timestamp timestamp;
 
-	@Column(name="total_qty")
+	@Column(name = "total_qty")
 	private int totalQty;
 
-	//bi-directional many-to-one association to Executeblock
-	@OneToMany(mappedBy="order")
+	// bi-directional many-to-one association to Executeblock
+	@OneToMany(mappedBy = "order")
 	private List<ExecuteBlock> executeblocks;
 
-	//bi-directional many-to-one association to Block
+	// bi-directional many-to-one association to Block
 	@ManyToOne
-	@JoinColumn(name="blockid")
+	@JoinColumn(name = "blockid")
 	private Block block;
 
-	//bi-directional one-to-one association to Order
+	// bi-directional one-to-one association to Order
 	@OneToOne
-	@JoinColumn(name="order_id")
+	@JoinColumn(name = "order_id")
 	private Order order1;
 
-	//bi-directional one-to-one association to Order
-	@OneToOne(mappedBy="order1")
-	private Order order2;
+	// bi-directional one-to-one association to Order
+	/*
+	 * @OneToOne(mappedBy="order1") private Order order2;
+	 */
 
-	//bi-directional many-to-one association to Portfolio
+	// bi-directional many-to-one association to Portfolio
 	@ManyToOne
-	@JoinColumn(name="portfolioid")
+	@JoinColumn(name = "portfolioid")
 	private Portfolio portfolio;
 
-	//bi-directional many-to-one association to User
+	// bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="pmid")
+	@JoinColumn(name = "pmid")
 	private User user1;
 
-	//bi-directional many-to-one association to User
+	// bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="traderid")
+	@JoinColumn(name = "traderid")
 	private User user2;
 
-	//bi-directional many-to-one association to Position
-	@OneToMany(mappedBy="order")
+	// bi-directional many-to-one association to Position
+	@OneToMany(mappedBy = "order")
 	private List<Position> positions;
 
 	public Order() {
@@ -253,13 +253,6 @@ public class Order implements Serializable {
 		this.order1 = order1;
 	}
 
-	public Order getOrder2() {
-		return this.order2;
-	}
-
-	public void setOrder2(Order order2) {
-		this.order2 = order2;
-	}
 
 	public Portfolio getPortfolio() {
 		return this.portfolio;
@@ -269,8 +262,9 @@ public class Order implements Serializable {
 		this.portfolio = portfolio;
 	}
 
+
 	public User getUser1() {
-		return this.user1;
+		return user1;
 	}
 
 	public void setUser1(User user1) {
@@ -278,7 +272,7 @@ public class Order implements Serializable {
 	}
 
 	public User getUser2() {
-		return this.user2;
+		return user2;
 	}
 
 	public void setUser2(User user2) {
@@ -307,14 +301,16 @@ public class Order implements Serializable {
 		return position;
 	}
 
-<<<<<<< HEAD
-	
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + "]";
+		return "Order [orderId=" + orderId + ", accType=" + accType
+				+ ", allocQty=" + allocQty + ", limitPrice=" + limitPrice
+				+ ", openQty=" + openQty + ", qualifiers=" + qualifiers
+				+ ", side=" + side + ", status=" + status + ", stopPrice="
+				+ stopPrice + ", symbol=" + symbol + ", totalQty=" + totalQty
+				+ ", portfolio=" + portfolio + ", user1=" + user1.getUserId() + "]";
 	}
 	
+	
+
 }
-=======
-}
->>>>>>> 7e5d21be20c4bec49dd167a62057750f51a34fa6

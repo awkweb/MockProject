@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.java.dao.OrderDao;
 import com.java.pojo.Block;
 import com.java.pojo.Order;
+import com.java.pojo.User;
 
 @Component
 public class OrderManager {
@@ -21,6 +22,10 @@ public class OrderManager {
 	
 	public List<Order> getOrdersForBlock(Block block) {
 		return orderDao.getOrdersForBlock(block);
+	}
+	
+	public List<Order> getOrdersForTrader(User trader){
+		return orderDao.getTraderOrders(trader);
 	}
 	
 	public void saveOrder(Order order) {

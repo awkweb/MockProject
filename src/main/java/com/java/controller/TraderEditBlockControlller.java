@@ -54,7 +54,7 @@ public class TraderEditBlockControlller {
 			
 			model.addAttribute("greeting","u successfully entered the details");
 			System.out.println("order"+order.toString());
-			orderManager.getUserDetails(order.getOrderId());
+			//orderManager.getUserDetails(order.getOrderId());
 			
 			return "success";
 		}
