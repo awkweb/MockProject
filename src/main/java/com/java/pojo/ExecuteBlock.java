@@ -144,7 +144,10 @@ public class ExecuteBlock implements Serializable {
 		this.transactionTime = transactionTime;
 	}
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 	public Block getBlock() {
 		return this.block;
 	}
@@ -169,5 +172,9 @@ public class ExecuteBlock implements Serializable {
 		this.security = security;
 	}
 
+<<<<<<< HEAD
 }
 
+=======
+}
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe

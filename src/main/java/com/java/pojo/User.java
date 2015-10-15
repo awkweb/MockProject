@@ -4,27 +4,48 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 /**
  * The persistent class for the users database table.
  * 
  */
 @Entity
+<<<<<<< HEAD
 @Table(name = "users")
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+=======
+@Table(name="users")
+@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+<<<<<<< HEAD
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
+=======
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="user_id")
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 	private String userId;
 
 	private String email;
 
+<<<<<<< HEAD
 	@Column(name = "f_name")
 	private String fName;
 
 	@Column(name = "l_name")
+=======
+	@Column(name="f_name")
+	private String fName;
+
+	@Column(name="l_name")
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 	private String lName;
 
 	private String password;
@@ -33,6 +54,7 @@ public class User implements Serializable {
 
 	private String username;
 
+<<<<<<< HEAD
 	// bi-directional many-to-one association to Block
 	@OneToMany(mappedBy = "user")
 	private List<Block> blocks;
@@ -47,6 +69,22 @@ public class User implements Serializable {
 
 	// bi-directional many-to-one association to Portfolio
 	@OneToMany(mappedBy = "user")
+=======
+	//bi-directional many-to-one association to Block
+	@OneToMany(mappedBy="user")
+	private List<Block> blocks;
+
+	//bi-directional many-to-one association to Order
+	@OneToMany(mappedBy="user1")
+	private List<Order> orders1;
+
+	//bi-directional many-to-one association to Order
+	@OneToMany(mappedBy="user2")
+	private List<Order> orders2;
+
+	//bi-directional many-to-one association to Portfolio
+	@OneToMany(mappedBy="user")
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 	private List<Portfolio> portfolios;
 
 	public User() {

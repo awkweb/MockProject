@@ -5,13 +5,22 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 /**
  * The persistent class for the orders database table.
  * 
  */
 @Entity
+<<<<<<< HEAD
 @Table(name = "orders")
 @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o")
+=======
+@Table(name="orders")
+@NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -20,6 +29,7 @@ public class Order implements Serializable {
 	@Column(name = "order_id")
 	private String orderId;
 
+<<<<<<< HEAD
 	@Column(name = "acc_type")
 	private String accType;
 
@@ -27,6 +37,15 @@ public class Order implements Serializable {
 	private int allocQty;
 
 	@Column(name = "limit_price")
+=======
+	@Column(name="acc_type")
+	private String accType;
+
+	@Column(name="alloc_qty")
+	private int allocQty;
+
+	@Column(name="limit_price")
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 	private float limitPrice;
 
 	private String notes;
@@ -54,6 +73,7 @@ public class Order implements Serializable {
 	@Column(name = "total_qty")
 	private int totalQty;
 
+<<<<<<< HEAD
 	// bi-directional many-to-one association to Executeblock
 	@OneToMany(mappedBy = "order")
 	private List<ExecuteBlock> executeblocks;
@@ -90,6 +110,43 @@ public class Order implements Serializable {
 
 	// bi-directional many-to-one association to Position
 	@OneToMany(mappedBy = "order")
+=======
+	//bi-directional many-to-one association to Executeblock
+	@OneToMany(mappedBy="order")
+	private List<ExecuteBlock> executeblocks;
+
+	//bi-directional many-to-one association to Block
+	@ManyToOne
+	@JoinColumn(name="blockid")
+	private Block block;
+
+	//bi-directional one-to-one association to Order
+	@OneToOne
+	@JoinColumn(name="order_id")
+	private Order order1;
+
+	//bi-directional one-to-one association to Order
+	@OneToOne(mappedBy="order1")
+	private Order order2;
+
+	//bi-directional many-to-one association to Portfolio
+	@ManyToOne
+	@JoinColumn(name="portfolioid")
+	private Portfolio portfolio;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="pmid")
+	private User user1;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="traderid")
+	private User user2;
+
+	//bi-directional many-to-one association to Position
+	@OneToMany(mappedBy="order")
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 	private List<Position> positions;
 
 	public Order() {
@@ -228,6 +285,7 @@ public class Order implements Serializable {
 		executeblock.setOrder(this);
 
 		return executeblock;
+<<<<<<< HEAD
 	}
 
 	public ExecuteBlock removeExecuteblock(ExecuteBlock executeblock) {
@@ -309,6 +367,85 @@ public class Order implements Serializable {
 				+ ", side=" + side + ", status=" + status + ", stopPrice="
 				+ stopPrice + ", symbol=" + symbol + ", totalQty=" + totalQty
 				+ ", portfolio=" + portfolio + ", user1=" + user1.getUserId() + "]";
+=======
+	}
+
+	public ExecuteBlock removeExecuteblock(ExecuteBlock executeblock) {
+		getExecuteblocks().remove(executeblock);
+		executeblock.setOrder(null);
+
+		return executeblock;
+	}
+
+	public Block getBlock() {
+		return this.block;
+	}
+
+	public void setBlock(Block block) {
+		this.block = block;
+	}
+
+	public Order getOrder1() {
+		return this.order1;
+	}
+
+	public void setOrder1(Order order1) {
+		this.order1 = order1;
+	}
+
+	public Order getOrder2() {
+		return this.order2;
+	}
+
+	public void setOrder2(Order order2) {
+		this.order2 = order2;
+	}
+
+	public Portfolio getPortfolio() {
+		return this.portfolio;
+	}
+
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
+	}
+
+	public User getUser1() {
+		return this.user1;
+	}
+
+	public void setUser1(User user1) {
+		this.user1 = user1;
+	}
+
+	public User getUser2() {
+		return this.user2;
+	}
+
+	public void setUser2(User user2) {
+		this.user2 = user2;
+	}
+
+	public List<Position> getPositions() {
+		return this.positions;
+	}
+
+	public void setPositions(List<Position> positions) {
+		this.positions = positions;
+	}
+
+	public Position addPosition(Position position) {
+		getPositions().add(position);
+		position.setOrder(this);
+
+		return position;
+	}
+
+	public Position removePosition(Position position) {
+		getPositions().remove(position);
+		position.setOrder(null);
+
+		return position;
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 	}
 	
 	

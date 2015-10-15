@@ -42,6 +42,7 @@ public class OrderDao {
 		return orders;
 	}
 	
+<<<<<<< HEAD
 	public List<Order> getTraderOrders(User trader) {
 		String sql = "FROM Order o WHERE o.user2 = :trader";
 		List<Order> orders = entityManager.createQuery(sql, Order.class)
@@ -53,6 +54,8 @@ public class OrderDao {
 	
 	
 	
+=======
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 	@Transactional
 	public void saveOrder(Order order) {
 		entityManager.persist(order);

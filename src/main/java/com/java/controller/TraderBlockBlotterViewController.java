@@ -6,7 +6,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.java.pojo.Block;
@@ -34,6 +33,7 @@ public class TraderBlockBlotterViewController {
 			block.setOrders(orders);
 		}
 		return "block-blotter";
+<<<<<<< HEAD
 	}
 
 	@RequestMapping(value="/test")
@@ -43,7 +43,11 @@ public class TraderBlockBlotterViewController {
 		
 		model.addAttribute("pageHeader", "Tester Works");
 		return "traderBlockBlotterView";
+=======
+>>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 	}
+	
+	
 
 	
 
