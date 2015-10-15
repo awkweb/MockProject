@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.java.pojo.Block;
 import com.java.pojo.Order;
+import com.java.pojo.User;
 
 @Repository
 public class OrderDao {
@@ -37,6 +38,13 @@ public class OrderDao {
 		String sql = "FROM Order o WHERE o.block = :block";
 		List<Order> orders = entityManager.createQuery(sql, Order.class)
 				.setParameter("block", block)
+				.getResultList();
+		return orders;
+	}
+	public List<Order> getOpenOrdersforUser(User user){
+		String sql = "FROM Order o WHERE o.user2 = :user and o.status = 'Open'";
+		List<Order> orders = entityManager.createQuery(sql, Order.class)
+				.setParameter("user", user)
 				.getResultList();
 		return orders;
 	}
