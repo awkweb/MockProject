@@ -5,14 +5,16 @@
 
 	<persistence-unit name="mockProject">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>com.java.pojo.Block</class>
 		<class>com.java.pojo.ExecuteBlock</class>
+		<class>com.java.pojo.Block</class>
 		<class>com.java.pojo.Order</class>
-		<class>com.java.pojo.User</class>
+		<class>com.java.pojo.Portfolio</class>
 		<class>com.java.pojo.Position</class>
+		<class>com.java.pojo.Security</class>
+		<class>com.java.pojo.User</class>
 
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.209.70.57:3306/mockproj" />
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.209.70.57:3306/mockproject" />
 			<property name="javax.persistence.jdbc.user" value="root" />
 			<property name="javax.persistence.jdbc.password" value="root" />
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

@@ -6,10 +6,7 @@
 	<title><tiles:insertAttribute name="title" ignore="true" /></title>
 </head>
 <body>
-	<tiles:insertAttribute name="navbar" />
-
 	<div class="container">
-		<tiles:insertAttribute name="pageHeader" />
 		<tiles:insertAttribute name="content" />
 	</div>
 </body>

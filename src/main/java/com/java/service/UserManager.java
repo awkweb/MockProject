@@ -12,12 +12,20 @@ public class UserManager {
 	@Autowired
 	UserDao userdao;
 	
-	public User getUserDetails(String userId) {
-		return userdao.getUserDetails(userId);
+	public User getUserWithId(String userId) {
+		return userdao.getUserWithId(userId);
+	}
+	
+	public User getUserWithUsername(String username) {
+		return userdao.getUserWithUsername(username);
+	}
+	
+	public Boolean updatePasswordForUsernameAndEmail(String username, String email, String password) {		
+		return userdao.updatePasswordForUsernameAndEmail(username, email, password);
 	}
 
-	public void setUserDetails(User user) {
-		userdao.saveDetails(user);
+	public void saveUser(User user) {
+		userdao.saveUser(user);
 	}
 	
 }

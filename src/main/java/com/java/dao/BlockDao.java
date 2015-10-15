@@ -1,5 +1,7 @@
 package com.java.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.java.pojo.Block;
+import com.java.pojo.User;
 
 @Repository
 public class BlockDao {
@@ -26,14 +29,21 @@ public class BlockDao {
 		this.entityManager = entityManager;
 	}
 
-	public Block getBlockDetails(String blockId) {
+	public Block getBlockWithId(String blockId) {
 		return entityManager.find(Block.class, blockId);
 	}
 	
-	@Transactional
-	public void saveDetails(Block block) {
-		entityManager.persist(block);
+	public List<Block> getBlocksForUser(User user) {
+		String sql = "FROM Block b WHERE b.user = :user";
+		List<Block> blocks = entityManager.createQuery(sql, Block.class)
+				.setParameter("user", user)
+				.getResultList();
+		return blocks;
 	}
 	
+	@Transactional
+	public void saveBlock(Block block) {
+		entityManager.persist(block);
+	}
 
 }

@@ -1,26 +1,20 @@
 package com.java.pojo;
 
-import java.util.Date;
+import java.io.Serializable;
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
-@XmlType( propOrder = {"blockId", "executedQty", "limitPrice", "openQty", 
-		"status", "stopPrice", "timestamp", "totalQty"})
-@XmlRootElement( name = "Block")
+/**
+ * The persistent class for the blocks database table.
+ * 
+ */
 @Entity
 @Table(name="blocks")
 @NamedQuery(name="Block.findAll", query="SELECT b FROM Block b")
-public class Block {
-//	private static final long serialVersionUID = 1L;
+public class Block implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -41,42 +35,31 @@ public class Block {
 	@Column(name="stop_price")
 	private float stopPrice;
 
-	private Date timestamp;
+	private Timestamp timestamp;
 
 	@Column(name="total_qty")
 	private int totalQty;
 
+	//bi-directional many-to-one association to User
+	@ManyToOne
+	@JoinColumn(name="traderid")
+	private User user;
+
+	//bi-directional many-to-one association to Executeblock
+	@OneToMany(mappedBy="block")
+	private List<ExecuteBlock> executeblocks;
+
+	//bi-directional many-to-one association to Order
+	@OneToMany(mappedBy="block")
+	private List<Order> orders;
+
 	public Block() {
-	}
-	
-	/**
-	 * Added extended Constructor for testing purposes
-	 * @param blockId
-	 * @param executedQty
-	 * @param limitPrice
-	 * @param openQty
-	 * @param status
-	 * @param stopPrice
-	 * @param timestamp
-	 * @param totalQty
-	 */
-	public Block(String blockId, int executedQty, float limitPrice, int openQty, String status, float stopPrice,
-			Date timestamp, int totalQty) {
-		super();
-		this.blockId = blockId;
-		this.executedQty = executedQty;
-		this.limitPrice = limitPrice;
-		this.openQty = openQty;
-		this.status = status;
-		this.stopPrice = stopPrice;
-		this.timestamp = timestamp;
-		this.totalQty = totalQty;
 	}
 
 	public String getBlockId() {
 		return this.blockId;
 	}
-	@XmlElement(name = "BlockId")
+
 	public void setBlockId(String blockId) {
 		this.blockId = blockId;
 	}
@@ -84,8 +67,7 @@ public class Block {
 	public int getExecutedQty() {
 		return this.executedQty;
 	}
-	
-	@XmlElement(name = "Executed-Quantity")
+
 	public void setExecutedQty(int executedQty) {
 		this.executedQty = executedQty;
 	}
@@ -93,8 +75,7 @@ public class Block {
 	public float getLimitPrice() {
 		return this.limitPrice;
 	}
-	
-	@XmlElement(name = "Limit-Price")
+
 	public void setLimitPrice(float limitPrice) {
 		this.limitPrice = limitPrice;
 	}
@@ -102,8 +83,7 @@ public class Block {
 	public int getOpenQty() {
 		return this.openQty;
 	}
-	
-	@XmlElement(name = "Open-Quantity")
+
 	public void setOpenQty(int openQty) {
 		this.openQty = openQty;
 	}
@@ -112,7 +92,6 @@ public class Block {
 		return this.status;
 	}
 
-	@XmlElement(name = "Status")
 	public void setStatus(String status) {
 		this.status = status;
 	}
@@ -120,35 +99,77 @@ public class Block {
 	public float getStopPrice() {
 		return this.stopPrice;
 	}
-	
-	@XmlElement(name = "Stop-Price")
+
 	public void setStopPrice(float stopPrice) {
 		this.stopPrice = stopPrice;
 	}
 
-	public Date getTimestamp() {
+	public Timestamp getTimestamp() {
 		return this.timestamp;
 	}
-	
-	@XmlElement(name = "Timestamp")
-	public void setTimestamp(Date timestamp) {
+
+	public void setTimestamp(Timestamp timestamp) {
 		this.timestamp = timestamp;
 	}
 
 	public int getTotalQty() {
 		return this.totalQty;
 	}
-	
-	@XmlElement(name = "Total-Quantity")
+
 	public void setTotalQty(int totalQty) {
 		this.totalQty = totalQty;
 	}
 
-	@Override
-	public String toString() {
-		return "Block [blockId=" + blockId + ", executedQty=" + executedQty + ", limitPrice=" + limitPrice
-				+ ", openQty=" + openQty + ", status=" + status + ", stopPrice=" + stopPrice + ", timestamp="
-				+ timestamp + ", totalQty=" + totalQty + "]";
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<ExecuteBlock> getExecuteblocks() {
+		return this.executeblocks;
+	}
+
+	public void setExecuteblocks(List<ExecuteBlock> executeblocks) {
+		this.executeblocks = executeblocks;
+	}
+
+	public ExecuteBlock addExecuteblock(ExecuteBlock executeblock) {
+		getExecuteblocks().add(executeblock);
+		executeblock.setBlock(this);
+
+		return executeblock;
+	}
+
+	public ExecuteBlock removeExecuteblock(ExecuteBlock executeblock) {
+		getExecuteblocks().remove(executeblock);
+		executeblock.setBlock(null);
+
+		return executeblock;
+	}
+
+	public List<Order> getOrders() {
+		return this.orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public Order addOrder(Order order) {
+		getOrders().add(order);
+		order.setBlock(this);
+
+		return order;
+	}
+
+	public Order removeOrder(Order order) {
+		getOrders().remove(order);
+		order.setBlock(null);
+
+		return order;
 	}
 
 }

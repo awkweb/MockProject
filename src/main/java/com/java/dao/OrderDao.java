@@ -1,15 +1,19 @@
 package com.java.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.java.pojo.Block;
 import com.java.pojo.Order;
 
 @Repository
 public class OrderDao {
+	
 	static{
 	    try {
 	    	Class.forName("com.mysql.jdbc.Driver");
@@ -25,12 +29,20 @@ public class OrderDao {
 		this.entityManager = entityManager;
 	}
 
-	public Order getOrderDetails(String orderId) {
+	public Order getOrderWithId(String orderId) {
 		return entityManager.find(Order.class, orderId);
 	}
 	
+	public List<Order> getOrdersForBlock(Block block) {
+		String sql = "FROM Order o WHERE o.block = :block";
+		List<Order> orders = entityManager.createQuery(sql, Order.class)
+				.setParameter("block", block)
+				.getResultList();
+		return orders;
+	}
+	
 	@Transactional
-	public void saveDetails(Order order) {
+	public void saveOrder(Order order) {
 		entityManager.persist(order);
 	}
 
