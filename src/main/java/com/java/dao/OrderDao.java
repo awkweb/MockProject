@@ -42,7 +42,7 @@ public class OrderDao {
 		return orders;
 	}
 	public List<Order> getOpenOrdersforUser(User user){
-		String sql = "FROM Order o WHERE o.user2 = :user and o.status = 'Open'";
+		String sql = "FROM Order o WHERE o.user2 = :user and o.status = 'Open' and o.block= null";
 		List<Order> orders = entityManager.createQuery(sql, Order.class)
 				.setParameter("user", user)
 				.getResultList();

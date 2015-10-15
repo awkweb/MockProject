@@ -20,6 +20,7 @@
 		<c:forEach var="order" items="${pb.orders}">
 			<table style="width: 100%">
 				<tr >
+					<td><input type="checkbox" id="${order.orderid}"/>
 					<td>"${order.symbol}"</td>
 					<td>"${order.side}"</td>
 					<td>"${order.totalQty}"</td>

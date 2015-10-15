@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.java.pojo.Block;
 import com.java.pojo.Order;
 import com.java.pojo.ProposedBlock;
 import com.java.pojo.Order;
@@ -25,17 +26,17 @@ public class TraderOpenOrdersViewController {
 	@Autowired
 	private OrderManager orderManager;
 
-	@RequestMapping(value="/OpenOrder")
+	@RequestMapping(value="/open-order")
 	public String testOrders(HttpSession session){
 		User user = (User) session.getAttribute("authenticatedUser");
 		List<Order> orders = orderManager.getOpenOrdersforUser(user);
-		List<ProposedBlock> proposedOrders = orderManager.getProposedBlocks(orders);
+		List<Block> proposedOrders = orderManager.getProposedBlocks(orders,user);
 		orderManager.printpbList(proposedOrders);
 		System.out.println("HERE");
 		
 		
 		session.setAttribute("proposedblocks", proposedOrders);
-		return "traderOpenOrdersView";
+		return "open-order";
 	}
 	
 

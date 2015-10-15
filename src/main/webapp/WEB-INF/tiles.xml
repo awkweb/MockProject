@@ -46,10 +46,11 @@
 		<put-attribute name="title" value="PM Dashboard" />
 		<put-attribute name="content" value="/WEB-INF/jsp/landing.jsp" />
 	</definition>
-	
-	
-	<definition name="traderOpenOrdersView" extends="trader-layout.definition">
+
+
+	<definition name="open-order" extends="trader-layout.definition">
 		<put-attribute name="title" value="Hello, Open OrdersView!"></put-attribute>
+		<put-attribute name="toolbar" value="/WEB-INF/jsp/includes/openOrderToolbar.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/proposedblocks.jsp"></put-attribute>
 	</definition>
 </tiles-definitions>

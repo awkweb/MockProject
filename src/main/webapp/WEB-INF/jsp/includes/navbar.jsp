@@ -27,7 +27,7 @@
 						</a></li>
 						<li><a href="${pageContext.request.contextPath}/#">Executed
 								Blotter</a></li>
-						<li><a href="${pageContext.request.contextPath}/#">Open
+						<li><a href="${pageContext.request.contextPath}/open-order">Open
 								Orders</a></li>
 					</c:when>
 					<c:otherwise>

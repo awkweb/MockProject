@@ -34,12 +34,12 @@ public class OrderManager {
 		orderDao.saveOrder(order);
 	}
 
-	public List<ProposedBlock> getProposedBlocks(List<Order> allorders) {
-		List<ProposedBlock> pblocks = new ArrayList<ProposedBlock>();
+	public List<Block> getProposedBlocks(List<Order> allorders,User user) {
+		List<Block> pblocks = new ArrayList<Block>();
 		boolean added = false;
 		for (Order order : allorders) {
 
-			for (ProposedBlock pb : pblocks) {
+			for (Block pb : pblocks) {
 				if (pb.getSide().equals(order.getSide()) && pb.getSymbol().equals(order.getSymbol())) {
 					pb.getOrders().add(order);
 					pb.setTotalQty(pb.getTotalQty() + order.getTotalQty());
@@ -48,9 +48,9 @@ public class OrderManager {
 				}
 			}
 			if (!added) {
-				ProposedBlock newTemp = new ProposedBlock(order.getSide(), order.getSymbol(), order.getLimitPrice(),
-						order.getStopPrice(), order.getTotalQty());
+				Block newTemp = new Block(order.getSymbol(),order.getSide(),"Proposed" ,user ,new ArrayList<Order>());
 				newTemp.getOrders().add(order);
+				newTemp.setTotalQty(order.getTotalQty());
 				pblocks.add(newTemp);
 			}
 			added = false;
@@ -59,8 +59,8 @@ public class OrderManager {
 		return pblocks;
 	}
 
-	public void printpbList(List<ProposedBlock> proposedOrders) {
-		for (ProposedBlock pb : proposedOrders) {
+	public void printpbList(List<Block> proposedOrders) {
+		for (Block pb : proposedOrders) {
 			System.out.println(pb.getSymbol() + "_" + pb.getSide());
 			System.out.println(pb.getOrders());
 		}
