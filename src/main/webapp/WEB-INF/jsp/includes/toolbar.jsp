@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 <div class="row">
 	<div class="col-sm-8 col-sm-offset-4">
 		<div class="col-sm-3">
@@ -11,8 +7,7 @@
 		<div class="btn-group col-sm-5" role="group" aria-label="...">
 			<button type="button" class="btn btn-default">Cancel Order</button>
 			<button type="button" class="btn btn-default">Send Order</button>
-<<<<<<< HEAD
-=======
+
 <div class="row toolbar">
 	<div class="col-sm-2">
 		<div class="btn-group btn-group-justified" role="group"
@@ -31,9 +26,7 @@
 			<div class="btn-group" role="group">
 				<button type="button" class="btn btn-default">Send Block</button>
 			</div>
->>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
-=======
->>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
+
 		</div>
 	</div>
 </div>
