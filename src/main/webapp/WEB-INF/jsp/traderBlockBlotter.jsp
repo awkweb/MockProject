@@ -7,7 +7,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="headingOne">
 				<h4 class="panel-title">
-					<input type="checkbox" data-id="${block.getBlockId()}"> <a
+					<input type="checkbox" value="${block.getBlockId()}" data-type="block"> <a
 						class="collapsed" role="button" data-toggle="collapse"
 						data-parent="#accordion" href="#collapse${block.getBlockId()}"
 						aria-expanded=false aria-controls="collapseOne">Block
@@ -61,7 +61,7 @@
 					<c:forEach items="${block.getOrders()}" var="order">
 						<tr>
 							<td class="text-center"><input type="checkbox"
-								data-id="${order.getOrderId()}"></td>
+								value="${order.getOrderId()}" data-type="order"></td>
 							<td>${order.getOrderId()}</td>
 							<td>${order.getUser2().getFName()}
 								${order.getUser2().getLName()}</td>
@@ -104,3 +104,5 @@
 	</c:forEach>
 
 </div>
+
+<script src="${pageContext.request.contextPath}/static/js/traderBlockBlotter.js"></script>
