@@ -15,7 +15,10 @@
 		<put-attribute name="title" value="Hello, World!"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/jsp/testPage.jsp"></put-attribute>
 	</definition>
-	
+	<definition name="ViewFills" extends="base.definition">
+		<put-attribute name="title" value="Hello, World!"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/jsp/BrokerViewFills.jsp"></put-attribute>
+	</definition>
 	<definition name="PMCreateOrder_form2" extends="base.definition">
 		<put-attribute name="title" value="Hello, World!"></put-attribute>
 
