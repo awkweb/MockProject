@@ -1,4 +1,7 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <div class="row toolbar">
+
 	<div class="col-sm-2">
 		<div class="btn-group btn-group-justified" role="group"
 			aria-label="...">
@@ -12,13 +15,15 @@
 		<div class="btn-group btn-group-justified" role="group"
 			aria-label="...">
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-default">Filter Block(s)</button>
+				<button type="button" class="btn btn-default">Filter
+					Block(s)</button>
 			</div>
 			<div class="btn-group" role="group">
 				<button type="button" class="btn btn-default">Send Block(s)</button>
 			</div>
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-default">Cancel Block(s)</button>
+				<button type="button" class="btn btn-default">Cancel
+					Block(s)</button>
 			</div>
 		</div>
 	</div>

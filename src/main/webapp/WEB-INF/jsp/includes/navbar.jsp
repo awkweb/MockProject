@@ -1,4 +1,3 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <nav class="navbar navbar-default">
@@ -15,19 +14,19 @@
 				href="${pageContext.request.contextPath}/block-blotter">Acme
 				Inc.</a>
 		</div>
-
+		
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
 					<c:when test="${authenticatedUser.getRole() == 'et'}">
-						<li class="active"><a
+						<li><a
 							href="${pageContext.request.contextPath}/block-blotter">Block
-								Blotter<span class="sr-only">(current)</span>
+								Blotter
 						</a></li>
-						<li><a href="${pageContext.request.contextPath}/#">Executed
+						<li><a href="${pageContext.request.contextPath}/execution-blotter">Execution
 								Blotter</a></li>
-						<li><a href="${pageContext.request.contextPath}/#">Open
+						<li><a href="${pageContext.request.contextPath}/open-orders">Open
 								Orders</a></li>
 					</c:when>
 					<c:otherwise>

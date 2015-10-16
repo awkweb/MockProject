@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC
-       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
-       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
 	<!-- TEMPLATES -->
 	<definition name="login-layout.definition" template="/WEB-INF/jsp/loginLayout.jsp">
@@ -14,7 +14,7 @@
 		<put-attribute name="head" value="/WEB-INF/jsp/includes/head.jsp" />
 		<put-attribute name="title" value="" />
 		<put-attribute name="navbar" value="/WEB-INF/jsp/includes/navbar.jsp" />
-		<put-attribute name="toolbar" value="/WEB-INF/jsp/includes/toolbar.jsp" />
+		<put-attribute name="toolbar" value="" />
 		<put-attribute name="content" value="" />
 	</definition>
 	
@@ -37,12 +37,23 @@
 	<!-- TRADER -->
 	<definition name="block-blotter" extends="trader-layout.definition">
 		<put-attribute name="title" value="Block Blotter" />
+		<put-attribute name="toolbar" value="/WEB-INF/jsp/includes/trader/blockBlotterToolbar.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/traderBlockBlotter.jsp" />
+	</definition>
+	
+	<definition name="open-orders" extends="trader-layout.definition">
+		<put-attribute name="title" value="Open Orders" />
+		<put-attribute name="toolbar" value="/WEB-INF/jsp/includes/trader/openOrdersToolbar.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/traderOpenOrders.jsp" />
+	</definition>
+	
+	<definition name="execution-blotter" extends="trader-layout.definition">
+		<put-attribute name="title" value="Execution Blotter" />
+		<put-attribute name="content" value="/WEB-INF/jsp/landing.jsp" />
 	</definition>
 	
 	<!-- PM -->
 	<definition name="landing" extends="trader-layout.definition">
-		<put-attribute name="title" value="PM Dashboard" />
 		<put-attribute name="content" value="/WEB-INF/jsp/landing.jsp" />
 	</definition>
 

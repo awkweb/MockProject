@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<tiles:insertAttribute name="head" />
-	<title><tiles:insertAttribute name="title" ignore="true" /></title>
+	<title><tiles:insertAttribute name="title" /></title>
 </head>
 <body>
 	<tiles:insertAttribute name="navbar" />
@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<div class="page-header">
-					<h2><tiles:insertAttribute name="title" ignore="true" /></h2>
+					<h2><tiles:insertAttribute name="title" /></h2>
 				</div>
 			</div>
 		</div>

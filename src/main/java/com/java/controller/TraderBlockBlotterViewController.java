@@ -2,11 +2,11 @@ package com.java.controller;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,7 +27,7 @@ public class TraderBlockBlotterViewController {
 	private OrderManager orderManager;
 
 	@RequestMapping(value="/block-blotter")
-	public String loadEmptyModelBean(HttpSession session) {
+	public String loadEmptyModelBean(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("authenticatedUser");
 		List<Block> blocks = blockManager.getBlocksForUser(user);
 		user.setBlocks(blocks);
@@ -43,6 +43,7 @@ public class TraderBlockBlotterViewController {
 		json = json.replace("[","");
 		json = json.replace("]","");
 		String[] orderIds = json.split(",");
+		
 		for (String id : orderIds) {
 			Boolean bool = orderManager.removeOrderFromBlockWithOrderId(id);
 			System.out.println(id + " " + bool);
