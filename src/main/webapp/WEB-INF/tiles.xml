@@ -19,6 +19,27 @@
 		<put-attribute name="title" value="Hello, World!"></put-attribute>
 		<put-attribute name="content" value="/WEB-INF/jsp/BrokerViewFills.jsp"></put-attribute>
 	</definition>
+	
+	<definition name="ConfigSecurities" extends="base.definition">
+		<put-attribute name="title" value="Hello, World!"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/jsp/BrokerConfigureSecurities.jsp"></put-attribute>
+	</definition>
+	
+	
+        
+        <definition name="button" extends="base.definition">
+		<put-attribute name="title" value="Hello, World!"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/jsp/button.jsp"></put-attribute>
+	</definition>
+	
+	<definition name="ExecBlock" extends="base.definition">
+		<put-attribute name="title" value="Hello, World!"></put-attribute>
+		<put-attribute name="content" value="/WEB-INF/jsp/ExecBlock.jsp"></put-attribute>
+	</definition>
+        
+        
+	
+	
 	<definition name="PMCreateOrder_form2" extends="base.definition">
 		<put-attribute name="title" value="Hello, World!"></put-attribute>
 

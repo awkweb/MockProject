@@ -1,21 +1,19 @@
-package com.java.pojo;
+package model;
 
 import java.io.Serializable;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
 
+/**
+ * The persistent class for the executed_block database table.
+ * 
+ */
 @Entity
 @Table(name="executed_block")
-@NamedQuery(name="ExecuteBlock.findAll", query="SELECT e FROM ExecuteBlock e")
-public class ExecuteBlock  {
-//	private static final long serialVersionUID = 1L;
+@NamedQuery(name="ExecutedBlock.findAll", query="SELECT e FROM ExecutedBlock e")
+public class ExecutedBlock implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@Column(name="execution_id")
@@ -25,7 +23,7 @@ public class ExecuteBlock  {
 	private int allocatedQty;
 
 	@Column(name="avg_price")
-	private float averagePrice;
+	private float avgPrice;
 
 	@Column(name="block_id")
 	private String blockId;
@@ -33,15 +31,15 @@ public class ExecuteBlock  {
 	@Column(name="executed_qty")
 	private int executedQty;
 
-
 	@Column(name="remaining_qty")
 	private int remainingQty;
 
-	@Column(name="status")
-	private String status;
-
 	@Column(name="security_symbol")
-	private String symbol;
+	private String securitySymbol;
+
+	private String side;
+
+	private String status;
 
 	@Column(name="trade_price")
 	private float tradePrice;
@@ -51,11 +49,8 @@ public class ExecuteBlock  {
 
 	@Column(name="transaction_time")
 	private Timestamp transactionTime;
-	
-	@Column(name="side")
-	private String side;
 
-	public ExecuteBlock() {
+	public ExecutedBlock() {
 	}
 
 	public int getExecutionId() {
@@ -74,12 +69,12 @@ public class ExecuteBlock  {
 		this.allocatedQty = allocatedQty;
 	}
 
-	public float getAveragePrice() {
-		return this.averagePrice;
+	public float getAvgPrice() {
+		return this.avgPrice;
 	}
 
-	public void setAveragePrice(float averagePrice) {
-		this.averagePrice = averagePrice;
+	public void setAvgPrice(float avgPrice) {
+		this.avgPrice = avgPrice;
 	}
 
 	public String getBlockId() {
@@ -98,8 +93,6 @@ public class ExecuteBlock  {
 		this.executedQty = executedQty;
 	}
 
-
-
 	public int getRemainingQty() {
 		return this.remainingQty;
 	}
@@ -108,20 +101,28 @@ public class ExecuteBlock  {
 		this.remainingQty = remainingQty;
 	}
 
+	public String getSecuritySymbol() {
+		return this.securitySymbol;
+	}
+
+	public void setSecuritySymbol(String securitySymbol) {
+		this.securitySymbol = securitySymbol;
+	}
+
+	public String getSide() {
+		return this.side;
+	}
+
+	public void setSide(String side) {
+		this.side = side;
+	}
+
 	public String getStatus() {
 		return this.status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	public String getSymbol() {
-		return this.symbol;
-	}
-
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
 	}
 
 	public float getTradePrice() {
@@ -147,26 +148,5 @@ public class ExecuteBlock  {
 	public void setTransactionTime(Timestamp transactionTime) {
 		this.transactionTime = transactionTime;
 	}
-	
-	
-
-	public String getSide() {
-		return side;
-	}
-
-	public void setSide(String side) {
-		this.side = side;
-	}
-
-	@Override
-	public String toString() {
-		return "ExecuteBlock [executionId=" + executionId + ", blockId=" + blockId + ", executedQty=" + executedQty
-				+ ", status=" + status + ", symbol=" + symbol + ", tradePrice=" + tradePrice + ", transactionTime="
-				+ transactionTime + ", side=" + side + "]";
-	}
-
-	
-	
-	
 
 }

@@ -12,6 +12,7 @@
 		<class>com.java.pojo.Position</class>
 		<class>com.java.pojo.Portfolio</class>
 		<class>com.java.pojo.Security</class>
+		<class>model.ExecutedBlock</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.209.70.57:3306/mockproj" />

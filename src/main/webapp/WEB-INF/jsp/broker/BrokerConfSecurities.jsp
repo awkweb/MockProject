@@ -3,29 +3,30 @@
 <br>
 <br>
 <br>
-<form class="form-horizontal" role="form">
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> 
+<form:form class="form-horizontal" role="form">
   <div class="form-group">
-    <label class=" col-sm-4" for="maxPriceSpread">Maximum Price Spread Percentage :</label>
+    <form:label path="maxPriceSpread" class=" col-sm-4" for="maxPriceSpread">Maximum Price Spread Percentage :</form:label>
     <div class="col-sm-2">
-      <input type="number" class="form-control" id="maxPriceSpread">
+      <form:input path="maxPriceSpread" type="number" class="form-control" id="maxPriceSpread"></form:input>
     </div>
   </div>
   <div class="form-group">
-    <label class=" col-sm-4 " for="maxExecs">Maximum number of executions per order :</label>
+    <form:label path="maxExecs" class=" col-sm-4 " for="maxExecs">Maximum number of executions per order :</form:label>
     <div class="col-sm-2"> 
-      <input type="text" class="form-control" id="maxExecs">
+      <form:input path="maxExecs" type="text" class="form-control" id="maxExecs"></form:input>
     </div>
   </div>
   <div class="form-group">
-    <label class=" col-sm-4" for="maxInterval">Maximum interval between executions(seconds) :</label>
+    <form:label path="maxInterval" class=" col-sm-4" for="maxInterval">Maximum interval between executions(seconds) :</form:label>
     <div class="col-sm-2"> 
-      <input type="text" class="form-control" id="maxInterval">
+      <form:input path="maxInterval" type="text" class="form-control" id="maxInterval"></form:input>
     </div>
   </div>
    <div class="form-group">
-    <label class="col-sm-4" for="fullyExecs">Percentage of fully executed orders :</label>
+    <form:label path="fullyExecs" class="col-sm-4" for="fullyExecs">Percentage of fully executed orders :</form:label>
     <div class="col-sm-2"> 
-      <input type="number" class="form-control" id="fullyExecs" >
+      <form:input path="fullyExecs" type="number" class="form-control" id="fullyExecs" ></form:input>
     </div>
   </div>
   <br>
@@ -35,4 +36,4 @@
        <button type="submit" class="btn btn-default">Cancel</button>
     </div>
   </div>
-</form>
+</form:form>
