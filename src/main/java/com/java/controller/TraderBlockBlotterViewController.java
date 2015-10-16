@@ -1,8 +1,8 @@
 package com.java.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,10 @@ import com.java.service.OrderManager;
 
 @Controller
 public class TraderBlockBlotterViewController {
-	
+
 	@Autowired
 	private BlockManager blockManager;
-	
+
 	@Autowired
 	private OrderManager orderManager;
 
@@ -37,14 +37,32 @@ public class TraderBlockBlotterViewController {
 		}
 		return "block-blotter";
 	}
-	
+
 	@RequestMapping(value = "/removeOrders", method = RequestMethod.POST)
 	public String removeOrders(@RequestBody String json) {
 		json = json.replace("[","");
 		json = json.replace("]","");
 		String[] orderIds = json.split(",");
-		for (String str : orderIds) {
-			System.out.println(str);
+		for (String id : orderIds) {
+			Boolean bool = orderManager.removeOrderFromBlockWithOrderId(id);
+			System.out.println(id + " " + bool);
+
+			Order order = null;
+			try {
+				order = orderManager.getOrderWithId(id);
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println(e);
+			} finally {
+				if (order != null) {
+					System.out.println(order.toString());
+					System.out.println(order.getBlock().getBlockId());
+					order.setBlock(null);
+					System.out.println(order.getBlock().getBlockId());
+				} else {
+					System.out.println("Order is null");
+				}
+			}
 		}
 		return "block-blotter";
 	}

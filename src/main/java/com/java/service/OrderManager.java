@@ -26,5 +26,9 @@ public class OrderManager {
 	public void saveOrder(Order order) {
 		orderDao.saveOrder(order);
 	}
+	
+	public Boolean removeOrderFromBlockWithOrderId(String orderId) {		
+		return orderDao.removeOrderFromBlockWithOrderId(orderId);
+	}
 
 }

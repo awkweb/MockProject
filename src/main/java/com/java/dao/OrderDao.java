@@ -45,5 +45,18 @@ public class OrderDao {
 	public void saveOrder(Order order) {
 		entityManager.persist(order);
 	}
+	
+	@Transactional
+	public Boolean removeOrderFromBlockWithOrderId(String orderId) {		
+		String sql = "UPDATE Order "
+				+ "SET blockid = :blockid "
+				+ "WHERE order_id = :orderid";
+		int result = entityManager.createQuery(sql)
+		.setParameter("blockid", null)
+		.setParameter("orderid", orderId)
+		.executeUpdate();
+		Boolean success = result != 0;
+		return success;
+	}
 
 }
