@@ -6,18 +6,25 @@ import java.sql.Timestamp;
 import java.util.List;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
+=======
+
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 /**
  * The persistent class for the orders database table.
  * 
  */
 @Entity
 <<<<<<< HEAD
+<<<<<<< HEAD
 @Table(name = "orders")
 @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o")
 =======
+=======
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 @Table(name="orders")
 @NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
@@ -29,6 +36,7 @@ public class Order implements Serializable {
 	@Column(name = "order_id")
 	private String orderId;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Column(name = "acc_type")
 	private String accType;
@@ -44,6 +52,14 @@ public class Order implements Serializable {
 	@Column(name="alloc_qty")
 	private int allocQty;
 
+=======
+	@Column(name="acc_type")
+	private String accType;
+
+	@Column(name="alloc_qty")
+	private int allocQty;
+
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	@Column(name="limit_price")
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
 	private float limitPrice;
@@ -73,6 +89,7 @@ public class Order implements Serializable {
 	@Column(name = "total_qty")
 	private int totalQty;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// bi-directional many-to-one association to Executeblock
 	@OneToMany(mappedBy = "order")
@@ -111,6 +128,8 @@ public class Order implements Serializable {
 	// bi-directional many-to-one association to Position
 	@OneToMany(mappedBy = "order")
 =======
+=======
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	//bi-directional many-to-one association to Executeblock
 	@OneToMany(mappedBy="order")
 	private List<ExecuteBlock> executeblocks;
@@ -146,7 +165,10 @@ public class Order implements Serializable {
 
 	//bi-directional many-to-one association to Position
 	@OneToMany(mappedBy="order")
+<<<<<<< HEAD
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
+=======
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	private List<Position> positions;
 
 	public Order() {
@@ -286,6 +308,7 @@ public class Order implements Serializable {
 
 		return executeblock;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}
 
 	public ExecuteBlock removeExecuteblock(ExecuteBlock executeblock) {
@@ -417,6 +440,57 @@ public class Order implements Serializable {
 		this.user1 = user1;
 	}
 
+=======
+	}
+
+	public ExecuteBlock removeExecuteblock(ExecuteBlock executeblock) {
+		getExecuteblocks().remove(executeblock);
+		executeblock.setOrder(null);
+
+		return executeblock;
+	}
+
+	public Block getBlock() {
+		return this.block;
+	}
+
+	public void setBlock(Block block) {
+		this.block = block;
+	}
+
+	public Order getOrder1() {
+		return this.order1;
+	}
+
+	public void setOrder1(Order order1) {
+		this.order1 = order1;
+	}
+
+	public Order getOrder2() {
+		return this.order2;
+	}
+
+	public void setOrder2(Order order2) {
+		this.order2 = order2;
+	}
+
+	public Portfolio getPortfolio() {
+		return this.portfolio;
+	}
+
+	public void setPortfolio(Portfolio portfolio) {
+		this.portfolio = portfolio;
+	}
+
+	public User getUser1() {
+		return this.user1;
+	}
+
+	public void setUser1(User user1) {
+		this.user1 = user1;
+	}
+
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	public User getUser2() {
 		return this.user2;
 	}
@@ -445,7 +519,10 @@ public class Order implements Serializable {
 		position.setOrder(null);
 
 		return position;
+<<<<<<< HEAD
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
+=======
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	}
 	
 	

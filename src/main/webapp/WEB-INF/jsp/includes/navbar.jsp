@@ -27,7 +27,11 @@
 						</a></li>
 						<li><a href="${pageContext.request.contextPath}/#">Executed
 								Blotter</a></li>
+<<<<<<< HEAD
 						<li><a href="${pageContext.request.contextPath}/#">Open
+=======
+						<li><a href="${pageContext.request.contextPath}/open-order">Open
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 								Orders</a></li>
 					</c:when>
 					<c:otherwise>

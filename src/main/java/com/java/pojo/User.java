@@ -5,9 +5,13 @@ import javax.persistence.*;
 import java.util.List;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
+=======
+
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 /**
  * The persistent class for the users database table.
  * 
@@ -19,11 +23,15 @@ import java.util.List;
 =======
 @Table(name="users")
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+<<<<<<< HEAD
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
+=======
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "user_id")
@@ -31,21 +39,31 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="user_id")
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
+=======
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="user_id")
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	private String userId;
 
 	private String email;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	@Column(name = "f_name")
 	private String fName;
 
 	@Column(name = "l_name")
 =======
+=======
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	@Column(name="f_name")
 	private String fName;
 
 	@Column(name="l_name")
+<<<<<<< HEAD
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
+=======
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	private String lName;
 
 	private String password;
@@ -54,6 +72,7 @@ public class User implements Serializable {
 
 	private String username;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	// bi-directional many-to-one association to Block
 	@OneToMany(mappedBy = "user")
@@ -70,6 +89,8 @@ public class User implements Serializable {
 	// bi-directional many-to-one association to Portfolio
 	@OneToMany(mappedBy = "user")
 =======
+=======
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	//bi-directional many-to-one association to Block
 	@OneToMany(mappedBy="user")
 	private List<Block> blocks;
@@ -84,7 +105,10 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Portfolio
 	@OneToMany(mappedBy="user")
+<<<<<<< HEAD
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
+=======
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	private List<Portfolio> portfolios;
 
 	public User() {
@@ -136,6 +160,29 @@ public class User implements Serializable {
 
 	public void setRole(String role) {
 		this.role = role;
+<<<<<<< HEAD
+	}
+
+	public String getUsername() {
+		return this.username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public List<Block> getBlocks() {
+		return this.blocks;
+	}
+
+	public void setBlocks(List<Block> blocks) {
+		this.blocks = blocks;
+	}
+
+	public Block addBlock(Block block) {
+		getBlocks().add(block);
+		block.setUser(this);
+=======
 	}
 
 	public String getUsername() {
@@ -164,6 +211,15 @@ public class User implements Serializable {
 	public Block removeBlock(Block block) {
 		getBlocks().remove(block);
 		block.setUser(null);
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
+
+		return block;
+	}
+
+<<<<<<< HEAD
+	public Block removeBlock(Block block) {
+		getBlocks().remove(block);
+		block.setUser(null);
 
 		return block;
 	}
@@ -172,6 +228,12 @@ public class User implements Serializable {
 		return this.orders1;
 	}
 
+=======
+	public List<Order> getOrders1() {
+		return this.orders1;
+	}
+
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	public void setOrders1(List<Order> orders1) {
 		this.orders1 = orders1;
 	}

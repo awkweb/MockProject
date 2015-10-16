@@ -145,9 +145,12 @@ public class ExecuteBlock implements Serializable {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
+=======
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	public Block getBlock() {
 		return this.block;
 	}
@@ -173,8 +176,12 @@ public class ExecuteBlock implements Serializable {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
 
 =======
 }
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
+=======
+}
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130

@@ -34,6 +34,7 @@ public class TraderBlockBlotterViewController {
 		}
 		return "block-blotter";
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}
 
 	@RequestMapping(value="/test")
@@ -50,5 +51,10 @@ public class TraderBlockBlotterViewController {
 	
 
 	
+=======
+	}
+	
+	
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 
 }

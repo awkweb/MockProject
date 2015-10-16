@@ -41,21 +41,31 @@ public class OrderDao {
 				.getResultList();
 		return orders;
 	}
+<<<<<<< HEAD
 	
 <<<<<<< HEAD
 	public List<Order> getTraderOrders(User trader) {
 		String sql = "FROM Order o WHERE o.user2 = :trader";
 		List<Order> orders = entityManager.createQuery(sql, Order.class)
 				.setParameter("trader", trader)
+=======
+	public List<Order> getOpenOrdersforUser(User user){
+		String sql = "FROM Order o WHERE o.user2 = :user and o.status = 'Open' and o.block= null";
+		List<Order> orders = entityManager.createQuery(sql, Order.class)
+				.setParameter("user", user)
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 				.getResultList();
 		return orders;
 	}
 	
+<<<<<<< HEAD
 	
 	
 	
 =======
 >>>>>>> 15c622984a11e3827ce883928fd391da0ec711fe
+=======
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	@Transactional
 	public void saveOrder(Order order) {
 		entityManager.persist(order);

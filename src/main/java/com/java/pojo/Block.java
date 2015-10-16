@@ -15,7 +15,11 @@ import java.util.List;
 @NamedQuery(name="Block.findAll", query="SELECT b FROM Block b")
 public class Block implements Serializable {
 	private static final long serialVersionUID = 1L;
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="block_id")
@@ -26,7 +30,12 @@ public class Block implements Serializable {
 
 	@Column(name="limit_price")
 	private float limitPrice;
-
+	
+	@Column(name="symbol")
+	private String symbol;
+	@Column(name="side")
+	private String side;
+	
 	@Column(name="open_qty")
 	private int openQty;
 
@@ -53,8 +62,47 @@ public class Block implements Serializable {
 	@OneToMany(mappedBy="block")
 	private List<Order> orders;
 
+<<<<<<< HEAD
 	public Block() {
 	}
+=======
+	
+	
+	
+	public Block() {
+	}
+	
+	
+
+	public Block(String symbol, String side, String status, User user, List<Order> orders) {
+		super();
+		this.executedQty = 0;
+		this.symbol = symbol;
+		this.side = side;
+		this.status = status;
+		this.totalQty = 0;
+		this.user = user;
+		this.orders = orders;
+	}
+
+
+
+	public String getSymbol() {
+		return symbol;
+	}
+
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
+	}
+
+	public String getSide() {
+		return side;
+	}
+
+	public void setSide(String side) {
+		this.side = side;
+	}
+>>>>>>> fc5a99a4a1b7583099248764a903b13df9761130
 
 	public String getBlockId() {
 		return this.blockId;
