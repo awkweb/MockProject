@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.java.pojo.Block;
+import com.java.pojo.Order;
 import com.java.pojo.User;
 
 @Repository
@@ -43,9 +44,33 @@ public class BlockDao {
 		return blocks;
 	}
 	
+	public List<Block> getBlocksForOrder(Order order) {
+		String sql = "FROM Block b WHERE b.side = :side "
+				+ "AND b.symbol = :symbol "
+				+ "AND b.status = 'new'";
+		List<Block> blocks = entityManager.createQuery(sql, Block.class)
+				.setParameter("side",order.getSide())
+				.setParameter("symbol",order.getSymbol())
+				.getResultList();
+		return blocks;
+	}
+	
 	@Transactional
 	public void saveBlock(Block block) {
 		entityManager.persist(block);
+	}
+	
+	@Transactional
+	public Boolean setStatusForBlockWithBlockId(String blockId, String status) {		
+		String sql = "UPDATE Block "
+				+ "SET status = :status "
+				+ "WHERE blockId = :blockId";
+		int result = entityManager.createQuery(sql)
+		.setParameter("status", status)
+		.setParameter("blockId", blockId)
+		.executeUpdate();
+		Boolean success = result != 0;
+		return success;
 	}
 
 }

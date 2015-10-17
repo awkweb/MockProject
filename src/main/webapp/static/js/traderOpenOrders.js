@@ -1,31 +1,49 @@
-$(document).ready(function() {
-	var selectedOrders = {};
-	$("#createblockbutton").click(function() {
-		selectedOrders = [];
-		$(".ordercheckbox").each(function() {
-			if ($(this).is(":checked")) {
-				selectedOrders.push($(this).attr("id"));
-			}
-		});
-
+$("#createblockbutton").click(function(event){
+	event.preventDefault();
+	var selectedOrders = $("input:checkbox:checked").map(function(){
+		return this.value;
+	}).toArray();
+	
+	if (selectedOrders.length > 0) {
 		$.ajax({
-			headers: { 
-		        'Accept': 'application/json',
-		        'Content-Type': 'application/json' 
-		    },
-			type : "POST",
-			url : "/mock/create-block",
+			type:"POST",
+			url: "/mock/create-block",
 			contentType: "application/json",
-			dataType : 'json',
-			data : JSON.stringify(selectedOrders),
-			contentType: 'application/json',
-			success: function(data) { 
-		        alert(data.id + " " + data.name);
-		    },
-		    error:function(data,status,er) { 
-		        alert("error: "+data+" status: "+status+" er:"+er);
-		    }
-		
-		});
-	});
+			data: JSON.stringify(selectedOrders),
+			success: function(result){
+				console.log("success");
+				location.reload();
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR.status);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		}) 
+	}
+});
+
+$("#addtoblockbutton").click(function(event){
+	event.preventDefault();
+	var selectedOrders = $("input:checkbox:checked").map(function(){
+		return this.value;
+	}).toArray();
+	
+	if (selectedOrders.length > 0) {
+		$.ajax({
+			type:"POST",
+			url: "/mock/add-block",
+			contentType: "application/json",
+			data: JSON.stringify(selectedOrders),
+			success: function(result){
+				console.log("success");
+				location.reload();
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR.status);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		}) 
+	}
 });

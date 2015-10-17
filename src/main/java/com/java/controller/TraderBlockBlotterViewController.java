@@ -31,11 +31,17 @@ public class TraderBlockBlotterViewController {
 	public String loadEmptyModelBean(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("authenticatedUser");
 		List<Block> blocks = blockManager.getBlocksForUserWithStatus(user, "new");
-		user.setBlocks(blocks);
-		for (Block block : user.getBlocks()) {
+		List<Block> filteredBlocks = new ArrayList<Block>();
+		for (Block block : blocks) {
 			List<Order> orders = orderManager.getOrdersForBlock(block);
-			block.setOrders(orders);
+			if (!orders.isEmpty()) {
+				block.setOrders(orders);
+				filteredBlocks.add(block);
+			} else {
+				blockManager.setStatusForBlockWithBlockId(block.getBlockId(), "cancelled");
+			}
 		}
+		user.setBlocks(filteredBlocks);
 		return "block-blotter";
 	}
 
@@ -49,6 +55,31 @@ public class TraderBlockBlotterViewController {
 		}
 		for (String id : orderIds) {
 			orderManager.removeOrderFromBlockWithOrderId(id);
+		}
+		return "block-blotter";
+	}
+	
+	@RequestMapping(value = "/cancel-blocks", method = RequestMethod.POST)
+	public String cancelBlocks(@RequestBody String json) {
+		String[] filteredJson = json.substring(1, json.length() - 1).split(",");
+		List<String> blockIds = new ArrayList<String>();
+		
+		for(String id : filteredJson) {
+			blockIds.add(id.substring(1, id.length() - 1));
+		}
+		
+		List<Block> blocks = new ArrayList<Block>();
+		for (String id : blockIds) {
+			blockManager.setStatusForBlockWithBlockId(id, "cancelled");
+			Block block = blockManager.getBlockWithId(id);
+			blocks.add(block);
+		}
+		
+		for (Block block : blocks) {
+			List<Order> orders = block.getOrders();
+			for (Order order : orders) {
+				orderManager.removeOrderFromBlockWithOrderId(order.getOrderId());
+			}
 		}
 		return "block-blotter";
 	}

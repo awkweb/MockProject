@@ -22,7 +22,7 @@
 				<button type="button" class="btn btn-default">Send Block(s)</button>
 			</div>
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-default">Cancel
+				<button id="cancelBlocks" type="button" class="btn btn-default">Cancel
 					Block(s)</button>
 			</div>
 		</div>

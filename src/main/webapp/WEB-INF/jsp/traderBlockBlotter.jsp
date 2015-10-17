@@ -115,5 +115,4 @@
 
 </div>
 
-<script
-	src="${pageContext.request.contextPath}/static/js/traderBlockBlotter.js"></script>
+<script src="${pageContext.request.contextPath}/static/js/traderBlockBlotter.js"></script>

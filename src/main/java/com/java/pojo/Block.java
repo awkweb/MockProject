@@ -1,10 +1,20 @@
 package com.java.pojo;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -55,10 +65,20 @@ public class Block implements Serializable {
 	private List<Executeblock> executeblocks;
 
 	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="block")
+	@OneToMany(mappedBy="block", fetch=FetchType.EAGER)
 	private List<Order> orders;
 
 	public Block() {
+	}
+	
+	public Block(String symbol, String side, String status, User user, List<Order> orders) {
+		this.executedQty = 0;
+		this.symbol = symbol;
+		this.side = side;
+		this.status = status;
+		this.totalQty = 0;
+		this.user = user;
+		this.orders = orders;
 	}
 
 	public String getBlockId() {

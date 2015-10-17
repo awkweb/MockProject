@@ -14,18 +14,18 @@ import com.java.pojo.User;
 
 @Repository
 public class OrderDao {
-	
+
 	static{
-	    try {
-	    	Class.forName("com.mysql.jdbc.Driver");
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	    }
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
@@ -33,15 +33,16 @@ public class OrderDao {
 	public Order getOrderWithId(String orderId) {
 		return entityManager.find(Order.class, orderId);
 	}
-	
+
 	public List<Order> getOrdersForBlock(Block block) {
 		String sql = "FROM Order o WHERE o.block = :block";
-		List<Order> orders = entityManager.createQuery(sql, Order.class)
+		List<Order> orders;
+		orders = entityManager.createQuery(sql, Order.class)
 				.setParameter("block", block)
 				.getResultList();
 		return orders;
 	}
-	
+
 	public List<Order> getOpenOrdersForUser(User user){
 		String sql = "FROM Order o WHERE o.user2 = :user "
 				+ "AND o.status = 'Open' "
@@ -51,21 +52,26 @@ public class OrderDao {
 				.getResultList();
 		return orders;
 	}
-	
+
 	@Transactional
 	public void saveOrder(Order order) {
 		entityManager.persist(order);
 	}
 	
 	@Transactional
+	public void updateOrder(Order order) {
+		entityManager.merge(order);
+	}
+
+	@Transactional
 	public Boolean removeOrderFromBlockWithOrderId(String orderId) {		
 		String sql = "UPDATE Order "
 				+ "SET blockid = :blockid "
 				+ "WHERE order_id = :orderid";
 		int result = entityManager.createQuery(sql)
-		.setParameter("blockid", null)
-		.setParameter("orderid", orderId)
-		.executeUpdate();
+				.setParameter("blockid", null)
+				.setParameter("orderid", orderId)
+				.executeUpdate();
 		Boolean success = result != 0;
 		return success;
 	}

@@ -5,7 +5,7 @@
 		<div class="btn-group btn-group-justified" role="group"
 			aria-label="...">
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-default">Add Order(s)
+				<button id="addtoblockbutton" type="button" class="btn btn-default">Add Order(s)
 					to Block</button>
 			</div>
 			<div class="btn-group" role="group">

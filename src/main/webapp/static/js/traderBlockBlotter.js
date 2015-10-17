@@ -3,8 +3,6 @@ $("#removeOrders").click(function(event){
 	var orderIds = $("input:checkbox:checked").map(function(){
 		return this.value;
 	}).toArray();
-
-	console.log(orderIds);
 	
 	if (orderIds.length > 0) {
 		$.ajax({
@@ -23,4 +21,29 @@ $("#removeOrders").click(function(event){
 			}
 		}) 
 	}
-})
+});
+
+$("#cancelBlocks").click(function(event){
+	event.preventDefault();
+	var blockIds = $("input:checkbox:checked").map(function(){
+		return this.value;
+	}).toArray();
+	
+	if (blockIds.length > 0) {
+		$.ajax({
+			type:"POST",
+			url: "/mock/cancel-blocks",
+			contentType: "application/json",
+			data: JSON.stringify(blockIds),
+			success: function(result){
+				console.log("success");
+				location.reload();
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR.status);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		}) 
+	}
+});

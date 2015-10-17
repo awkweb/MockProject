@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.java.dao.BlockDao;
 import com.java.pojo.Block;
+import com.java.pojo.Order;
 import com.java.pojo.User;
 
 @Component
@@ -25,6 +26,14 @@ public class BlockManager {
 	
 	public void saveBlock(Block block) {
 		blockDao.saveBlock(block);
+	}
+	
+	public Boolean setStatusForBlockWithBlockId(String blockId, String status) {		
+		return blockDao.setStatusForBlockWithBlockId(blockId, status);
+	}
+	
+	public List<Block> getBlocksForOrder(Order order) {
+		return blockDao.getBlocksForOrder(order);
 	}
 	
 }
