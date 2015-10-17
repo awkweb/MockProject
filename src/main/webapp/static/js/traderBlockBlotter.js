@@ -5,19 +5,22 @@ $("#removeOrders").click(function(event){
 	}).toArray();
 
 	console.log(orderIds);
-
-	$.ajax({
-		type:"POST",
-		url: "/mock/removeOrders",
-		contentType: "application/json",
-		data: JSON.stringify(orderIds),
-		success: function(result){
-			console.log("success");
-		},
-		error: function(jqXHR, textStatus, errorThrown) {
-			console.log(jqXHR.status);
-			console.log(textStatus);
-			console.log(errorThrown);
-		}
-	}) 
+	
+	if (orderIds.length > 0) {
+		$.ajax({
+			type:"POST",
+			url: "/mock/remove-orders",
+			contentType: "application/json",
+			data: JSON.stringify(orderIds),
+			success: function(result){
+				console.log("success");
+				location.reload();
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR.status);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		}) 
+	}
 })

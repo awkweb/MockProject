@@ -57,7 +57,7 @@ public class Order implements Serializable {
 
 	//bi-directional many-to-one association to Executeblock
 	@OneToMany(mappedBy="order")
-	private List<ExecuteBlock> executeblocks;
+	private List<Executeblock> executeblocks;
 
 	//bi-directional many-to-one association to Block
 	@ManyToOne
@@ -215,22 +215,22 @@ public class Order implements Serializable {
 		this.totalQty = totalQty;
 	}
 
-	public List<ExecuteBlock> getExecuteblocks() {
+	public List<Executeblock> getExecuteblocks() {
 		return this.executeblocks;
 	}
 
-	public void setExecuteblocks(List<ExecuteBlock> executeblocks) {
+	public void setExecuteblocks(List<Executeblock> executeblocks) {
 		this.executeblocks = executeblocks;
 	}
 
-	public ExecuteBlock addExecuteblock(ExecuteBlock executeblock) {
+	public Executeblock addExecuteblock(Executeblock executeblock) {
 		getExecuteblocks().add(executeblock);
 		executeblock.setOrder(this);
 
 		return executeblock;
 	}
 
-	public ExecuteBlock removeExecuteblock(ExecuteBlock executeblock) {
+	public Executeblock removeExecuteblock(Executeblock executeblock) {
 		getExecuteblocks().remove(executeblock);
 		executeblock.setOrder(null);
 

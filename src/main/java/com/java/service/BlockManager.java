@@ -19,8 +19,8 @@ public class BlockManager {
 		return blockDao.getBlockWithId(blockId);
 	}
 	
-	public List<Block> getBlocksForUser(User user) {
-		return blockDao.getBlocksForUser(user);
+	public List<Block> getBlocksForUserWithStatus(User user, String status) {
+		return blockDao.getBlocksForUserWithStatus(user, status);
 	}
 	
 	public void saveBlock(Block block) {

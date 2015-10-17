@@ -32,6 +32,8 @@ public class User implements Serializable {
 
 	private String role;
 
+	private String traderId;
+
 	private String username;
 
 	//bi-directional many-to-one association to Block
@@ -99,6 +101,14 @@ public class User implements Serializable {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getTraderId() {
+		return this.traderId;
+	}
+
+	public void setTraderId(String traderId) {
+		this.traderId = traderId;
 	}
 
 	public String getUsername() {

@@ -29,7 +29,7 @@ public class Security implements Serializable {
 
 	//bi-directional many-to-one association to Executeblock
 	@OneToMany(mappedBy="security")
-	private List<ExecuteBlock> executeblocks;
+	private List<Executeblock> executeblocks;
 
 	public Security() {
 	}
@@ -66,22 +66,22 @@ public class Security implements Serializable {
 		this.name = name;
 	}
 
-	public List<ExecuteBlock> getExecuteblocks() {
+	public List<Executeblock> getExecuteblocks() {
 		return this.executeblocks;
 	}
 
-	public void setExecuteblocks(List<ExecuteBlock> executeblocks) {
+	public void setExecuteblocks(List<Executeblock> executeblocks) {
 		this.executeblocks = executeblocks;
 	}
 
-	public ExecuteBlock addExecuteblock(ExecuteBlock executeblock) {
+	public Executeblock addExecuteblock(Executeblock executeblock) {
 		getExecuteblocks().add(executeblock);
 		executeblock.setSecurity(this);
 
 		return executeblock;
 	}
 
-	public ExecuteBlock removeExecuteblock(ExecuteBlock executeblock) {
+	public Executeblock removeExecuteblock(Executeblock executeblock) {
 		getExecuteblocks().remove(executeblock);
 		executeblock.setSecurity(null);
 

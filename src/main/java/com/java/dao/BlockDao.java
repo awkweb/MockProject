@@ -33,10 +33,12 @@ public class BlockDao {
 		return entityManager.find(Block.class, blockId);
 	}
 	
-	public List<Block> getBlocksForUser(User user) {
-		String sql = "FROM Block b WHERE b.user = :user";
+	public List<Block> getBlocksForUserWithStatus(User user, String status) {
+		String sql = "FROM Block b WHERE b.user = :user "
+				+ "AND b.status = :status";
 		List<Block> blocks = entityManager.createQuery(sql, Block.class)
 				.setParameter("user", user)
+				.setParameter("status", status)
 				.getResultList();
 		return blocks;
 	}

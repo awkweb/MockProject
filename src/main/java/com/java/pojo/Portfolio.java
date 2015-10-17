@@ -22,6 +22,8 @@ public class Portfolio implements Serializable {
 
 	private String name;
 
+	private String pmID;
+
 	//bi-directional many-to-one association to Order
 	@OneToMany(mappedBy="portfolio")
 	private List<Order> orders;
@@ -52,6 +54,14 @@ public class Portfolio implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPmID() {
+		return this.pmID;
+	}
+
+	public void setPmID(String pmID) {
+		this.pmID = pmID;
 	}
 
 	public List<Order> getOrders() {

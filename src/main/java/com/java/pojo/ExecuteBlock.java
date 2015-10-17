@@ -11,8 +11,8 @@ import java.sql.Timestamp;
  */
 @Entity
 @Table(name="executeblocks")
-@NamedQuery(name="Executeblock.findAll", query="SELECT e FROM ExecuteBlock e")
-public class ExecuteBlock implements Serializable {
+@NamedQuery(name="Executeblock.findAll", query="SELECT e FROM Executeblock e")
+public class Executeblock implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -34,6 +34,8 @@ public class ExecuteBlock implements Serializable {
 
 	@Column(name="remaining_qty")
 	private int remainingQty;
+
+	private String side;
 
 	private String status;
 
@@ -61,7 +63,7 @@ public class ExecuteBlock implements Serializable {
 	@JoinColumn(name="symbol")
 	private Security security;
 
-	public ExecuteBlock() {
+	public Executeblock() {
 	}
 
 	public String getExecutionId() {
@@ -110,6 +112,14 @@ public class ExecuteBlock implements Serializable {
 
 	public void setRemainingQty(int remainingQty) {
 		this.remainingQty = remainingQty;
+	}
+
+	public String getSide() {
+		return this.side;
+	}
+
+	public void setSide(String side) {
+		this.side = side;
 	}
 
 	public String getStatus() {

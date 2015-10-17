@@ -1,5 +1,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<c:if test="${error}">
+	<div class="alert alert-danger" role="alert">
+		Oops! Unable to remove orders from block.
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</c:if>
+
 <div class="panel-group" id="accordion" role="tablist"
 	aria-multiselectable="true">
 
@@ -7,11 +17,12 @@
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="headingOne">
 				<h4 class="panel-title">
-					<input type="checkbox" value="${block.getBlockId()}" data-type="block"> <a
-						class="collapsed" role="button" data-toggle="collapse"
-						data-parent="#accordion" href="#collapse${block.getBlockId()}"
-						aria-expanded=false aria-controls="collapseOne">Block
-						#${block.getBlockId()} ${block.getSymbol()} ${block.getSide()}</a> <small>Type:
+					<input type="checkbox" value="${block.getBlockId()}"
+						data-type="block"> <a class="collapsed" role="button"
+						data-toggle="collapse" data-parent="#accordion"
+						href="#collapse${block.getBlockId()}" aria-expanded=false
+						aria-controls="collapseOne">Block #${block.getBlockId()}
+						${block.getSymbol()} ${block.getSide()}</a> <small>Type:
 						${block.getOrders().get(0).getOrdertype()}, <c:choose>
 							<c:when
 								test="${block.getOrders().get(0).getOrdertype().equals('Limit')}">
@@ -22,8 +33,7 @@
 									Stop Price: $${block.getStopPrice()}, 
 								</c:when>
 							<c:otherwise />
-						</c:choose>
-						Total Quantity: ${block.getTotalQty()}
+						</c:choose> Total Quantity: ${block.getTotalQty()}
 					</small>
 				</h4>
 			</div>
@@ -105,4 +115,5 @@
 
 </div>
 
-<script src="${pageContext.request.contextPath}/static/js/traderBlockBlotter.js"></script>
+<script
+	src="${pageContext.request.contextPath}/static/js/traderBlockBlotter.js"></script>

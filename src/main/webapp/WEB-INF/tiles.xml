@@ -4,13 +4,13 @@
        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
 	<!-- TEMPLATES -->
-	<definition name="login-layout.definition" template="/WEB-INF/jsp/loginLayout.jsp">
+	<definition name="login-layout.definition" template="/WEB-INF/jsp/layouts/loginLayout.jsp">
 		<put-attribute name="head" value="/WEB-INF/jsp/includes/head.jsp" />
 		<put-attribute name="title" value="" />
 		<put-attribute name="content" value="" />
 	</definition>
 	
-	<definition name="trader-layout.definition" template="/WEB-INF/jsp/traderLayout.jsp">
+	<definition name="trader-layout.definition" template="/WEB-INF/jsp/layouts/traderLayout.jsp">
 		<put-attribute name="head" value="/WEB-INF/jsp/includes/head.jsp" />
 		<put-attribute name="title" value="" />
 		<put-attribute name="navbar" value="/WEB-INF/jsp/includes/navbar.jsp" />

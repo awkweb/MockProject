@@ -3,6 +3,7 @@ package com.java.pojo;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -15,7 +16,7 @@ import java.util.List;
 @NamedQuery(name="Block.findAll", query="SELECT b FROM Block b")
 public class Block implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="block_id")
@@ -26,19 +27,18 @@ public class Block implements Serializable {
 
 	@Column(name="limit_price")
 	private float limitPrice;
-	
-	@Column(name="symbol")
-	private String symbol;
-	@Column(name="side")
-	private String side;
-	
+
 	@Column(name="open_qty")
 	private int openQty;
+
+	private String side;
 
 	private String status;
 
 	@Column(name="stop_price")
 	private float stopPrice;
+
+	private String symbol;
 
 	private Timestamp timestamp;
 
@@ -52,47 +52,13 @@ public class Block implements Serializable {
 
 	//bi-directional many-to-one association to Executeblock
 	@OneToMany(mappedBy="block")
-	private List<ExecuteBlock> executeblocks;
+	private List<Executeblock> executeblocks;
 
 	//bi-directional many-to-one association to Order
 	@OneToMany(mappedBy="block")
 	private List<Order> orders;
 
-	
-	
-	
 	public Block() {
-	}
-	
-	
-
-	public Block(String symbol, String side, String status, User user, List<Order> orders) {
-		super();
-		this.executedQty = 0;
-		this.symbol = symbol;
-		this.side = side;
-		this.status = status;
-		this.totalQty = 0;
-		this.user = user;
-		this.orders = orders;
-	}
-
-
-
-	public String getSymbol() {
-		return symbol;
-	}
-
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-
-	public String getSide() {
-		return side;
-	}
-
-	public void setSide(String side) {
-		this.side = side;
 	}
 
 	public String getBlockId() {
@@ -127,6 +93,14 @@ public class Block implements Serializable {
 		this.openQty = openQty;
 	}
 
+	public String getSide() {
+		return this.side;
+	}
+
+	public void setSide(String side) {
+		this.side = side;
+	}
+
 	public String getStatus() {
 		return this.status;
 	}
@@ -141,6 +115,14 @@ public class Block implements Serializable {
 
 	public void setStopPrice(float stopPrice) {
 		this.stopPrice = stopPrice;
+	}
+
+	public String getSymbol() {
+		return this.symbol;
+	}
+
+	public void setSymbol(String symbol) {
+		this.symbol = symbol;
 	}
 
 	public Timestamp getTimestamp() {
@@ -167,22 +149,22 @@ public class Block implements Serializable {
 		this.user = user;
 	}
 
-	public List<ExecuteBlock> getExecuteblocks() {
+	public List<Executeblock> getExecuteblocks() {
 		return this.executeblocks;
 	}
 
-	public void setExecuteblocks(List<ExecuteBlock> executeblocks) {
+	public void setExecuteblocks(List<Executeblock> executeblocks) {
 		this.executeblocks = executeblocks;
 	}
 
-	public ExecuteBlock addExecuteblock(ExecuteBlock executeblock) {
+	public Executeblock addExecuteblock(Executeblock executeblock) {
 		getExecuteblocks().add(executeblock);
 		executeblock.setBlock(this);
 
 		return executeblock;
 	}
 
-	public ExecuteBlock removeExecuteblock(ExecuteBlock executeblock) {
+	public Executeblock removeExecuteblock(Executeblock executeblock) {
 		getExecuteblocks().remove(executeblock);
 		executeblock.setBlock(null);
 
@@ -210,5 +192,5 @@ public class Block implements Serializable {
 
 		return order;
 	}
-	
+
 }

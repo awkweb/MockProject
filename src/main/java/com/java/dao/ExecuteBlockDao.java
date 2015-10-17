@@ -6,7 +6,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.java.pojo.ExecuteBlock;
+import com.java.pojo.Executeblock;
 
 @Repository
 public class ExecuteBlockDao {
@@ -26,12 +26,12 @@ public class ExecuteBlockDao {
 		this.entityManager = entityManager;
 	}
 
-	public ExecuteBlock getExecuteBlockDetails(int executeBlockId) {
-		return entityManager.find(ExecuteBlock.class, executeBlockId);
+	public Executeblock getExecuteBlockDetails(int executeBlockId) {
+		return entityManager.find(Executeblock.class, executeBlockId);
 	}
 	
 	@Transactional
-	public void saveDetails(ExecuteBlock user) {
+	public void saveDetails(Executeblock user) {
 		entityManager.persist(user);
 	}
 	

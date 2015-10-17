@@ -1,5 +1,6 @@
 package com.java.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -29,7 +30,7 @@ public class TraderBlockBlotterViewController {
 	@RequestMapping(value="/block-blotter")
 	public String loadEmptyModelBean(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("authenticatedUser");
-		List<Block> blocks = blockManager.getBlocksForUser(user);
+		List<Block> blocks = blockManager.getBlocksForUserWithStatus(user, "new");
 		user.setBlocks(blocks);
 		for (Block block : user.getBlocks()) {
 			List<Order> orders = orderManager.getOrdersForBlock(block);
@@ -38,32 +39,16 @@ public class TraderBlockBlotterViewController {
 		return "block-blotter";
 	}
 
-	@RequestMapping(value = "/removeOrders", method = RequestMethod.POST)
+	@RequestMapping(value = "/remove-orders", method = RequestMethod.POST)
 	public String removeOrders(@RequestBody String json) {
-		json = json.replace("[","");
-		json = json.replace("]","");
-		String[] orderIds = json.split(",");
+		String[] filteredJson = json.substring(1, json.length() - 1).split(",");
+		List<String> orderIds = new ArrayList<String>();
 		
+		for(String id : filteredJson) {
+			orderIds.add(id.substring(1, id.length() - 1));
+		}
 		for (String id : orderIds) {
-			Boolean bool = orderManager.removeOrderFromBlockWithOrderId(id);
-			System.out.println(id + " " + bool);
-
-			Order order = null;
-			try {
-				order = orderManager.getOrderWithId(id);
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println(e);
-			} finally {
-				if (order != null) {
-					System.out.println(order.toString());
-					System.out.println(order.getBlock().getBlockId());
-					order.setBlock(null);
-					System.out.println(order.getBlock().getBlockId());
-				} else {
-					System.out.println("Order is null");
-				}
-			}
+			orderManager.removeOrderFromBlockWithOrderId(id);
 		}
 		return "block-blotter";
 	}
