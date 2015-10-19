@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:if test="${cancelBlockError}">
-	<div class="alert alert-danger" role="alert">
-		Oops! Unable to remove orders from block.
+	<div class="alert alert-success" role="alert">
+		Block cancelled!
 		<button type="button" class="close" data-dismiss="alert"
 			aria-label="Close">
 			<span aria-hidden="true">&times;</span>
@@ -43,8 +43,9 @@
 
 				<table class="table table-bordered table-hover table-responsive">
 					<tr>
-						<th class="text-center"><input type="checkbox"
-								data-type="order"></th>
+						<th class="text-center"><input type="checkbox" name="block"
+							data-type="block" id="${block.getSide()}_${block.getSymbol()}"
+							class="blockcheckbox"></th>
 						<th>Order Id</th>
 						<th>Portfolio Manager</th>
 						<th>Portfolio</th>
@@ -72,7 +73,9 @@
 					<c:forEach items="${block.getOrders()}" var="order">
 						<tr>
 							<td class="text-center"><input type="checkbox"
-								value="${order.getOrderId()}" data-type="order"></td>
+								class="ordercheckbox" value="${order.getOrderId()}"
+								data-type="order"
+								data-checkid="${order.getSide()}_${order.getSymbol()}"></td>
 							<td>${order.getOrderId()}</td>
 							<td>${order.getUser2().getFName()}
 								${order.getUser2().getLName()}</td>
@@ -116,4 +119,5 @@
 
 </div>
 
-<script src="${pageContext.request.contextPath}/static/js/traderBlockBlotter.js"></script>
+<script
+	src="${pageContext.request.contextPath}/static/js/traderBlockBlotter.js"></script>

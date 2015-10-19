@@ -3,7 +3,7 @@ $("#removeOrders").click(function(event){
 	var orderIds = $("input:checkbox:checked").map(function(){
 		return this.value;
 	}).toArray();
-	
+
 	if (orderIds.length > 0) {
 		$.ajax({
 			type:"POST",
@@ -30,7 +30,7 @@ $("#cancelBlock").click(function(event){
 	var blockId = $("input:radio[name=block]:checked").map(function(){
 		return this.value;
 	}).toArray();
-		
+
 	if (blockId.length > 0) {
 		$.ajax({
 			type:"POST",
@@ -57,7 +57,7 @@ $("#sendBlock").click(function(event){
 	var blockId = $("input:radio[name=block]:checked").map(function(){
 		return this.value;
 	}).toArray();
-		
+
 	if (blockId.length > 0) {
 		$.ajax({
 			type:"POST",
@@ -76,4 +76,14 @@ $("#sendBlock").click(function(event){
 	} else {
 		alert("No blocks selected.")
 	}
+});
+
+$('.blockcheckbox').click(function() {
+	var blockvalue = $(this).attr("id");
+	var checkedStatus = $("input:checkbox[name=block]:checked").is(':checked');
+
+	$("input[data-checkid=" + blockvalue + "]").each(function() {
+		console.log("Checking boxes as "+checkedStatus);
+		$(this).prop('checked', checkedStatus);
+	});
 });

@@ -32,7 +32,7 @@
 				<table class="table table-bordered table-hover table-responsive">
 					<tr>
 						<th class="text-center">
-						<input type="checkbox" name ="block" data-type="block" id="${block.getSide()}_${block.getSymbol()}" 
+						<input type="checkbox" name="block" data-type="block" id="${block.getSide()}_${block.getSymbol()}" 
 						class="blockcheckbox">
 						</th>
 						<th>Order Id</th>
@@ -62,7 +62,7 @@
 					<c:forEach items="${block.getOrders()}" var="order">
 						<tr>
 							<td class="text-center"><input type="checkbox" class="ordercheckbox"
-								value="${order.getOrderId()}" data-type="order" data-checkid="${order.getSide()}_${order.getSymbol()}" =></td>
+								value="${order.getOrderId()}" data-type="order" data-checkid="${order.getSide()}_${order.getSymbol()}"></td>
 							<td>${order.getOrderId()}</td>
 							<td>${order.getUser2().getFName()}
 								${order.getUser2().getLName()}</td>

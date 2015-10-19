@@ -28,7 +28,7 @@ import com.java.service.OrderManager;
 @SessionAttributes("cancelBlockError")
 public class TraderBlockBlotterViewController {
 
-	int cancelBlockCounter = 0;
+	static int counter = 0;
 
 	@Autowired
 	private BlockManager blockManager;
@@ -50,26 +50,9 @@ public class TraderBlockBlotterViewController {
 				blockManager.setStatusForBlockWithBlockId(block.getBlockId(), "cancelled");
 			}
 		}
+		
+		manageAlertForSessionAndModelWithName(session, model, "cancelBlockError");
 
-		boolean test;
-		try {
-			test = (boolean) session.getAttribute("cancelBlockError");
-			System.out.println(test);
-			System.out.println("Outside " + cancelBlockCounter);
-			if (test) {
-				if (cancelBlockCounter >= 1) {
-					System.out.println("True " + cancelBlockCounter);
-					session.removeAttribute("cancelBlockError");
-					model.addAttribute("cancelBlockError", false);
-					cancelBlockCounter = 0;
-				} else {
-					cancelBlockCounter++;
-					System.out.println("False " + cancelBlockCounter);
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 		user.setBlocks(filteredBlocks);
 		return "block-blotter";
 	}
@@ -101,8 +84,8 @@ public class TraderBlockBlotterViewController {
 			orderManager.removeOrderFromBlockWithOrderId(order.getOrderId());
 		}
 		model.addAttribute("cancelBlockError", true);
-		cancelBlockCounter = 0;
-		System.out.println("cancel-block " + cancelBlockCounter);
+		counter = 0;
+		System.out.println("cancel-block " + counter);
 		return "block-blotter";
 	}
 
@@ -132,6 +115,27 @@ public class TraderBlockBlotterViewController {
 		// Create Executeblock for block
 
 		return "block-blotter";
+	}
+	
+	public static void manageAlertForSessionAndModelWithName(HttpSession session, Model model, String name) {
+		Object sessionCheck;
+		boolean flag;
+		sessionCheck = session.getAttribute(name);
+		if (sessionCheck != null) {
+			try {
+				flag = (boolean) session.getAttribute(name);
+				if (flag) {
+					if (counter >= 1) {
+						model.addAttribute(name, false);
+						counter = 0;
+					} else {
+						counter++;
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
