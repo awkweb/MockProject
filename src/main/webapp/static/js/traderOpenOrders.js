@@ -1,9 +1,8 @@
 $("#createblockbutton").click(function(event) {
 	event.preventDefault();
-	var selectedOrders = $("input:checkbox:checked").map(function() {
+	var selectedOrders = $(".ordercheckbox:checked").map(function() {
 		return this.value;
 	}).toArray();
-
 	if (selectedOrders.length > 0) {
 		$.ajax({
 			type : "POST",
@@ -22,13 +21,11 @@ $("#createblockbutton").click(function(event) {
 		})
 	}
 });
-$("#addtoblockbutton").click(function(event) {
 
-});
 
 $("#addtoblockbutton").click(function(event) {
 	event.preventDefault();
-	var selectedOrders = $("input:checkbox:checked").map(function() {
+	var selectedOrders = $(".ordercheckbox:checked").map(function() {
 		return this.value;
 	}).toArray();
 
@@ -62,7 +59,6 @@ $("#selectaddblockbutton").click(function(event) {
 
 	event.preventDefault();
 	var selectedblock = $("input:radio[name=selectblock]:checked").attr("id");
-	alert(selectedblock);
 	if (selectedblock != null) {
 		$.ajax({
 			type : "POST",
@@ -83,5 +79,18 @@ $("#selectaddblockbutton").click(function(event) {
 			}
 		})
 	}
+
+});
+$('.blockcheckbox').click(function() {
+	var blockvalue = $(this).attr("id");
+	var checkedStatus = $("input:checkbox[name=block]:checked").is(':checked');
+
+	
+
+	$("input[data-checkid=" + blockvalue + "]").each(function() {
+		console.log("Checking boxes as "+checkedStatus);
+		$(this).prop('checked', checkedStatus);
+	});
+
 
 });

@@ -2,6 +2,7 @@ package com.java.pojo;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -71,14 +72,14 @@ public class Block implements Serializable {
 	public Block() {
 	}
 	
-	public Block(String symbol, String side, String status, User user, List<Order> orders) {
+	public Block(String symbol, String side, String status, User user, List<Order> order) {
 		this.executedQty = 0;
 		this.symbol = symbol;
 		this.side = side;
 		this.status = status;
 		this.totalQty = 0;
 		this.user = user;
-		this.orders = orders;
+		this.orders = order;
 	}
 
 	public String getBlockId() {
@@ -156,6 +157,13 @@ public class Block implements Serializable {
 	public int getTotalQty() {
 		return this.totalQty;
 	}
+	public int calculateTotalQty(){
+		int sum =0;
+		for(Order order : this.orders){
+			sum+=order.getTotalQty();
+		}
+		return sum;
+	}
 
 	public void setTotalQty(int totalQty) {
 		this.totalQty = totalQty;
@@ -201,6 +209,7 @@ public class Block implements Serializable {
 
 	public Order addOrder(Order order) {
 		getOrders().add(order);
+		this.totalQty+=order.getTotalQty();
 		order.setBlock(this);
 
 		return order;

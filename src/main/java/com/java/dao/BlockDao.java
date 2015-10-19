@@ -86,5 +86,20 @@ public class BlockDao {
 		Boolean success = result != 0;
 		return success;
 	}
+	@Transactional
+	public Boolean setQtyForBlockWithBlockId(String blockId, Integer qty) {	
+		int temp =getBlockWithId(blockId).getTotalQty();
+		System.out.println(temp);
+		System.out.println(blockId);
+		String sql = "UPDATE Block "
+				+ "SET totalQty = :qty"
+				+ "WHERE blockId = :blockId";
+		int result = entityManager.createQuery(sql)
+		.setParameter("qty", temp+qty)
+		.setParameter("blockId", blockId)
+		.executeUpdate();
+		Boolean success = result != 0;
+		return success;
+	}
 
 }

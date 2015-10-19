@@ -64,7 +64,7 @@ public class OrderManager {
 				}
 			}
 			if (!added) {
-				Block newTemp = new Block(order.getSymbol(), order.getSide(), "Proposed", user, new ArrayList<Order>());
+				Block newTemp = new Block(order.getSymbol(), order.getSide(), "Proposed", user,new ArrayList<Order>());
 				newTemp.getOrders().add(order);
 				newTemp.setTotalQty(order.getTotalQty());
 				pblocks.add(newTemp);

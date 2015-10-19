@@ -7,8 +7,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="headingOne">
 				<h4 class="panel-title">
-					<input type="checkbox" value="${loop.index}"
-						data-type="block"> <a class="collapsed" role="button"
+					 <a class="collapsed" role="button"
 						data-toggle="collapse" data-parent="#accordion"
 						href="#collapse${loop.index}" aria-expanded=false
 						aria-controls="collapseOne">Proposed ${block.getSymbol()}
@@ -32,7 +31,10 @@
 
 				<table class="table table-bordered table-hover table-responsive">
 					<tr>
-						<th class="text-center"><a href="#">Select All</a></th>
+						<th class="text-center">
+						<input type="checkbox" name ="block" data-type="block" id="${block.getSide()}_${block.getSymbol()}" 
+						class="blockcheckbox">
+						</th>
 						<th>Order Id</th>
 						<th>Portfolio Manager</th>
 						<th>Portfolio</th>
@@ -59,8 +61,8 @@
 					</tr>
 					<c:forEach items="${block.getOrders()}" var="order">
 						<tr>
-							<td class="text-center"><input type="checkbox"
-								value="${order.getOrderId()}" data-type="order"></td>
+							<td class="text-center"><input type="checkbox" class="ordercheckbox"
+								value="${order.getOrderId()}" data-type="order" data-checkid="${order.getSide()}_${order.getSymbol()}" =></td>
 							<td>${order.getOrderId()}</td>
 							<td>${order.getUser2().getFName()}
 								${order.getUser2().getLName()}</td>

@@ -50,12 +50,13 @@ public class TraderOpenOrdersViewController {
 
 		Block newBlock = new Block(selected4Block.get(0).getSymbol(),
 				selected4Block.get(0).getSide(), "new", selected4Block.get(0).getUser2(),selected4Block);
-		System.out.println(newBlock);
+		newBlock.setTotalQty(newBlock.calculateTotalQty());
 		blockManager.saveBlock(newBlock);
 		for(Order order : selected4Block){
 			order.setBlock(newBlock);
 			orderManager.updateOrder(order);
 		}
+		blockManager.updateBlock(newBlock);
 		return "block-blotter";
 	}
 
@@ -93,15 +94,14 @@ public class TraderOpenOrdersViewController {
 		
 		Block selectedBlock = blockManager.getBlockWithId(selectedBlockID);
 		List<Integer> orderids2Add = (List<Integer>) session.getAttribute("selectedorderlist");
-		List<Order> orders2Add = new ArrayList<Order>();
 		for(Integer orderid : orderids2Add){
 			Order order = orderManager.getOrderWithId(""+orderid);
 			selectedBlock.addOrder(order);
 			orderManager.updateOrder(order);
-			blockManager.updateBlock(selectedBlock);
 		}
-		System.out.println("List I got is:" +orders2Add);
-		System.out.println("Block Selected : "+ blockID);
+		blockManager.updateBlock(selectedBlock);
+		blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
+		
 		return "open-orders";
 	}
 	
