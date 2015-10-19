@@ -2,15 +2,11 @@
 <div class="panel-group" id="accordion" role="tablist"
 	aria-multiselectable="true">
 
-	<c:forEach items="" var="block" varStatus="loop">
+	<c:forEach items="${addlist}" var="block" >
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="headingOne">
 				<h4 class="panel-title">
-					<input type="checkbox" value="${loop.index}"
-						data-type="block"> <a class="collapsed" role="button"
-						data-toggle="collapse" data-parent="#accordion"
-						href="#collapse${loop.index}" aria-expanded=false
-						aria-controls="collapseOne">Proposed ${block.getSymbol()}
+					<input type="radio" name="selectblock"data-type="block"> <a>Proposed ${block.getSymbol()}
 						${block.getSide()}</a> <small>Type:
 						${block.getOrders().get(0).getOrdertype()}, <c:choose>
 							<c:when

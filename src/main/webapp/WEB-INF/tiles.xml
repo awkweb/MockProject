@@ -64,6 +64,8 @@
 	<definition name="select-block" extends="trader-layout.definition">
 		<put-attribute name="title" value="Select Block to add to"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/selectBlock.jsp" />
+		<put-attribute name="toolbar"
+			value="/WEB-INF/jsp/includes/trader/openOrdersToolbar.jsp" />
 	</definition>
 
 </tiles-definitions>

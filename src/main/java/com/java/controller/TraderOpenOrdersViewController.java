@@ -74,7 +74,7 @@ public class TraderOpenOrdersViewController {
 
 
 		System.out.println(blocklist);
-		session.setAttribute("add-list", blocklist);
+		session.setAttribute("addlist", blocklist);
 
 		return "select-block";
 	}
