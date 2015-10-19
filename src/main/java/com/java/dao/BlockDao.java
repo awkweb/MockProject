@@ -92,7 +92,7 @@ public class BlockDao {
 		System.out.println(temp);
 		System.out.println(blockId);
 		String sql = "UPDATE Block "
-				+ "SET totalQty = :qty"
+				+ "SET totalQty = :qty "
 				+ "WHERE blockId = :blockId";
 		int result = entityManager.createQuery(sql)
 		.setParameter("qty", temp+qty)

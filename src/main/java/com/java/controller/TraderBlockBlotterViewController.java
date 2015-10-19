@@ -10,9 +10,11 @@ import javax.xml.bind.JAXBException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.java.messenger.BlockBroker;
 import com.java.messenger.Messenger;
@@ -23,7 +25,10 @@ import com.java.service.BlockManager;
 import com.java.service.OrderManager;
 
 @Controller
+@SessionAttributes("cancelBlockError")
 public class TraderBlockBlotterViewController {
+
+	int cancelBlockCounter = 0;
 
 	@Autowired
 	private BlockManager blockManager;
@@ -32,7 +37,7 @@ public class TraderBlockBlotterViewController {
 	private OrderManager orderManager;
 
 	@RequestMapping(value="/block-blotter")
-	public String loadEmptyModelBean(HttpSession session) {
+	public String loadEmptyModelBean(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("authenticatedUser");
 		List<Block> blocks = blockManager.getBlocksForUserWithStatus(user, "new");
 		List<Block> filteredBlocks = new ArrayList<Block>();
@@ -45,6 +50,26 @@ public class TraderBlockBlotterViewController {
 				blockManager.setStatusForBlockWithBlockId(block.getBlockId(), "cancelled");
 			}
 		}
+
+		boolean test;
+		try {
+			test = (boolean) session.getAttribute("cancelBlockError");
+			System.out.println(test);
+			System.out.println("Outside " + cancelBlockCounter);
+			if (test) {
+				if (cancelBlockCounter >= 1) {
+					System.out.println("True " + cancelBlockCounter);
+					session.removeAttribute("cancelBlockError");
+					model.addAttribute("cancelBlockError", false);
+					cancelBlockCounter = 0;
+				} else {
+					cancelBlockCounter++;
+					System.out.println("False " + cancelBlockCounter);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		user.setBlocks(filteredBlocks);
 		return "block-blotter";
 	}
@@ -53,7 +78,7 @@ public class TraderBlockBlotterViewController {
 	public String removeOrders(@RequestBody String json) {
 		String[] filteredJson = json.substring(1, json.length() - 1).split(",");
 		List<String> orderIds = new ArrayList<String>();
-		
+
 		for(String id : filteredJson) {
 			orderIds.add(id.substring(1, id.length() - 1));
 		}
@@ -62,48 +87,35 @@ public class TraderBlockBlotterViewController {
 		}
 		return "block-blotter";
 	}
-	
+
 	@RequestMapping(value = "/cancel-block", method = RequestMethod.POST)
-	public String cancelBlock(@RequestBody String json) {
+	public String cancelBlock(@RequestBody String json, Model model) {
 		String[] filteredJson = json.substring(1, json.length() - 1).split(",");
-		List<String> blockId = new ArrayList<String>();
-		
-		for(String id : filteredJson) {
-			blockId.add(id.substring(1, id.length() - 1));
+		String blockId = filteredJson[0].substring(1, filteredJson[0].length() - 1);
+
+		blockManager.setStatusForBlockWithBlockId(blockId, "cancelled");
+		Block block = blockManager.getBlockWithId(blockId);
+
+		List<Order> orders = block.getOrders();
+		for (Order order : orders) {
+			orderManager.removeOrderFromBlockWithOrderId(order.getOrderId());
 		}
-		
-		List<Block> blocks = new ArrayList<Block>();
-		for (String id : blockId) {
-			blockManager.setStatusForBlockWithBlockId(id, "cancelled");
-			Block block = blockManager.getBlockWithId(id);
-			blocks.add(block);
-		}
-		
-		for (Block block : blocks) {
-			List<Order> orders = block.getOrders();
-			for (Order order : orders) {
-				orderManager.removeOrderFromBlockWithOrderId(order.getOrderId());
-			}
-		}
+		model.addAttribute("cancelBlockError", true);
+		cancelBlockCounter = 0;
+		System.out.println("cancel-block " + cancelBlockCounter);
 		return "block-blotter";
 	}
-	
+
 	@RequestMapping(value = "/send-block", method = RequestMethod.POST)
 	public String sendBlock(@RequestBody String json) {
 		String[] filteredJson = json.substring(1, json.length() - 1).split(",");
-		System.out.println("filteredJson: " + filteredJson);
-		List<String> blockId = new ArrayList<String>();
-		
-		for(String id : filteredJson) {
-			System.out.println("id.substring(1, id.length() - 1): " + id.substring(1, id.length() - 1));
-			blockId.add(id.substring(1, id.length() - 1));
-		}
-		
-		Block block = blockManager.getBlockWithId(blockId.get(0));
+		String blockId = filteredJson[0].substring(1, filteredJson[0].length() - 1);
+
+		Block block = blockManager.getBlockWithId(blockId);
 		BlockBroker blockBroker = new BlockBroker(block.getBlockId(), block.getExecutedQty(),
 				block.getLimitPrice(), block.getOpenQty(), block.getStatus(), block.getStopPrice(),
 				block.getTimestamp(), block.getTotalQty());
-		
+
 		Messenger messenger;
 		try {
 			messenger = new Messenger();
@@ -115,10 +127,10 @@ public class TraderBlockBlotterViewController {
 		} catch (JAXBException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		blockManager.setStatusForBlockWithBlockId(block.getBlockId(), "sent for execution");
 		// Create Executeblock for block
-		
+
 		return "block-blotter";
 	}
 
