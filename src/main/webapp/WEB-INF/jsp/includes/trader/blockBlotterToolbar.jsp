@@ -19,7 +19,7 @@
 					Block(s)</button>
 			</div>
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-default">Send Block</button>
+				<button id="sendBlock" type="button" class="btn btn-default">Send Block</button>
 			</div>
 			<div class="btn-group" role="group">
 				<button id="cancelBlock" type="button" class="btn btn-default">Cancel

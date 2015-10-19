@@ -47,3 +47,28 @@ $("#cancelBlock").click(function(event){
 		}) 
 	}
 });
+
+$("#sendBlock").click(function(event){
+	event.preventDefault();
+	var blockId = $("input:radio[name=block]:checked").map(function(){
+		return this.value;
+	}).toArray();
+		
+	if (blockId.length > 0) {
+		$.ajax({
+			type:"POST",
+			url: "/mock/send-block",
+			contentType: "application/json",
+			data: JSON.stringify(blockId),
+			success: function(result){
+				console.log("success");
+				location.reload();
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				console.log(jqXHR.status);
+				console.log(textStatus);
+				console.log(errorThrown);
+			}
+		}) 
+	}
+});
