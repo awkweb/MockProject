@@ -1,6 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:if test="${error}">
+<c:if test="${cancelBlockError}">
 	<div class="alert alert-danger" role="alert">
 		Oops! Unable to remove orders from block.
 		<button type="button" class="close" data-dismiss="alert"
@@ -43,7 +43,8 @@
 
 				<table class="table table-bordered table-hover table-responsive">
 					<tr>
-						<th class="text-center"><a href="#">Select All</a></th>
+						<th class="text-center"><input type="checkbox"
+								data-type="order"></th>
 						<th>Order Id</th>
 						<th>Portfolio Manager</th>
 						<th>Portfolio</th>

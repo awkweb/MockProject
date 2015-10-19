@@ -20,6 +20,8 @@ $("#removeOrders").click(function(event){
 				console.log(errorThrown);
 			}
 		}) 
+	} else {
+		alert("No orders selected.")
 	}
 });
 
@@ -45,6 +47,8 @@ $("#cancelBlock").click(function(event){
 				console.log(errorThrown);
 			}
 		}) 
+	} else {
+		alert("No blocks selected.")
 	}
 });
 
@@ -62,7 +66,6 @@ $("#sendBlock").click(function(event){
 			data: JSON.stringify(blockId),
 			success: function(result){
 				console.log("success");
-				location.reload();
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				console.log(jqXHR.status);
@@ -70,5 +73,7 @@ $("#sendBlock").click(function(event){
 				console.log(errorThrown);
 			}
 		}) 
+	} else {
+		alert("No blocks selected.")
 	}
 });

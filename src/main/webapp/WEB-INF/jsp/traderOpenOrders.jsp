@@ -32,7 +32,7 @@
 
 				<table class="table table-bordered table-hover table-responsive">
 					<tr>
-						<th class="text-center"><a href="#">Select All</a></th>
+						<th class="text-center"><a href="#">All</a></th>
 						<th>Order Id</th>
 						<th>Portfolio Manager</th>
 						<th>Portfolio</th>

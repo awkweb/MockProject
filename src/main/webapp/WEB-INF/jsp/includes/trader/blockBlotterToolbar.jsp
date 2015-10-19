@@ -15,10 +15,6 @@
 		<div class="btn-group btn-group-justified" role="group"
 			aria-label="...">
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-default">Filter
-					Block(s)</button>
-			</div>
-			<div class="btn-group" role="group">
 				<button id="sendBlock" type="button" class="btn btn-default">Send Block</button>
 			</div>
 			<div class="btn-group" role="group">
