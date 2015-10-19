@@ -17,7 +17,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="headingOne">
 				<h4 class="panel-title">
-					<input type="checkbox" value="${block.getBlockId()}"
+					<input type="radio" name="block" value="${block.getBlockId()}"
 						data-type="block"> <a class="collapsed" role="button"
 						data-toggle="collapse" data-parent="#accordion"
 						href="#collapse${block.getBlockId()}" aria-expanded=false

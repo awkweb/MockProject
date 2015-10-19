@@ -12,7 +12,7 @@
 				<a class="btn btn-default btn-block" href="#" role="button">Portfolio Manager</a>
 			</div>
 			<div class="col-sm-5 col-sm-offset-2">
-				<a class="btn btn-default btn-block" href="#" role="button">Trader</a>
+				<a class="btn btn-default btn-block" href="/mock/block-blotter" role="button">Trader</a>
 			</div>
 		</div>
 

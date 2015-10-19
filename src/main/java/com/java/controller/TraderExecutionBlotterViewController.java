@@ -34,7 +34,7 @@ public class TraderExecutionBlotterViewController {
 	@RequestMapping(value="/execution-blotter")
 	public String loadEmptyModelBean(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("authenticatedUser");
-		List<Block> blocks = blockManager.getBlocksForUserWithStatus(user, "sent for execution");
+		List<Block> blocks = blockManager.getBlocksForUserExlcudingStatus(user, "new");
 		System.out.println("Blocks empty? " + blocks.isEmpty());
 		List<Executeblock> executeBlocks = executeBlockManager.getExecuteBlocksForBlocks(blocks);
 		
@@ -47,9 +47,6 @@ public class TraderExecutionBlotterViewController {
 		}
 		model.addAttribute("executeBlocks", executeBlocks);
 		model.addAttribute("ordersMap", ordersMap);
-		
-		System.out.println("executeBlocks empty?" + executeBlocks.isEmpty());
-		System.out.println("ordersMap.size() " + ordersMap.size());
 		
 		return "execution-blotter";
 	}

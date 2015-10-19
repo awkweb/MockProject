@@ -29,6 +29,15 @@
 						<li><a href="${pageContext.request.contextPath}/open-orders">Open
 								Orders</a></li>
 					</c:when>
+					<c:when test="${authenticatedUser.getRole() == 'pm'}">
+						<li class="active"><a
+							href="${pageContext.request.contextPath}/#">PM Link 1<span
+								class="sr-only">(current)</span></a></li>
+						<li><a href="${pageContext.request.contextPath}/#">PM
+								Link 2</a></li>
+						<li><a href="${pageContext.request.contextPath}/#">PM
+								Link 3</a></li>
+					</c:when>
 					<c:otherwise>
 						<li class="active"><a
 							href="${pageContext.request.contextPath}/#">PM Link 1<span

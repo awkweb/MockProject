@@ -29,30 +29,37 @@ public class LoginViewController {
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public String loginUser(@ModelAttribute("user") User user, Model model) {
 		User authenticatedUser = userManager.getUserWithUsername(user.getUsername());
-		
+
 		if (authenticatedUser != null) {
 			if (user.getUsername().equals(authenticatedUser.getUsername()) &&
 					user.getPassword().equals(authenticatedUser.getPassword())) {
 				model.addAttribute("authenticatedUser", authenticatedUser);
-				
+
 				switch(authenticatedUser.getRole()) {
 				case "pm":
 					return "landing";
 				case "et":
 					return "forward:block-blotter";
 				default:
-					return "choose-role";
+					return "forward:choose-role";
 				}
 			}
 		}
 		model.addAttribute("error", true);
 		return "login";
 	}
-	
+
+	@RequestMapping("/choose-role")
+	public String showChooseRole(HttpSession session ) {
+		User user = (User) session.getAttribute("authenticatedUser");
+		System.out.println(user.getUsername());
+		return "choose-role";
+	}
+
 	@RequestMapping("/logout")
-    public String logout(HttpSession session ) {
-//       session.invalidate();
-       return "redirect:/";
-    }
+	public String logout(HttpSession session ) {
+		//       session.invalidate();
+		return "redirect:/";
+	}
 
 }

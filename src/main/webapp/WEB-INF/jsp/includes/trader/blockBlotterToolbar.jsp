@@ -19,11 +19,11 @@
 					Block(s)</button>
 			</div>
 			<div class="btn-group" role="group">
-				<button type="button" class="btn btn-default">Send Block(s)</button>
+				<button type="button" class="btn btn-default">Send Block</button>
 			</div>
 			<div class="btn-group" role="group">
-				<button id="cancelBlocks" type="button" class="btn btn-default">Cancel
-					Block(s)</button>
+				<button id="cancelBlock" type="button" class="btn btn-default">Cancel
+					Block</button>
 			</div>
 		</div>
 	</div>

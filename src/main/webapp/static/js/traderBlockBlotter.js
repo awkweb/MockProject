@@ -23,18 +23,18 @@ $("#removeOrders").click(function(event){
 	}
 });
 
-$("#cancelBlocks").click(function(event){
+$("#cancelBlock").click(function(event){
 	event.preventDefault();
-	var blockIds = $("input:checkbox:checked").map(function(){
+	var blockId = $("input:radio[name=block]:checked").map(function(){
 		return this.value;
 	}).toArray();
-	
-	if (blockIds.length > 0) {
+		
+	if (blockId.length > 0) {
 		$.ajax({
 			type:"POST",
-			url: "/mock/cancel-blocks",
+			url: "/mock/cancel-block",
 			contentType: "application/json",
-			data: JSON.stringify(blockIds),
+			data: JSON.stringify(blockId),
 			success: function(result){
 				console.log("success");
 				location.reload();

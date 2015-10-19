@@ -44,13 +44,24 @@ public class BlockDao {
 		return blocks;
 	}
 	
+	public List<Block> getBlocksForUserExlcudingStatus(User user, String status) {
+		String sql = "FROM Block b WHERE b.user = :user "
+				+ "AND b.status != :status "
+				+ "AND b.status != 'cancelled'";
+		List<Block> blocks = entityManager.createQuery(sql, Block.class)
+				.setParameter("user", user)
+				.setParameter("status", status)
+				.getResultList();
+		return blocks;
+	}
+	
 	public List<Block> getBlocksForOrder(Order order) {
 		String sql = "FROM Block b WHERE b.side = :side "
 				+ "AND b.symbol = :symbol "
 				+ "AND b.status = 'new'";
 		List<Block> blocks = entityManager.createQuery(sql, Block.class)
-				.setParameter("side",order.getSide())
-				.setParameter("symbol",order.getSymbol())
+				.setParameter("side", order.getSide())
+				.setParameter("symbol", order.getSymbol())
 				.getResultList();
 		return blocks;
 	}

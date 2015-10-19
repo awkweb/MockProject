@@ -58,17 +58,17 @@ public class TraderBlockBlotterViewController {
 		return "block-blotter";
 	}
 	
-	@RequestMapping(value = "/cancel-blocks", method = RequestMethod.POST)
+	@RequestMapping(value = "/cancel-block", method = RequestMethod.POST)
 	public String cancelBlocks(@RequestBody String json) {
 		String[] filteredJson = json.substring(1, json.length() - 1).split(",");
-		List<String> blockIds = new ArrayList<String>();
+		List<String> blockId = new ArrayList<String>();
 		
 		for(String id : filteredJson) {
-			blockIds.add(id.substring(1, id.length() - 1));
+			blockId.add(id.substring(1, id.length() - 1));
 		}
 		
 		List<Block> blocks = new ArrayList<Block>();
-		for (String id : blockIds) {
+		for (String id : blockId) {
 			blockManager.setStatusForBlockWithBlockId(id, "cancelled");
 			Block block = blockManager.getBlockWithId(id);
 			blocks.add(block);

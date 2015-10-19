@@ -23,6 +23,7 @@
 					<tr>
 						<th>Order Id</th>
 						<th>Manager</th>
+						<th>Portfolio</th>
 						<th>Trade Price</th>
 						<th>Open Quantity</th>
 						<th>Allocated Quantity</th>
@@ -39,11 +40,24 @@
 									<td>${orderDetails.orderId}</td>
 									<td>${orderDetails.user1.FName}
 										${orderDetails.user1.LName}</td>
+									<td>${orderDetails.portfolio.name}</td>
 									<td>${row.tradePrice}</td>
 
 									<td>${orderDetails.openQty}</td>
 									<td>${orderDetails.allocQty}</td>
-									<td>${orderDetails.status}</td>
+
+									<c:choose>
+										<c:when test="${orderDetails.status == 'Partially Executed'}">
+											<td class="warning">${orderDetails.status}</td>
+										</c:when>
+										<c:when test="${orderDetails.status == 'Completed'}">
+											<td class="success">${orderDetails.status}</td>
+										</c:when>
+										<c:otherwise>
+											<td class="info">${orderDetails.status}</td>
+										</c:otherwise>
+									</c:choose>
+
 									<td>${orderDetails.portfolio.name}</td>
 									<td>${orderDetails.accType}</td>
 								</tr>

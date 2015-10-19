@@ -24,6 +24,10 @@ public class BlockManager {
 		return blockDao.getBlocksForUserWithStatus(user, status);
 	}
 	
+	public List<Block> getBlocksForUserExlcudingStatus(User user, String status) {
+		return blockDao.getBlocksForUserExlcudingStatus(user, status);
+	}
+	
 	public void saveBlock(Block block) {
 		blockDao.saveBlock(block);
 	}
