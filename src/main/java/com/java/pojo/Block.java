@@ -213,4 +213,11 @@ public class Block implements Serializable {
 		return order;
 	}
 
+	@Override
+	public String toString() {
+		return "Block [blockId=" + blockId + ", side=" + side + ", symbol=" + symbol + ", totalQty=" + totalQty
+				+ ", orders=" + orders + "]";
+	}
+	
+
 }

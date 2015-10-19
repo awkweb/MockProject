@@ -22,6 +22,10 @@ $("#createblockbutton").click(function(event){
 		}) 
 	}
 });
+$("#addtoblockbutton").click(function(event){
+	
+
+});
 
 $("#addtoblockbutton").click(function(event){
 	event.preventDefault();
@@ -38,6 +42,8 @@ $("#addtoblockbutton").click(function(event){
 			success: function(result){
 				console.log("success");
 				location.reload();
+				location.href = "http://localhost:8080/mock/select-block";
+				
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				console.log(jqXHR.status);

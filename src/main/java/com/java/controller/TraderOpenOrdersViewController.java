@@ -76,7 +76,14 @@ public class TraderOpenOrdersViewController {
 		System.out.println(blocklist);
 		session.setAttribute("add-list", blocklist);
 
-		return "add-to-block-pop";
+		return "select-block";
 	}
+	
+	@RequestMapping(value ="/select-block")
+	public String popupBlocks(HttpSession session) {
+		System.out.println("Get A Popup");
+		return "select-block";
+	}
+	
 
 }
