@@ -307,4 +307,9 @@ public class Order implements Serializable {
 		return position;
 	}
 
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", side=" + side + ", symbol=" + symbol + ", totalQty=" + totalQty + "]";
+	}
+
 }

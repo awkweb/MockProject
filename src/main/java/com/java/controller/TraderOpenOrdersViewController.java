@@ -74,9 +74,24 @@ public class TraderOpenOrdersViewController {
 
 
 		System.out.println(blocklist);
-		session.setAttribute("add-list", blocklist);
+		session.setAttribute("addlist", blocklist);
 
-		return "add-to-block-pop";
+		return "select-block";
 	}
+	
+	@RequestMapping(value ="/select-block")
+	public String popupBlocks(HttpSession session) {
+		System.out.println("Switching to select Blocks");
+		return "select-block";
+	}
+	
+	//This actually adds the orders to an existing block that is selected
+	@RequestMapping(value ="/block-selected")
+	public String blockSelectedSoAdd(@RequestBody String blockID, HttpSession session) {
+		
+		System.out.println("Block Selected : "+ blockID);
+		return "open-orders";
+	}
+	
 
 }
