@@ -65,7 +65,7 @@
 		<put-attribute name="title" value="Select Block to add to"/>
 		<put-attribute name="content" value="/WEB-INF/jsp/selectBlock.jsp" />
 		<put-attribute name="toolbar"
-			value="/WEB-INF/jsp/includes/trader/openOrdersToolbar.jsp" />
+			value="/WEB-INF/jsp/includes/trader/addToBlockToolbar.jsp" />
 	</definition>
 
 </tiles-definitions>

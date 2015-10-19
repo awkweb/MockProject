@@ -1,89 +1,87 @@
-$("#createblockbutton").click(function(event){
+$("#createblockbutton").click(function(event) {
 	event.preventDefault();
-	var selectedOrders = $("input:checkbox:checked").map(function(){
+	var selectedOrders = $("input:checkbox:checked").map(function() {
 		return this.value;
 	}).toArray();
-	
+
 	if (selectedOrders.length > 0) {
 		$.ajax({
-			type:"POST",
-			url: "/mock/create-block",
-			contentType: "application/json",
-			data: JSON.stringify(selectedOrders),
-			success: function(result){
+			type : "POST",
+			url : "/mock/create-block",
+			contentType : "application/json",
+			data : JSON.stringify(selectedOrders),
+			success : function(result) {
 				console.log("success");
 				location.reload();
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error : function(jqXHR, textStatus, errorThrown) {
 				console.log(jqXHR.status);
 				console.log(textStatus);
 				console.log(errorThrown);
 			}
-		}) 
+		})
 	}
 });
-$("#addtoblockbutton").click(function(event){
-	
+$("#addtoblockbutton").click(function(event) {
 
 });
 
-$("#addtoblockbutton").click(function(event){
+$("#addtoblockbutton").click(function(event) {
 	event.preventDefault();
-	var selectedOrders = $("input:checkbox:checked").map(function(){
+	var selectedOrders = $("input:checkbox:checked").map(function() {
 		return this.value;
 	}).toArray();
-	
+
 	if (selectedOrders.length > 0) {
 		$.ajax({
-			type:"POST",
-			url: "/mock/add-block",
-			contentType: "application/json",
-			data: JSON.stringify(selectedOrders),
-			success: function(result){
+			type : "POST",
+			url : "/mock/add-block",
+			contentType : "application/json",
+			data : JSON.stringify(selectedOrders),
+			success : function(result) {
 				console.log("success");
 				location.reload();
 				location.href = "http://localhost:8080/mock/select-block";
-				
+
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error : function(jqXHR, textStatus, errorThrown) {
 				console.log(jqXHR.status);
 				console.log(textStatus);
 				console.log(errorThrown);
 				alert("Error: There are no blocks to add this to");
 				location.reload();
 			}
-		}) 
+		})
 	}
 });
-$("input:radio[name=radioOption]").click(function(){
-    var value = $(this).attr("id");
-    alert(value);
+$("input:radio[name=radioOption]").click(function() {
+	var value = $(this).attr("id");
+	alert(value);
 })
-$("#selectaddblockbutton").click(function(event){
-	
+$("#selectaddblockbutton").click(function(event) {
+
 	event.preventDefault();
-	var selectedOrders = $("input:radio[name=radioOption]:checked").attr("id");
-	alert(selectedOrders);
-	
-	if (selectedOrders.length > 0) {
+	var selectedblock = $("input:radio[name=selectblock]:checked").attr("id");
+	alert(selectedblock);
+	if (selectedblock != null) {
 		$.ajax({
-			type:"POST",
-			url: "/mock/add-block",
-			contentType: "application/json",
-			data: JSON.stringify(selectedOrders),
-			success: function(result){
+			type : "POST",
+			url : "/mock/block-selected",
+			contentType : "application/json",
+			data : JSON.stringify(selectedblock),
+			success : function(result) {
 				console.log("success");
 				location.reload();
-				location.href = "http://localhost:8080/mock/select-block";
-				
+				location.href = "http://localhost:8080/mock/open-orders";
+
 			},
-			error: function(jqXHR, textStatus, errorThrown) {
+			error : function(jqXHR, textStatus, errorThrown) {
 				console.log(jqXHR.status);
 				console.log(textStatus);
 				console.log(errorThrown);
-				alert("Error: There are no blocks to add this to");
 				location.reload();
 			}
-		}) 
+		})
 	}
+
 });

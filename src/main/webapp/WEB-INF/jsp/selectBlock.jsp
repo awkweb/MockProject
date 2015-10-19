@@ -6,7 +6,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading" role="tab" id="headingOne">
 				<h4 class="panel-title">
-					<input type="radio" name="selectblock"data-type="block"> <a>Proposed ${block.getSymbol()}
+					<input type="radio" name="selectblock"data-type="block" id="${block.getBlockId()}"> <a>Proposed ${block.getSymbol()}
 						${block.getSide()}</a> <small>Type:
 						${block.getOrders().get(0).getOrdertype()}, <c:choose>
 							<c:when
