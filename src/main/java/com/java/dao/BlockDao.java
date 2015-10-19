@@ -70,6 +70,9 @@ public class BlockDao {
 	public void saveBlock(Block block) {
 		entityManager.persist(block);
 	}
+	public void updateBlock(Block block) {
+		entityManager.merge(block);
+	}
 	
 	@Transactional
 	public Boolean setStatusForBlockWithBlockId(String blockId, String status) {		

@@ -74,6 +74,7 @@ public class TraderOpenOrdersViewController {
 
 
 		System.out.println(blocklist);
+		session.setAttribute("selectedorderlist", idlist);
 		session.setAttribute("addlist", blocklist);
 
 		return "select-block";
@@ -88,7 +89,18 @@ public class TraderOpenOrdersViewController {
 	//This actually adds the orders to an existing block that is selected
 	@RequestMapping(value ="/block-selected")
 	public String blockSelectedSoAdd(@RequestBody String blockID, HttpSession session) {
+		String selectedBlockID = blockID.substring(1,blockID.length()-1);
 		
+		Block selectedBlock = blockManager.getBlockWithId(selectedBlockID);
+		List<Integer> orderids2Add = (List<Integer>) session.getAttribute("selectedorderlist");
+		List<Order> orders2Add = new ArrayList<Order>();
+		for(Integer orderid : orderids2Add){
+			Order order = orderManager.getOrderWithId(""+orderid);
+			selectedBlock.addOrder(order);
+			orderManager.updateOrder(order);
+			blockManager.updateBlock(selectedBlock);
+		}
+		System.out.println("List I got is:" +orders2Add);
 		System.out.println("Block Selected : "+ blockID);
 		return "open-orders";
 	}

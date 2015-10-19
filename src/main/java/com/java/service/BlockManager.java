@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.java.dao.BlockDao;
+import com.java.dao.OrderDao;
 import com.java.pojo.Block;
 import com.java.pojo.Order;
 import com.java.pojo.User;
@@ -38,6 +39,11 @@ public class BlockManager {
 	
 	public List<Block> getBlocksForOrder(Order order) {
 		return blockDao.getBlocksForOrder(order);
+	}
+
+	public void updateBlock(Block selectedBlock) {
+		blockDao.updateBlock(selectedBlock);
+		
 	}
 	
 }
