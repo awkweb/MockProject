@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.java.messenger.BlockBroker;
@@ -76,6 +77,7 @@ public class TraderBlockBlotterViewController {
 			Boolean result = orderManager.removeOrderFromBlockWithOrderId(id);
 			orderRemoveResults.add(result);
 		}
+<<<<<<< HEAD
 		
 		Block block =blockManager.getBlockWithId(blockid);
 		for(Order order : block.getOrders()){
@@ -84,6 +86,9 @@ public class TraderBlockBlotterViewController {
 		blockManager.setQtyForBlockWithBlockId(blockid,block.calculateTotalQty());
 		
 		
+=======
+
+>>>>>>> origin/tom
 		if (!orderRemoveResults.contains(false)) {
 			model.addAttribute("blockBlotterSuccess", true);
 			model.addAttribute("blockBlotterMessage", "Success! Order(s) were removed!");
@@ -91,7 +96,8 @@ public class TraderBlockBlotterViewController {
 			model.addAttribute("blockBlotterError", true);
 			model.addAttribute("blockBlotterMessage", "Error removing order(s).");
 		}
-		
+		counter = 0;
+
 		return "block-blotter";
 	}
 
@@ -99,7 +105,7 @@ public class TraderBlockBlotterViewController {
 	public String cancelBlock(@RequestBody String json, Model model) {
 		String[] filteredJson = json.substring(1, json.length() - 1).split(",");
 		String blockId = filteredJson[0].substring(1, filteredJson[0].length() - 1);
-		
+
 		Boolean result = blockManager.setStatusForBlockWithBlockId(blockId, "cancelled");
 		if (result) {
 			model.addAttribute("blockBlotterSuccess", true);
@@ -109,15 +115,30 @@ public class TraderBlockBlotterViewController {
 			model.addAttribute("blockBlotterMessage", "Error cancelling block.");
 		}
 		counter = 0;
-		
+
 		Block block = blockManager.getBlockWithId(blockId);
 
 		List<Order> orders = block.getOrders();
 		for (Order order : orders) {
 			orderManager.removeOrderFromBlockWithOrderId(order.getOrderId());
 		}
-		
+
 		return "block-blotter";
+	}
+
+	@RequestMapping(value= "/edit-block", method = RequestMethod.POST)
+	public String editBlock(@RequestParam("id") String id, @RequestParam("type") String type,
+			@RequestParam("price") float price, Model model) {
+		Boolean result = orderManager.updateOrderPriceForIdAndType(id, type, price);
+		if (result) {
+			model.addAttribute("blockBlotterSuccess", true);
+			model.addAttribute("blockBlotterMessage", "Success! " + type + " price updated.");
+		} else {
+			model.addAttribute("blockBlotterError", true);
+			model.addAttribute("blockBlotterMessage", "Error updating order.");
+		}
+		counter = 0;
+		return "redirect:/block-blotter";
 	}
 
 	@RequestMapping(value = "/send-block", method = RequestMethod.POST)

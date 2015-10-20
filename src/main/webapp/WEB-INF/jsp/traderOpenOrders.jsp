@@ -1,8 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:if test="${createBlockError}">
+<c:if test="${openOrdersError}">
 	<div class="alert alert-danger" role="alert">
-		Error. Cannot create block with orders with different sides and/or symbols.
+		${openOrdersMessage}
 		<button type="button" class="close" data-dismiss="alert"
 			aria-label="Close">
 			<span aria-hidden="true">&times;</span>
@@ -10,9 +10,9 @@
 	</div>
 </c:if>
 
-<c:if test="${successCreateBlock}">
+<c:if test="${openOrdersSuccess}">
 	<div class="alert alert-success" role="alert">
-		Success! New block created.
+		${openOrdersMessage}
 		<button type="button" class="close" data-dismiss="alert"
 			aria-label="Close">
 			<span aria-hidden="true">&times;</span>

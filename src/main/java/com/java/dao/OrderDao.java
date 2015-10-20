@@ -57,7 +57,7 @@ public class OrderDao {
 	public void saveOrder(Order order) {
 		entityManager.persist(order);
 	}
-	
+
 	@Transactional
 	public void updateOrder(Order order) {
 		entityManager.merge(order);
@@ -78,7 +78,31 @@ public class OrderDao {
 
 	public static void updateOrder(Block selectedBlock) {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Transactional
+	public boolean updateOrderPriceForIdAndType(String id, String type, float price) {
+		String sql;
+		switch (type) {
+		case "Stop":
+			sql = "UPDATE Order "
+					+ "SET stopPrice = :price "
+					+ "WHERE orderId = :orderId";
+			break;
+		default:
+			sql = "UPDATE Order "
+					+ "SET limitPrice = :price "
+					+ "WHERE orderId = :orderId";
+			break;
+		}
 		
+		int result = entityManager.createQuery(sql)
+				.setParameter("price", price)
+				.setParameter("orderId", id)
+				.executeUpdate();
+		Boolean success = result != 0;
+		return success;
 	}
 
 }

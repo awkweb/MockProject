@@ -11,7 +11,7 @@
 						role="button" data-toggle="collapse" data-parent="#accordion"
 						href="#collapse${block.getBlockId()}" aria-expanded=false
 						aria-controls="collapseOne">Block #${block.getBlockId()}
-						${block.getSymbol()} ${block.getSide()}</a><small>Type:
+						${block.getSymbol()} ${block.getSide()}</a> <small>Type:
 						${block.getOrders().get(0).getOrdertype()}, <c:choose>
 							<c:when
 								test="${block.getOrders().get(0).getOrdertype().equals('Limit')}">
