@@ -53,19 +53,20 @@
 
 	<definition name="execution-blotter" extends="trader-layout.definition">
 		<put-attribute name="title" value="Execution Blotter" />
-		<put-attribute name="content" value="/WEB-INF/jsp/traderExecutionBlotter.jsp" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/traderExecutionBlotter.jsp" />
+	</definition>
+
+	<definition name="select-block" extends="trader-layout.definition">
+		<put-attribute name="title" value="Select Existing Block" />
+		<put-attribute name="toolbar"
+			value="/WEB-INF/jsp/includes/trader/addToBlockToolbar.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/traderSelectBlock.jsp" />
 	</definition>
 
 	<!-- PM -->
 	<definition name="landing" extends="trader-layout.definition">
 		<put-attribute name="content" value="/WEB-INF/jsp/landing.jsp" />
-	</definition>
-	
-	<definition name="select-block" extends="trader-layout.definition">
-		<put-attribute name="title" value="Select Existing Block"/>
-		<put-attribute name="content" value="/WEB-INF/jsp/selectBlock.jsp" />
-		<put-attribute name="toolbar"
-			value="/WEB-INF/jsp/includes/trader/addToBlockToolbar.jsp" />
 	</definition>
 
 </tiles-definitions>
