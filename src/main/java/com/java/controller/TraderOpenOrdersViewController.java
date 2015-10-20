@@ -68,8 +68,6 @@ public class TraderOpenOrdersViewController {
 			}
 
 			blockManager.updateBlock(newBlock);
-
-			blockManager.updateBlock(newBlock);
 			model.addAttribute("openOrdersSuccess", true);
 			model.addAttribute("openOrdersMessage", "Success! New block created.");
 
