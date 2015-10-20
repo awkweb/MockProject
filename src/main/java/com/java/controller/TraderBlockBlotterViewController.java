@@ -80,15 +80,15 @@ public class TraderBlockBlotterViewController {
 		for(Order order : block.getOrders()){
 			System.out.println("OrderID="+order.getOrderId());
 		}
-<<<<<<< HEAD
+
 		blockManager.setQtyForBlockWithBlockId(blockid,block.calculateTotalQty());
 
 
 
-=======
+
 		blockManager.setQtyForBlockWithBlockId(blockid, block.calculateTotalQty());
 		
->>>>>>> origin/tom
+
 		if (!orderRemoveResults.contains(false)) {
 			model.addAttribute("blockBlotterSuccess", true);
 			model.addAttribute("blockBlotterMessage", "Success! Order(s) were removed!");

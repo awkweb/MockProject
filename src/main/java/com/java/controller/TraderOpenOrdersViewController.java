@@ -20,7 +20,7 @@ import com.java.service.BlockManager;
 import com.java.service.OrderManager;
 
 @Controller
-@SessionAttributes({ "createBlockError", "successCreateBlock" })
+@SessionAttributes({ "openOrdersError", "openOrdersSuccess", "openOrdersMessage" })
 public class TraderOpenOrdersViewController {
 
 	@Autowired
@@ -29,7 +29,7 @@ public class TraderOpenOrdersViewController {
 	@Autowired
 	private OrderManager orderManager;
 
-	static int createBlockcounter = 0;
+	static int counter = 0;
 
 	@RequestMapping(value = "/open-orders")
 	public String openOrders(HttpSession session, Model model) {
@@ -39,8 +39,8 @@ public class TraderOpenOrdersViewController {
 
 		session.setAttribute("proposedBlocks", proposedBlocks);
 
-		manageAlertForSessionAndModelWithName(session, model, "createBlockError");
-		manageAlertForSessionAndModelWithName(session, model, "successCreateBlock");
+		manageAlertForSessionAndModelWithName(session, model, "openOrdersError");
+		manageAlertForSessionAndModelWithName(session, model, "openOrdersSuccess");
 
 		return "open-orders";
 	}
@@ -66,17 +66,16 @@ public class TraderOpenOrdersViewController {
 				order.setBlock(newBlock);
 				orderManager.updateOrder(order);
 			}
-<<<<<<< HEAD
+
 			blockManager.updateBlock(newBlock);
-			model.addAttribute("successCreateBlock", true);
-=======
 
 			blockManager.updateBlock(newBlock);
 			model.addAttribute("openOrdersSuccess", true);
 			model.addAttribute("openOrdersMessage", "Success! New block created.");
->>>>>>> origin/tom
+
 		} else {
-			model.addAttribute("createBlockError", true);
+			model.addAttribute("openOrdersError", true);
+			model.addAttribute("openOrdersMessage", "Error.");
 		}
 
 		return "open-orders";
@@ -94,6 +93,8 @@ public class TraderOpenOrdersViewController {
 		List<Block> blocklist = blockManager.getBlocksForOrder(order);
 
 		if(blocklist.isEmpty()){
+			model.addAttribute("openOrdersError", true);
+			model.addAttribute("openOrdersMessage", "Error. There are no blocks for the order(s) can be added to.");
 			return null;
 		}
 		session.setAttribute("selectedorderlist", idlist);
@@ -110,7 +111,7 @@ public class TraderOpenOrdersViewController {
 
 	// This actually adds the orders to an existing block that is selected
 	@RequestMapping(value = "/block-selected")
-	public String blockSelectedSoAdd(@RequestBody String blockID, HttpSession session) {
+	public String blockSelectedSoAdd(@RequestBody String blockID, HttpSession session, Model model) {
 		String selectedBlockID = blockID.substring(1, blockID.length() - 1);
 
 		Block selectedBlock = blockManager.getBlockWithId(selectedBlockID);
@@ -121,9 +122,9 @@ public class TraderOpenOrdersViewController {
 			orderManager.updateOrder(order);
 		}
 		blockManager.updateBlock(selectedBlock);
-<<<<<<< HEAD
+
 		blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
-=======
+
 		blockManager.addQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
 		Boolean result = blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
 		
@@ -135,7 +136,7 @@ public class TraderOpenOrdersViewController {
 			model.addAttribute("openOrdersMessage", "Error adding order(s) to block.");
 		}
 		counter = 0;
->>>>>>> origin/tom
+
 
 		return "open-orders";
 	}
@@ -148,11 +149,11 @@ public class TraderOpenOrdersViewController {
 			try {
 				flag = (boolean) session.getAttribute(name);
 				if (flag) {
-					if (createBlockcounter >= 1) {
+					if (counter >= 1) {
 						model.addAttribute(name, false);
-						createBlockcounter = 0;
+						counter = 0;
 					} else {
-						createBlockcounter++;
+						counter++;
 					}
 				}
 			} catch (Exception e) {
