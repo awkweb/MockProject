@@ -80,6 +80,7 @@ public class TraderBlockBlotterViewController {
 			model.addAttribute("blockBlotterError", true);
 			model.addAttribute("blockBlotterMessage", "Error removing order(s).");
 		}
+		counter = 0;
 		
 		return "block-blotter";
 	}

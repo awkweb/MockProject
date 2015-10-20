@@ -20,8 +20,10 @@ import com.java.service.BlockManager;
 import com.java.service.OrderManager;
 
 @Controller
-@SessionAttributes({ "createBlockError", "successCreateBlock" })
+@SessionAttributes(value = { "openOrdersError", "openOrdersSuccess", "openOrdersMessage" })
 public class TraderOpenOrdersViewController {
+	
+	static int counter = 0;
 
 	@Autowired
 	private BlockManager blockManager;
@@ -29,25 +31,22 @@ public class TraderOpenOrdersViewController {
 	@Autowired
 	private OrderManager orderManager;
 
-	static int createBlockcounter = 0;
-
 	@RequestMapping(value="/open-orders")
 	public String openOrders(HttpSession session, Model model){
 		User user = (User) session.getAttribute("authenticatedUser");
 		List<Order> orders = orderManager.getOpenOrdersforUser(user);
 		List<Block> proposedBlocks = orderManager.getProposedBlocksWithOrders(orders, user);
-
+		
+		manageAlertForSessionAndModelWithName(session, model,
+				"openOrdersError");
+		manageAlertForSessionAndModelWithName(session, model,
+				"openOrdersSuccess");
+		
 		session.setAttribute("proposedBlocks", proposedBlocks);
-
-		manageAlertForSessionAndModelWithName(session, model,
-				"createBlockError");
-		manageAlertForSessionAndModelWithName(session, model,
-				"successCreateBlock");
-
 		return "open-orders";
 	}
 
-	@RequestMapping(value = "/create-block",method=RequestMethod.POST, consumes="application/json")
+	@RequestMapping(value = "/create-block", method=RequestMethod.POST, consumes="application/json")
 	public String createBlock(@RequestBody String myArray, HttpSession session,
 			Model model) {
 
@@ -69,10 +68,13 @@ public class TraderOpenOrdersViewController {
 				order.setBlock(newBlock);
 				orderManager.updateOrder(order);
 			}
-			model.addAttribute("successCreateBlock", true);
+			model.addAttribute("openOrdersSuccess", true);
+			model.addAttribute("openOrdersMessage", "Success! New block created.");
 		} else {
-			model.addAttribute("createBlockError", true);
+			model.addAttribute("openOrdersError", true);
+			model.addAttribute("openOrdersMessage", "Error. Cannot create block with orders with different sides and/or symbols.");
 		}
+		counter = 0;
 
 		return "open-orders";
 	}
@@ -106,18 +108,27 @@ public class TraderOpenOrdersViewController {
 
 	//This actually adds the orders to an existing block that is selected
 	@RequestMapping(value ="/block-selected")
-	public String blockSelectedSoAdd(@RequestBody String blockID, HttpSession session) {
-		String selectedBlockID = blockID.substring(1,blockID.length()-1);
+	public String blockSelectedSoAdd(@RequestBody String blockID, HttpSession session, Model model) {
+		String selectedBlockID = blockID.substring(1, blockID.length()-1);
 
 		Block selectedBlock = blockManager.getBlockWithId(selectedBlockID);
-		List<Integer> orderids2Add = (List<Integer>) session.getAttribute("selectedorderlist");
+		List<Integer> orderids2Add = (ArrayList<Integer>) session.getAttribute("selectedorderlist");
 		for(Integer orderid : orderids2Add){
 			Order order = orderManager.getOrderWithId(""+orderid);
 			selectedBlock.addOrder(order);
 			orderManager.updateOrder(order);
 		}
 		blockManager.updateBlock(selectedBlock);
-		blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
+		Boolean result = blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
+		
+		if (result) {
+			model.addAttribute("openOrdersSuccess", true);
+			model.addAttribute("openOrdersMessage", "Success! Order(s) added to block.");
+		} else {
+			model.addAttribute("openOrdersError", true);
+			model.addAttribute("openOrdersMessage", "Error adding order(s) to block.");
+		}
+		counter = 0;
 
 		return "open-orders";
 	}
@@ -131,11 +142,11 @@ public class TraderOpenOrdersViewController {
 			try {
 				flag = (boolean) session.getAttribute(name);
 				if (flag) {
-					if (createBlockcounter >= 1) {
+					if (counter >= 1) {
 						model.addAttribute(name, false);
-						createBlockcounter = 0;
+						counter = 0;
 					} else {
-						createBlockcounter++;
+						counter++;
 					}
 				}
 			} catch (Exception e) {
