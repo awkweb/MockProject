@@ -20,10 +20,8 @@ import com.java.service.BlockManager;
 import com.java.service.OrderManager;
 
 @Controller
-@SessionAttributes(value = { "openOrdersError", "openOrdersSuccess", "openOrdersMessage" })
+@SessionAttributes({ "createBlockError", "successCreateBlock" })
 public class TraderOpenOrdersViewController {
-	
-	static int counter = 0;
 
 	@Autowired
 	private BlockManager blockManager;
@@ -31,24 +29,24 @@ public class TraderOpenOrdersViewController {
 	@Autowired
 	private OrderManager orderManager;
 
-	@RequestMapping(value="/open-orders")
-	public String openOrders(HttpSession session, Model model){
+	static int createBlockcounter = 0;
+
+	@RequestMapping(value = "/open-orders")
+	public String openOrders(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("authenticatedUser");
 		List<Order> orders = orderManager.getOpenOrdersforUser(user);
 		List<Block> proposedBlocks = orderManager.getProposedBlocksWithOrders(orders, user);
-		
-		manageAlertForSessionAndModelWithName(session, model,
-				"openOrdersError");
-		manageAlertForSessionAndModelWithName(session, model,
-				"openOrdersSuccess");
-		
+
 		session.setAttribute("proposedBlocks", proposedBlocks);
+
+		manageAlertForSessionAndModelWithName(session, model, "createBlockError");
+		manageAlertForSessionAndModelWithName(session, model, "successCreateBlock");
+
 		return "open-orders";
 	}
 
-	@RequestMapping(value = "/create-block", method=RequestMethod.POST, consumes="application/json")
-	public String createBlock(@RequestBody String myArray, HttpSession session,
-			Model model) {
+	@RequestMapping(value = "/create-block", method = RequestMethod.POST, consumes = "application/json")
+	public String createBlock(@RequestBody String myArray, HttpSession session, Model model) {
 
 		List<Integer> idlist = new ArrayList<Integer>();
 		for (String id : myArray.substring(1, myArray.length() - 1).split(",")) {
@@ -60,85 +58,68 @@ public class TraderOpenOrdersViewController {
 
 		boolean canCreateBlock = orderManager.canAddToBlock(selected4Block);
 		if (canCreateBlock == true) {
-			Block newBlock = new Block(selected4Block.get(0).getSymbol(),
-					selected4Block.get(0).getSide(), "new", selected4Block.get(
-							0).getUser2(), selected4Block);
+			Block newBlock = new Block(selected4Block.get(0).getSymbol(), selected4Block.get(0).getSide(), "new",
+					selected4Block.get(0).getUser2(), selected4Block);
 			newBlock.setTotalQty(newBlock.calculateTotalQty());
 			blockManager.saveBlock(newBlock);
 			for (Order order : selected4Block) {
 				order.setBlock(newBlock);
 				orderManager.updateOrder(order);
 			}
-<<<<<<< HEAD
 			blockManager.updateBlock(newBlock);
 			model.addAttribute("successCreateBlock", true);
-=======
-			model.addAttribute("openOrdersSuccess", true);
-			model.addAttribute("openOrdersMessage", "Success! New block created.");
->>>>>>> origin/tom
 		} else {
-			model.addAttribute("openOrdersError", true);
-			model.addAttribute("openOrdersMessage", "Error. Cannot create block with orders with different sides and/or symbols.");
+			model.addAttribute("createBlockError", true);
 		}
-		counter = 0;
 
 		return "open-orders";
 	}
 
-	@RequestMapping(value = "/add-block",method=RequestMethod.POST, consumes="application/json")
-	public String addToBlock(@RequestBody String myArray,HttpSession session) {
+	@RequestMapping(value = "/add-block", method = RequestMethod.POST, consumes = "application/json")
+	public String addToBlock(@RequestBody String myArray, HttpSession session, Model model) {
 		List<Integer> idlist = new ArrayList<Integer>();
-		for(String id : myArray.substring(1,myArray.length()-1).split(",")){
+		for (String id : myArray.substring(1, myArray.length() - 1).split(",")) {
 
-			idlist.add(Integer.parseInt(id.substring(1,id.length()-1)));
+			idlist.add(Integer.parseInt(id.substring(1, id.length() - 1)));
 		}
-		Order order = orderManager.getOrderWithId(""+idlist.get(0));
+		System.out.println(idlist);
+		Order order = orderManager.getOrderWithId("" + idlist.get(0));
 		List<Block> blocklist = blockManager.getBlocksForOrder(order);
+
+		if(blocklist.isEmpty()){
+			return null;
+		}
 		session.setAttribute("selectedorderlist", idlist);
 		session.setAttribute("addlist", blocklist);
 
 		return "select-block";
 	}
 
-	@RequestMapping(value ="/select-block")
+	@RequestMapping(value = "/select-block")
 	public String popupBlocks(HttpSession session) {
 		System.out.println("Switching to select Blocks");
 		return "select-block";
 	}
 
-	//This actually adds the orders to an existing block that is selected
-	@RequestMapping(value ="/block-selected")
-	public String blockSelectedSoAdd(@RequestBody String blockID, HttpSession session, Model model) {
-		String selectedBlockID = blockID.substring(1, blockID.length()-1);
+	// This actually adds the orders to an existing block that is selected
+	@RequestMapping(value = "/block-selected")
+	public String blockSelectedSoAdd(@RequestBody String blockID, HttpSession session) {
+		String selectedBlockID = blockID.substring(1, blockID.length() - 1);
 
 		Block selectedBlock = blockManager.getBlockWithId(selectedBlockID);
-		List<Integer> orderids2Add = (ArrayList<Integer>) session.getAttribute("selectedorderlist");
-		for(Integer orderid : orderids2Add){
-			Order order = orderManager.getOrderWithId(""+orderid);
+		List<Integer> orderids2Add = (List<Integer>) session.getAttribute("selectedorderlist");
+		for (Integer orderid : orderids2Add) {
+			Order order = orderManager.getOrderWithId("" + orderid);
 			selectedBlock.addOrder(order);
 			orderManager.updateOrder(order);
 		}
 		blockManager.updateBlock(selectedBlock);
-<<<<<<< HEAD
-		blockManager.addQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
-=======
-		Boolean result = blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
-		
-		if (result) {
-			model.addAttribute("openOrdersSuccess", true);
-			model.addAttribute("openOrdersMessage", "Success! Order(s) added to block.");
-		} else {
-			model.addAttribute("openOrdersError", true);
-			model.addAttribute("openOrdersMessage", "Error adding order(s) to block.");
-		}
-		counter = 0;
->>>>>>> origin/tom
+		blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
 
 		return "open-orders";
 	}
 
-	public static void manageAlertForSessionAndModelWithName(
-			HttpSession session, Model model, String name) {
+	public static void manageAlertForSessionAndModelWithName(HttpSession session, Model model, String name) {
 		Object sessionCheck;
 		boolean flag;
 		sessionCheck = session.getAttribute(name);
@@ -146,11 +127,11 @@ public class TraderOpenOrdersViewController {
 			try {
 				flag = (boolean) session.getAttribute(name);
 				if (flag) {
-					if (counter >= 1) {
+					if (createBlockcounter >= 1) {
 						model.addAttribute(name, false);
-						counter = 0;
+						createBlockcounter = 0;
 					} else {
-						counter++;
+						createBlockcounter++;
 					}
 				}
 			} catch (Exception e) {
@@ -158,6 +139,5 @@ public class TraderOpenOrdersViewController {
 			}
 		}
 	}
-
 
 }
