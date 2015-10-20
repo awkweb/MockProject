@@ -64,11 +64,13 @@ public class TraderOpenOrdersViewController {
 			Block newBlock = new Block(selected4Block.get(0).getSymbol(),
 					selected4Block.get(0).getSide(), "new", selected4Block.get(
 							0).getUser2(), selected4Block);
+			newBlock.setTotalQty(newBlock.calculateTotalQty());
 			blockManager.saveBlock(newBlock);
 			for (Order order : selected4Block) {
 				order.setBlock(newBlock);
 				orderManager.updateOrder(order);
 			}
+			blockManager.updateBlock(newBlock);
 			model.addAttribute("successCreateBlock", true);
 		} else {
 			model.addAttribute("createBlockError", true);
@@ -84,14 +86,8 @@ public class TraderOpenOrdersViewController {
 
 			idlist.add(Integer.parseInt(id.substring(1,id.length()-1)));
 		}
-		System.out.println(idlist);
 		Order order = orderManager.getOrderWithId(""+idlist.get(0));
 		List<Block> blocklist = blockManager.getBlocksForOrder(order);
-
-		System.out.println(blocklist.get(0).getOrders());
-
-
-		System.out.println(blocklist);
 		session.setAttribute("selectedorderlist", idlist);
 		session.setAttribute("addlist", blocklist);
 
@@ -117,7 +113,7 @@ public class TraderOpenOrdersViewController {
 			orderManager.updateOrder(order);
 		}
 		blockManager.updateBlock(selectedBlock);
-		blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
+		blockManager.addQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
 
 		return "open-orders";
 	}
