@@ -35,6 +35,9 @@ public class BlockManager {
 	public Boolean setStatusForBlockWithBlockId(String blockId, String status) {		
 		return blockDao.setStatusForBlockWithBlockId(blockId, status);
 	}
+	public Boolean addQtyForBlockWithBlockId(String blockId, Integer qty) {		
+		return blockDao.addQtyForBlockWithBlockId(blockId, qty);
+	}
 	public Boolean setQtyForBlockWithBlockId(String blockId, Integer qty) {		
 		return blockDao.setQtyForBlockWithBlockId(blockId, qty);
 	}
