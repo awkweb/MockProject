@@ -309,7 +309,7 @@ public class Order implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", side=" + side + ", symbol=" + symbol + ", totalQty=" + totalQty + "]";
+		return "Order [orderId=" + orderId + ", side=" + side + ", symbol=" + symbol + ", totalQty=" + totalQty + ", Block ="+block+"]";
 	}
 
 }
