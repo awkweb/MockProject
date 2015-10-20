@@ -71,24 +71,17 @@ public class TraderBlockBlotterViewController {
 		String blockid = orderManager.getOrderWithId(orderIds.get(0)).getBlock().getBlockId();
 		
 		List<Boolean> orderRemoveResults = new ArrayList<Boolean>();
-	
-		
 		for (String id : orderIds) {
 			Boolean result = orderManager.removeOrderFromBlockWithOrderId(id);
 			orderRemoveResults.add(result);
 		}
-<<<<<<< HEAD
 		
 		Block block =blockManager.getBlockWithId(blockid);
 		for(Order order : block.getOrders()){
 			System.out.println("OrderID="+order.getOrderId());
 		}
-		blockManager.setQtyForBlockWithBlockId(blockid,block.calculateTotalQty());
+		blockManager.setQtyForBlockWithBlockId(blockid, block.calculateTotalQty());
 		
-		
-=======
-
->>>>>>> origin/tom
 		if (!orderRemoveResults.contains(false)) {
 			model.addAttribute("blockBlotterSuccess", true);
 			model.addAttribute("blockBlotterMessage", "Success! Order(s) were removed!");

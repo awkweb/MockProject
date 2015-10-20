@@ -69,13 +69,10 @@ public class TraderOpenOrdersViewController {
 				order.setBlock(newBlock);
 				orderManager.updateOrder(order);
 			}
-<<<<<<< HEAD
+
 			blockManager.updateBlock(newBlock);
-			model.addAttribute("successCreateBlock", true);
-=======
 			model.addAttribute("openOrdersSuccess", true);
 			model.addAttribute("openOrdersMessage", "Success! New block created.");
->>>>>>> origin/tom
 		} else {
 			model.addAttribute("openOrdersError", true);
 			model.addAttribute("openOrdersMessage", "Error. Cannot create block with orders with different sides and/or symbols.");
@@ -119,9 +116,7 @@ public class TraderOpenOrdersViewController {
 			orderManager.updateOrder(order);
 		}
 		blockManager.updateBlock(selectedBlock);
-<<<<<<< HEAD
 		blockManager.addQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
-=======
 		Boolean result = blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
 		
 		if (result) {
@@ -132,7 +127,6 @@ public class TraderOpenOrdersViewController {
 			model.addAttribute("openOrdersMessage", "Error adding order(s) to block.");
 		}
 		counter = 0;
->>>>>>> origin/tom
 
 		return "open-orders";
 	}
