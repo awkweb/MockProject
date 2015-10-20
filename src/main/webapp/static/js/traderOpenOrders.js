@@ -46,7 +46,6 @@ $("#addtoblockbutton").click(function(event) {
 				console.log(textStatus);
 				console.log(errorThrown);
 				alert("Error: There are no blocks to add this to");
-				location.reload();
 			}
 		})
 	}

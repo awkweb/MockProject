@@ -22,7 +22,7 @@
 									Stop Price: $${block.getStopPrice()}, 
 								</c:when>
 							<c:otherwise />
-						</c:choose> Total Quantity: ${block.getTotalQty()}
+						</c:choose> Total Quantity: ${block.getTotalQty()<0? -block.getTotalQty():block.getTotalQty()}
 					</small>
 				</h4>
 			</div>
@@ -67,7 +67,7 @@
 							<td>${order.getUser2().getFName()}
 								${order.getUser2().getLName()}</td>
 							<td>${order.getPortfolio().getName()}</td>
-							<td>${order.getTotalQty()}</td>
+							<td>${order.getTotalQty()<0? -order.getTotalQty():order.getTotalQty()}</td>
 							<td>${order.getOpenQty()}</td>
 							<td>${order.getAllocQty()}</td>
 

@@ -64,7 +64,7 @@ public class OrderDao {
 	}
 
 	@Transactional
-	public Boolean removeOrderFromBlockWithOrderId(String orderId) {		
+	public Boolean removeOrderFromBlockWithOrderId(String orderId) {
 		String sql = "UPDATE Order "
 				+ "SET blockid = :blockid "
 				+ "WHERE order_id = :orderid";
