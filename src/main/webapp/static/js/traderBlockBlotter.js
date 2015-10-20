@@ -87,3 +87,13 @@ $('.blockcheckbox').click(function() {
 		$(this).prop('checked', checkedStatus);
 	});
 });
+
+$(document).on("click", "#editOrder", function () {
+	var editbuttonid = $(this).data('id');
+	var orderType = $(this).data('options');
+	$("h4#modalTitle").html("Edit Order # " + editbuttonid);
+	$("label#inputLabel").html(orderType + " Price");
+	$("input#inputPrice").val('');
+	$(".modalid").attr("value", editbuttonid);
+	$(".modaltype").attr("value", orderType);
+});

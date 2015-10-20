@@ -45,11 +45,11 @@ public class OrderManager {
 		}
 		return orders;
 	}
-	
+
 	public void updateOrder(Order order){
 		orderDao.updateOrder(order);
 	}
-	
+
 	public List<Block> getProposedBlocksWithOrders(List<Order> allorders, User user) {
 		List<Block> pblocks = new ArrayList<Block>();
 		boolean added = false;
@@ -74,7 +74,7 @@ public class OrderManager {
 		}
 		return pblocks;
 	}
-	
+
 	public boolean canAddToBlock(List<Order> selected4Block) {
 		Order temp;
 		if (selected4Block.size() > 1) {
@@ -98,5 +98,9 @@ public class OrderManager {
 		}
 		return true;
 	}
-	
+
+	public Boolean updateOrderPriceForIdAndType(String id, String type, float price) {
+		return orderDao.updateOrderPriceForIdAndType(id, type, price);
+	}
+
 }

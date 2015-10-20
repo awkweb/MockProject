@@ -69,7 +69,7 @@
 								<th>Limit Price</th>
 							</c:when>
 							<c:when
-								test="${block.getOrders().get(0).getOrdertype().equals('Stop Loss')}">
+								test="${block.getOrders().get(0).getOrdertype().equals('Stop')}">
 								<th>Stop Price</th>
 							</c:when>
 							<c:otherwise />
@@ -78,7 +78,10 @@
 						<th>Account Type</th>
 						<th>Status</th>
 						<th>Notes</th>
-						<th></th>
+						
+						<c:if test="${block.getOrders().get(0).getOrdertype() != 'Market'}">
+							<th></th>
+						</c:if>
 					</tr>
 					<c:forEach items="${block.getOrders()}" var="order">
 						<tr>
@@ -98,7 +101,7 @@
 								<c:when test="${order.getOrdertype().equals('Limit')}">
 									<td>$${order.getLimitPrice()}</td>
 								</c:when>
-								<c:when test="${order.getOrdertype().equals('Stop Loss')}">
+								<c:when test="${order.getOrdertype().equals('Stop')}">
 									<td>$${order.getStopPrice()}</td>
 								</c:when>
 								<c:otherwise />
@@ -117,8 +120,14 @@
 									<td>None</td>
 								</c:otherwise>
 							</c:choose>
-
-							<td class="text-center"><a href="#">Edit</a></td>
+							
+							<c:if test="${order.getOrdertype() != 'Market'}">
+								<td class="text-center">
+								<a id="editOrder" data-toggle="modal"
+									data-target="#myModal1" data-id="${order.getOrderId()}"
+									data-options="${order.getOrdertype()}" href="#" role="button">Edit</a>
+									</td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</table>
@@ -127,6 +136,48 @@
 		</div>
 	</c:forEach>
 
+</div>
+
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 id="modalTitle" class="modal-title">Edit Order #</h4>
+			</div>
+
+			<form action="edit-block" method="post">
+				  
+				<div class="modal-body">
+					<input class="modalid" type="text" name="id" style="display: none;"
+						value="">
+					<input class="modaltype" type="text" name="type" style="display: none;"
+						value="">
+
+					<div class="form-group">
+						<label id="inputLabel" for="inputPrice" class="col-sm-12 control-label">Limit
+							Price</label>
+						<div class="input-group">
+					      	<div class="input-group-addon">$</div>
+					      	<input type="text" class="form-control"
+					      	id="inputPrice" placeholder="00.00" name="price" pattern="^\d+(\.|\,)\d{2}$">
+					    </div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Submit</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
 </div>
 
 <script
