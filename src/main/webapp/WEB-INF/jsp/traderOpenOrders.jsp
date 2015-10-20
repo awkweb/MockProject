@@ -1,5 +1,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<c:if test="${createBlockError}">
+	<div class="alert alert-danger" role="alert">
+		Error. Cannot create block with orders with different sides and/or symbols.
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</c:if>
+
+<c:if test="${successCreateBlock}">
+	<div class="alert alert-success" role="alert">
+		Success! New block created.
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</c:if>
+
 <div class="panel-group" id="accordion" role="tablist"
 	aria-multiselectable="true">
 

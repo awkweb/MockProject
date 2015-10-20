@@ -25,7 +25,7 @@ import com.java.service.BlockManager;
 import com.java.service.OrderManager;
 
 @Controller
-@SessionAttributes(value = {"blockBlotterError", "blockBlotterSuccess", "blockBlotterMessage"})
+@SessionAttributes(value = {"blockBlotterError", "blockBlotterSuccess", "blockBlotterMessage", "role"})
 public class TraderBlockBlotterViewController {
 
 	static int counter = 0;
@@ -39,6 +39,7 @@ public class TraderBlockBlotterViewController {
 	@RequestMapping(value="/block-blotter")
 	public String loadEmptyModelBean(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("authenticatedUser");
+		model.addAttribute("role", "trader");
 		List<Block> blocks = blockManager.getBlocksForUserWithStatus(user, "new");
 		List<Block> filteredBlocks = new ArrayList<Block>();
 		for (Block block : blocks) {

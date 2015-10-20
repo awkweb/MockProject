@@ -19,7 +19,7 @@
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
-					<c:when test="${authenticatedUser.getRole() == 'et'}">
+					<c:when test="${authenticatedUser.getRole() == 'et' || role == 'trader'}">
 						<li><a
 							href="${pageContext.request.contextPath}/block-blotter">Block
 								Blotter
@@ -29,7 +29,7 @@
 						<li><a href="${pageContext.request.contextPath}/open-orders">Open
 								Orders</a></li>
 					</c:when>
-					<c:when test="${authenticatedUser.getRole() == 'pm'}">
+					<c:when test="${authenticatedUser.getRole() == 'pm' || role == 'manager'}">
 						<li class="active"><a
 							href="${pageContext.request.contextPath}/#">PM Link 1<span
 								class="sr-only">(current)</span></a></li>
@@ -39,13 +39,6 @@
 								Link 3</a></li>
 					</c:when>
 					<c:otherwise>
-						<li class="active"><a
-							href="${pageContext.request.contextPath}/#">PM Link 1<span
-								class="sr-only">(current)</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/#">PM
-								Link 2</a></li>
-						<li><a href="${pageContext.request.contextPath}/#">PM
-								Link 3</a></li>
 					</c:otherwise>
 				</c:choose>
 				<li><p class="navbar-text">User:

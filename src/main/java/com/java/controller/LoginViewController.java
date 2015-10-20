@@ -39,7 +39,7 @@ public class LoginViewController {
 				case "pm":
 					return "landing";
 				case "et":
-					return "forward:block-blotter";
+					return "redirect:/block-blotter";
 				default:
 					return "forward:choose-role";
 				}
@@ -50,15 +50,13 @@ public class LoginViewController {
 	}
 
 	@RequestMapping("/choose-role")
-	public String showChooseRole(HttpSession session ) {
-		User user = (User) session.getAttribute("authenticatedUser");
-		System.out.println(user.getUsername());
+	public String showChooseRole() {
 		return "choose-role";
 	}
 
 	@RequestMapping("/logout")
 	public String logout(HttpSession session ) {
-		//       session.invalidate();
+		session.invalidate();
 		return "redirect:/";
 	}
 

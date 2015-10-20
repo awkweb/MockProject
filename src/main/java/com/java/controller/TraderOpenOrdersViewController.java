@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.java.pojo.Block;
 import com.java.pojo.Order;
@@ -19,6 +20,7 @@ import com.java.service.BlockManager;
 import com.java.service.OrderManager;
 
 @Controller
+@SessionAttributes({ "createBlockError", "successCreateBlock" })
 public class TraderOpenOrdersViewController {
 
 	@Autowired
@@ -27,6 +29,8 @@ public class TraderOpenOrdersViewController {
 	@Autowired
 	private OrderManager orderManager;
 
+	static int createBlockcounter = 0;
+
 	@RequestMapping(value="/open-orders")
 	public String openOrders(HttpSession session, Model model){
 		User user = (User) session.getAttribute("authenticatedUser");
@@ -34,30 +38,43 @@ public class TraderOpenOrdersViewController {
 		List<Block> proposedBlocks = orderManager.getProposedBlocksWithOrders(orders, user);
 
 		session.setAttribute("proposedBlocks", proposedBlocks);
+
+		manageAlertForSessionAndModelWithName(session, model,
+				"createBlockError");
+		manageAlertForSessionAndModelWithName(session, model,
+				"successCreateBlock");
+
 		return "open-orders";
 	}
 
 	@RequestMapping(value = "/create-block",method=RequestMethod.POST, consumes="application/json")
-	public String createBlock(@RequestBody String myArray,HttpSession session) {
-		List<Integer> idlist = new ArrayList<Integer>();
-		System.out.println("array="+myArray);
-		for(String id : myArray.substring(1,myArray.length()-1).split(",")){
+	public String createBlock(@RequestBody String myArray, HttpSession session,
+			Model model) {
 
-			idlist.add(Integer.parseInt(id.substring(1,id.length()-1)));
+		List<Integer> idlist = new ArrayList<Integer>();
+		for (String id : myArray.substring(1, myArray.length() - 1).split(",")) {
+
+			idlist.add(Integer.parseInt(id.substring(1, id.length() - 1)));
 		}
 
 		List<Order> selected4Block = orderManager.findOrdersWithIds(idlist);
 
-		Block newBlock = new Block(selected4Block.get(0).getSymbol(),
-				selected4Block.get(0).getSide(), "new", selected4Block.get(0).getUser2(),selected4Block);
-		newBlock.setTotalQty(newBlock.calculateTotalQty());
-		blockManager.saveBlock(newBlock);
-		for(Order order : selected4Block){
-			order.setBlock(newBlock);
-			orderManager.updateOrder(order);
+		boolean canCreateBlock = orderManager.canAddToBlock(selected4Block);
+		if (canCreateBlock == true) {
+			Block newBlock = new Block(selected4Block.get(0).getSymbol(),
+					selected4Block.get(0).getSide(), "new", selected4Block.get(
+							0).getUser2(), selected4Block);
+			blockManager.saveBlock(newBlock);
+			for (Order order : selected4Block) {
+				order.setBlock(newBlock);
+				orderManager.updateOrder(order);
+			}
+			model.addAttribute("successCreateBlock", true);
+		} else {
+			model.addAttribute("createBlockError", true);
 		}
-		blockManager.updateBlock(newBlock);
-		return "block-blotter";
+
+		return "open-orders";
 	}
 
 	@RequestMapping(value = "/add-block",method=RequestMethod.POST, consumes="application/json")
@@ -80,18 +97,18 @@ public class TraderOpenOrdersViewController {
 
 		return "select-block";
 	}
-	
+
 	@RequestMapping(value ="/select-block")
 	public String popupBlocks(HttpSession session) {
 		System.out.println("Switching to select Blocks");
 		return "select-block";
 	}
-	
+
 	//This actually adds the orders to an existing block that is selected
 	@RequestMapping(value ="/block-selected")
 	public String blockSelectedSoAdd(@RequestBody String blockID, HttpSession session) {
 		String selectedBlockID = blockID.substring(1,blockID.length()-1);
-		
+
 		Block selectedBlock = blockManager.getBlockWithId(selectedBlockID);
 		List<Integer> orderids2Add = (List<Integer>) session.getAttribute("selectedorderlist");
 		for(Integer orderid : orderids2Add){
@@ -101,9 +118,31 @@ public class TraderOpenOrdersViewController {
 		}
 		blockManager.updateBlock(selectedBlock);
 		blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
-		
+
 		return "open-orders";
 	}
-	
+
+	public static void manageAlertForSessionAndModelWithName(
+			HttpSession session, Model model, String name) {
+		Object sessionCheck;
+		boolean flag;
+		sessionCheck = session.getAttribute(name);
+		if (sessionCheck != null) {
+			try {
+				flag = (boolean) session.getAttribute(name);
+				if (flag) {
+					if (createBlockcounter >= 1) {
+						model.addAttribute(name, false);
+						createBlockcounter = 0;
+					} else {
+						createBlockcounter++;
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 
 }

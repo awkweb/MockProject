@@ -47,7 +47,7 @@
 		</c:if>
 
 		<p class="text-center">
-			<a href="${pageContext.request.contextPath}/forgot">Forgot
+			<a href="${pageContext.request.contextPath}/forgot-password">Forgot
 				password?</a>
 		</p>
 	</div>

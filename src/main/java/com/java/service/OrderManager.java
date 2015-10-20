@@ -75,4 +75,28 @@ public class OrderManager {
 		return pblocks;
 	}
 	
+	public boolean canAddToBlock(List<Order> selected4Block) {
+		Order temp;
+		if (selected4Block.size() > 1) {
+			for (int i = 0; i < selected4Block.size(); i++) {
+				temp = selected4Block.get(i);
+				System.out.println(temp.getSymbol() + " "
+						+ selected4Block.get(i++).getSymbol());
+				// checks whether the symbols are not the same
+				if (temp.getSymbol().compareTo(
+						selected4Block.get(i++).getSymbol()) != 0) {
+					return false;
+				} else {
+					i--;
+					// checks whether the sides are not the same
+					if (temp.getSide().compareTo(
+							selected4Block.get(i++).getSide()) != 0) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
 }

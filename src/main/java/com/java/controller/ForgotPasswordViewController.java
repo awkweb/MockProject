@@ -17,7 +17,7 @@ public class ForgotPasswordViewController {
 	@Autowired
 	private UserManager userManager;
 
-	@RequestMapping(value="/forgot", method = RequestMethod.GET)
+	@RequestMapping(value="/forgot-password", method = RequestMethod.GET)
 	public ModelAndView loadEmptyModelBean() {
 		return new ModelAndView("forgot-password", "user", new User());
 	}
@@ -27,6 +27,7 @@ public class ForgotPasswordViewController {
 		if (userManager.updatePasswordForUsernameAndEmail(user.getUsername(),
 				user.getEmail(), user.getPassword()) && user.getPassword().length() > 0) {
 			model.addAttribute("resetSuccess", true);
+			model.addAttribute("user", new User());
 			return "login";
 		} else {
 			model.addAttribute("error", true);
