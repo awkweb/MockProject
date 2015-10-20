@@ -38,7 +38,7 @@ $("#addtoblockbutton").click(function(event) {
 			success : function(result) {
 				console.log("success");
 				location.reload();
-				location.href = "http://localhost:8080/mock/select-block";
+				location.href = "/mock/select-block";
 
 			},
 			error : function(jqXHR, textStatus, errorThrown) {
@@ -68,7 +68,7 @@ $("#selectaddblockbutton").click(function(event) {
 			success : function(result) {
 				console.log("success");
 				location.reload();
-				location.href = "http://localhost:8080/mock/open-orders";
+				location.href = "/mock/open-orders";
 
 			},
 			error : function(jqXHR, textStatus, errorThrown) {

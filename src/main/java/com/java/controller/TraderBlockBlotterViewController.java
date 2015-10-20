@@ -25,7 +25,7 @@ import com.java.service.BlockManager;
 import com.java.service.OrderManager;
 
 @Controller
-@SessionAttributes("cancelBlockError")
+@SessionAttributes(value = {"blockBlotterError", "blockBlotterSuccess", "blockBlotterMessage"})
 public class TraderBlockBlotterViewController {
 
 	static int counter = 0;
@@ -50,24 +50,36 @@ public class TraderBlockBlotterViewController {
 				blockManager.setStatusForBlockWithBlockId(block.getBlockId(), "cancelled");
 			}
 		}
-		
-		manageAlertForSessionAndModelWithName(session, model, "cancelBlockError");
+
+		manageAlertForSessionAndModelWithName(session, model, "blockBlotterError");
+		manageAlertForSessionAndModelWithName(session, model, "blockBlotterSuccess");
 
 		user.setBlocks(filteredBlocks);
 		return "block-blotter";
 	}
 
 	@RequestMapping(value = "/remove-orders", method = RequestMethod.POST)
-	public String removeOrders(@RequestBody String json) {
+	public String removeOrders(@RequestBody String json, Model model) {
 		String[] filteredJson = json.substring(1, json.length() - 1).split(",");
 		List<String> orderIds = new ArrayList<String>();
 
 		for(String id : filteredJson) {
 			orderIds.add(id.substring(1, id.length() - 1));
 		}
+		List<Boolean> orderRemoveResults = new ArrayList<Boolean>();
 		for (String id : orderIds) {
-			orderManager.removeOrderFromBlockWithOrderId(id);
+			Boolean result = orderManager.removeOrderFromBlockWithOrderId(id);
+			orderRemoveResults.add(result);
 		}
+				
+		if (!orderRemoveResults.contains(false)) {
+			model.addAttribute("blockBlotterSuccess", true);
+			model.addAttribute("blockBlotterMessage", "Success! Order(s) were removed!");
+		} else {
+			model.addAttribute("blockBlotterError", true);
+			model.addAttribute("blockBlotterMessage", "Error removing order(s).");
+		}
+		
 		return "block-blotter";
 	}
 
@@ -75,17 +87,24 @@ public class TraderBlockBlotterViewController {
 	public String cancelBlock(@RequestBody String json, Model model) {
 		String[] filteredJson = json.substring(1, json.length() - 1).split(",");
 		String blockId = filteredJson[0].substring(1, filteredJson[0].length() - 1);
-
-		blockManager.setStatusForBlockWithBlockId(blockId, "cancelled");
+		
+		Boolean result = blockManager.setStatusForBlockWithBlockId(blockId, "cancelled");
+		if (result) {
+			model.addAttribute("blockBlotterSuccess", true);
+			model.addAttribute("blockBlotterMessage", "Success! Block was cancelled!");
+		} else {
+			model.addAttribute("blockBlotterError", true);
+			model.addAttribute("blockBlotterMessage", "Error cancelling block.");
+		}
+		counter = 0;
+		
 		Block block = blockManager.getBlockWithId(blockId);
 
 		List<Order> orders = block.getOrders();
 		for (Order order : orders) {
 			orderManager.removeOrderFromBlockWithOrderId(order.getOrderId());
 		}
-		model.addAttribute("cancelBlockError", true);
-		counter = 0;
-		System.out.println("cancel-block " + counter);
+		
 		return "block-blotter";
 	}
 
@@ -116,8 +135,9 @@ public class TraderBlockBlotterViewController {
 
 		return "block-blotter";
 	}
-	
-	public static void manageAlertForSessionAndModelWithName(HttpSession session, Model model, String name) {
+
+	public static void manageAlertForSessionAndModelWithName(HttpSession session, Model model,
+			String name) {
 		Object sessionCheck;
 		boolean flag;
 		sessionCheck = session.getAttribute(name);

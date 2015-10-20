@@ -1,8 +1,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<c:if test="${cancelBlockError}">
+<c:if test="${blockBlotterError}">
+	<div class="alert alert-danger" role="alert">
+		${blockBlotterMessage}
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</c:if>
+
+<c:if test="${blockBlotterSuccess}">
 	<div class="alert alert-success" role="alert">
-		Block cancelled!
+		${blockBlotterMessage}
 		<button type="button" class="close" data-dismiss="alert"
 			aria-label="Close">
 			<span aria-hidden="true">&times;</span>
