@@ -66,8 +66,15 @@ public class TraderOpenOrdersViewController {
 				order.setBlock(newBlock);
 				orderManager.updateOrder(order);
 			}
+<<<<<<< HEAD
 			blockManager.updateBlock(newBlock);
 			model.addAttribute("successCreateBlock", true);
+=======
+
+			blockManager.updateBlock(newBlock);
+			model.addAttribute("openOrdersSuccess", true);
+			model.addAttribute("openOrdersMessage", "Success! New block created.");
+>>>>>>> origin/tom
 		} else {
 			model.addAttribute("createBlockError", true);
 		}
@@ -114,7 +121,21 @@ public class TraderOpenOrdersViewController {
 			orderManager.updateOrder(order);
 		}
 		blockManager.updateBlock(selectedBlock);
+<<<<<<< HEAD
 		blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
+=======
+		blockManager.addQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
+		Boolean result = blockManager.setQtyForBlockWithBlockId(selectedBlockID, selectedBlock.calculateTotalQty());
+		
+		if (result) {
+			model.addAttribute("openOrdersSuccess", true);
+			model.addAttribute("openOrdersMessage", "Success! Order(s) added to block.");
+		} else {
+			model.addAttribute("openOrdersError", true);
+			model.addAttribute("openOrdersMessage", "Error adding order(s) to block.");
+		}
+		counter = 0;
+>>>>>>> origin/tom
 
 		return "open-orders";
 	}
