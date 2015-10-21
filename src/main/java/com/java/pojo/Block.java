@@ -71,7 +71,7 @@ public class Block implements Serializable {
 	public Block() {
 	}
 	
-	public Block(String symbol, String side, String status, User user, List<Order> order) {
+	public Block(String symbol, String side, String status, User user, List<Order> order, float limit, float stop) {
 		this.executedQty = 0;
 		this.symbol = symbol;
 		this.side = side;
@@ -79,6 +79,8 @@ public class Block implements Serializable {
 		this.totalQty = 0;
 		this.user = user;
 		this.orders = order;
+		this.limitPrice=limit;
+		this.stopPrice=stop;
 	}
 
 	public String getBlockId() {

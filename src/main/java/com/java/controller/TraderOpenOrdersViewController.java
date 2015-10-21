@@ -35,13 +35,20 @@ public class TraderOpenOrdersViewController {
 	public String openOrders(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("authenticatedUser");
 		List<Order> orders = orderManager.getOpenOrdersforUser(user);
+		
+		for(Order order : orders){
+			System.out.println(order.getSymbol2()+" "+order.getSide());
+		}
 		List<Block> proposedBlocks = orderManager.getProposedBlocksWithOrders(orders, user);
 
 		session.setAttribute("proposedBlocks", proposedBlocks);
 
 		manageAlertForSessionAndModelWithName(session, model, "openOrdersError");
 		manageAlertForSessionAndModelWithName(session, model, "openOrdersSuccess");
-
+		
+		for (Block block: proposedBlocks){
+			System.out.println(block.getSymbol()+"_"+block.getSide()+"  has limit:"+block.getLimitPrice()+" and stop:"+block.getStopPrice());
+		}
 		return "open-orders";
 	}
 
@@ -58,8 +65,7 @@ public class TraderOpenOrdersViewController {
 
 		boolean canCreateBlock = orderManager.canAddToBlock(selected4Block);
 		if (canCreateBlock == true) {
-			Block newBlock = new Block(selected4Block.get(0).getSecurity().getSymbol(), selected4Block.get(0).getSide(), "new",
-					selected4Block.get(0).getUser2(), selected4Block);
+			Block newBlock = blockManager.createBlockForType(selected4Block);
 			newBlock.setTotalQty(newBlock.calculateTotalQty());
 			blockManager.saveBlock(newBlock);
 			for (Order order : selected4Block) {

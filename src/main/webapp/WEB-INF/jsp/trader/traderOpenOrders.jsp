@@ -38,7 +38,7 @@
 									Limit Price: $${block.getLimitPrice()}, 
 								</c:when>
 							<c:when
-								test="${block.getOrders().get(0).getOrdertype().equals('Stop Loss')}">
+								test="${block.getOrders().get(0).getOrdertype().equals('Stop')}">
 									Stop Price: $${block.getStopPrice()}, 
 								</c:when>
 							<c:otherwise />
@@ -68,7 +68,7 @@
 								<th>Limit Price</th>
 							</c:when>
 							<c:when
-								test="${block.getOrders().get(0).getOrdertype().equals('Stop Loss')}">
+								test="${block.getOrders().get(0).getOrdertype().equals('Stop')}">
 								<th>Stop Price</th>
 							</c:when>
 							<c:otherwise />
@@ -95,7 +95,7 @@
 								<c:when test="${order.getOrdertype().equals('Limit')}">
 									<td>$${order.getLimitPrice()}</td>
 								</c:when>
-								<c:when test="${order.getOrdertype().equals('Stop Loss')}">
+								<c:when test="${order.getOrdertype().equals('Stop')}">
 									<td>$${order.getStopPrice()}</td>
 								</c:when>
 								<c:otherwise />
