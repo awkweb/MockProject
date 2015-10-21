@@ -27,7 +27,7 @@ import com.java.service.SecurityManager;
 import com.java.service.UserManager;
 
 @Controller
-@SessionAttributes(value = { "passedOrder" })
+@SessionAttributes(value = {"passedOrder"})
 public class PmEditOrderViewController {
 
 	@Autowired
@@ -45,22 +45,27 @@ public class PmEditOrderViewController {
 	@RequestMapping(value = "/edit-order", method = RequestMethod.POST, consumes = "application/json")
 	public ModelAndView editorder(@RequestBody String json,
 			HttpSession session, Model model) {
-		System.out.println("START EDIT-ORDER MAPPING");
 		Order editOrder = orderManager.getOrderWithId(json);
 		model.addAttribute("passedOrder", editOrder);
-		
-		System.out.println(editOrder.toString());
-		return new ModelAndView("edit-order", "order", new Order());
+		return new ModelAndView("edit-order-form", "order", new Order());
+	}
+	
+	@RequestMapping(value = "/edit-order-form", method = RequestMethod.GET)
+	public ModelAndView editorderform(Model model) {	
+		return new ModelAndView("edit-order-form", "order", new Order());
 	}
 	
 	@RequestMapping(value = "/amend-order", method = RequestMethod.POST, consumes = "application/json")
-	public ModelAndView amendtorder(@RequestBody String json,
+	public ModelAndView amendorder(@RequestBody String json,
 			HttpSession session, Model model) {
-		System.out.println("amend-order");
-		Order editOrder = orderManager.getOrderWithId(json);
-		model.addAttribute("passedOrder", editOrder);
-
-		return new ModelAndView("amend-order", "order", new Order());
+		Order amendOrder = orderManager.getOrderWithId(json);
+		model.addAttribute("passedOrder", amendOrder);
+		return new ModelAndView("amend-order-form", "order", new Order());
+	}
+	
+	@RequestMapping(value = "/amend-order-form", method = RequestMethod.GET)
+	public ModelAndView amendorderform(Model model) {
+		return new ModelAndView("amend-order-form", "order", new Order());
 	}
 
 	@RequestMapping(value = "/editdetails", method = RequestMethod.POST)
@@ -178,17 +183,16 @@ public class PmEditOrderViewController {
 		accountTypeList.add("Margin");
 		return accountTypeList;
 	}
-
-	@ModelAttribute("portfolioList")
-	public Map<String, String> provideEquityPortfolio(HttpSession session) {
-		User user = (User) session.getAttribute("authenticatedUser");
-		System.out.println(user.getUserId());
-		List<Portfolio> portfolioList = portfolioManager.getPortfolios(user.getUserId());
-		Map<String, String> portfolios = new HashMap<String, String>();
-		for (Portfolio port : portfolioList) {
-			portfolios.put(port.getPortId(), port.getName());
-		}
-		return portfolios;
-	}
+	
+//	@ModelAttribute("portfolioList")
+//	public Map<String, String> provideEquityPortfolio() {
+//		List<Portfolio> portfolioList = portfolioManager.getPortfolios("1");
+//		System.out.println("HELLO");
+//		Map<String, String> portfolios = new HashMap<String, String>();
+//		for (Portfolio port : portfolioList) {
+//			portfolios.put(port.getPortId(), port.getName());
+//		}
+//		return portfolios;
+//	}
 	
 }

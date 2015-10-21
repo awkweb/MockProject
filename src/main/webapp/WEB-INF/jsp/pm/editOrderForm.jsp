@@ -54,6 +54,7 @@ function loadFunc(){
 	document.getElementById("account").value = a;
 	var b = document.getElementById("portfolioTypeHidden").value;
 	document.getElementById("portfolio").value = b;
+	document.getElementById("quantity").value = Math.abs(document.getElementById("quantity").value);
 }
 </script>
 
@@ -122,12 +123,12 @@ function loadFunc(){
 									</form:select></td>
 							</tr>
 
-							<tr>
+							<%-- <tr>
 								<td><form:label path="portId2">Portfolio: </form:label></td>
 								<td><form:select style="width: 95%" id="portfolio" path="portId2" name="portfolio">
 										<form:options items="${portfolioList}"></form:options>
 									</form:select></td>
-							</tr>
+							</tr> --%>
 						</table>
 					</div>
 
@@ -169,7 +170,8 @@ function loadFunc(){
 								<form:input id="accountTypeHidden" path="path" type="hidden" value="${passedOrder.getAccType()}"/>
 								<form:input id="portfolioTypeHidden" path="path" type="hidden" value="${passedOrder.getPortfolio().getPortId()}"/>
 								<form:input id="orderIdHidden" path="orderId" type="hidden" value="${passedOrder.getOrderId()}"/>
-								<form:input id="statusHidden" path="status" type="hidden" value="${passedOrder.getStatus()}"/></td>
+								<form:input id="statusHidden" path="status" type="hidden" value="${passedOrder.getStatus()}"/>
+								<form:input id="timeStamp" path="timestamp" type="hidden" value="${passedOrder.getTimestamp()}"/></td>
 							</tr>
 						</table>
 						<br><br>

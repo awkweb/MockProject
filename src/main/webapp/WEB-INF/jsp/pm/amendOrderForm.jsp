@@ -19,6 +19,7 @@
 		document.getElementById("account").value = a;
 		var b = document.getElementById("portfolioNameHidden").value;
 		document.getElementById("portfolio").value = b;
+		document.getElementById("quantity").value = Math.abs(document.getElementById("quantity").value);
 	}
 
 	function setValues() {
@@ -139,7 +140,8 @@
 										<form:input id="portfolioTypeHidden" path="path" type="hidden" value="${passedOrder.getPortfolio().getPortId()}" /> 
 										<form:input id="portfolioNameHidden" path="path" type="hidden" value="${passedOrder.getPortfolio().getName()}" /> 
 										<form:input id="orderIdHidden" path="orderId" type="hidden" value="${passedOrder.getOrderId()}" /> 
-										<form:input id="statusHidden" path="status" type="hidden" value="${passedOrder.getStatus()}" /></td>
+										<form:input id="statusHidden" path="status" type="hidden" value="${passedOrder.getStatus()}" />
+										<form:input id="timeStamp" path="timestamp" type="hidden" value="${passedOrder.getTimestamp()}"/></td>
 							</tr>
 						</table>
 						<br>

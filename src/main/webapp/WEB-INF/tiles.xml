@@ -71,11 +71,7 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/trader/traderSelectBlock.jsp" />
 	</definition>
 
-	<!-- PM -->
-	<definition name="landing" extends="trader-layout.definition">
-		<put-attribute name="content" value="/WEB-INF/jsp/landing.jsp" />
-	</definition>
-	
+	<!-- PM -->	
 	<definition name="positions" extends="pm-layout.definition">
 		<put-attribute name="title" value="Positions" />
 		<put-attribute name="content"
@@ -94,12 +90,12 @@
 			value="/WEB-INF/jsp/pm/createOrderForm.jsp" />
 	</definition>
 	
-	<definition name="edit-order" extends="pm-layout.definition">
+	<definition name="edit-order-form" extends="pm-layout.definition">
 		<put-attribute name="title" value="Edit Order" />
 		<put-attribute name="content" value="/WEB-INF/jsp/pm/editOrderForm.jsp" />
 	</definition>
 	
-	<definition name="amend-order" extends="pm-layout.definition">
+	<definition name="amend-order-form" extends="pm-layout.definition">
 		<put-attribute name="title" value="Amend Order" />
 		<put-attribute name="content" value="/WEB-INF/jsp/pm/amendOrderForm.jsp" />
 	</definition>

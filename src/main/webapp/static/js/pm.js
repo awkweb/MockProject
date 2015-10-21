@@ -96,7 +96,8 @@ $(document).on("click", "#editOrder", function () {
 		data : JSON.stringify(id),
 		success : function(result) {
 			console.log("success");
-			location.href = "/mock/edit-order";
+			location.href = "/mock/edit-order-form";
+			console.log("end");
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR.status);
@@ -117,7 +118,7 @@ $(document).on("click", "#amendOrder", function () {
 		data : JSON.stringify(id),
 		success : function(result) {
 			console.log("success");
-			location.href = "/mock/amend-order";
+			location.href = "/mock/amend-order-form";
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR.status);
