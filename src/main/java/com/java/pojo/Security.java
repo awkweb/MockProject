@@ -31,6 +31,10 @@ public class Security implements Serializable {
 	@OneToMany(mappedBy="security")
 	private List<Executeblock> executeblocks;
 
+	//bi-directional many-to-one association to Order
+	@OneToMany(mappedBy="security")
+	private List<Order> orders;
+
 	public Security() {
 	}
 
@@ -86,6 +90,28 @@ public class Security implements Serializable {
 		executeblock.setSecurity(null);
 
 		return executeblock;
+	}
+	
+	public List<Order> getOrders() {
+		return this.orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+	
+	public Order addOrder(Order order) {
+		getOrders().add(order);
+		order.setSecurity(this);
+
+		return order;
+	}
+
+	public Order removeOrder(Order order) {
+		getOrders().remove(order);
+		order.setSecurity(null);
+
+		return order;
 	}
 
 }

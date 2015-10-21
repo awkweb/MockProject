@@ -78,6 +78,11 @@ public class Order implements Serializable {
 	@JoinColumn(name="portfolioid")
 	private Portfolio portfolio;
 
+	//bi-directional many-to-one association to Security
+	@ManyToOne
+	@JoinColumn(name="symbol")
+	private Security security;
+
 	//bi-directional many-to-one association to User
 	@ManyToOne
 	@JoinColumn(name="pmid")
@@ -198,6 +203,14 @@ public class Order implements Serializable {
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
+	
+	public Security getSecurity() {
+		return this.security;
+	}
+
+	public void setSecurity(Security security) {
+		this.security = security;
+	}
 
 	public Timestamp getTimestamp() {
 		return this.timestamp;
@@ -310,6 +323,50 @@ public class Order implements Serializable {
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", side=" + side + ", symbol=" + symbol + ", totalQty=" + totalQty + ", Block ="+block+"]";
+	}
+
+	@Transient
+	String portId2;
+
+	public String getPortId2() {
+		return portId2;
+	}
+
+	public void setPortId2(String portId2) {
+		this.portId2 = portId2;
+	}
+
+	@Transient
+	String symbol2;
+
+	public String getSymbol2() {
+		return symbol2;
+	}
+
+	public void setSymbol2(String symbol2) {
+		this.symbol2 = symbol2;
+	}
+
+	@Transient
+	String path;
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	@Transient
+	String traderId2;
+
+	public String getTraderId2() {
+		return traderId2;
+	}
+
+	public void setTraderId2(String traderId2) {
+		this.traderId2 = traderId2;
 	}
 
 }

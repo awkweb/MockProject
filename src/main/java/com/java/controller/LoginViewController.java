@@ -37,7 +37,7 @@ public class LoginViewController {
 
 				switch(authenticatedUser.getRole()) {
 				case "pm":
-					return "landing";
+					return "redirect:/positions";
 				case "et":
 					return "redirect:/block-blotter";
 				default:

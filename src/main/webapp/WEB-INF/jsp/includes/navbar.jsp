@@ -14,29 +14,31 @@
 				href="${pageContext.request.contextPath}/block-blotter">Acme
 				Inc.</a>
 		</div>
-		
+
 		<div class="collapse navbar-collapse"
 			id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
-					<c:when test="${authenticatedUser.getRole() == 'et' || role == 'trader'}">
+					<c:when
+						test="${authenticatedUser.getRole() == 'et' || role == 'trader'}">
 						<li><a
 							href="${pageContext.request.contextPath}/block-blotter">Block
-								Blotter
-						</a></li>
-						<li><a href="${pageContext.request.contextPath}/execution-blotter">Execution
+								Blotter </a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/execution-blotter">Execution
 								Blotter</a></li>
 						<li><a href="${pageContext.request.contextPath}/open-orders">Open
 								Orders</a></li>
 					</c:when>
-					<c:when test="${authenticatedUser.getRole() == 'pm' || role == 'manager'}">
+					<c:when
+						test="${authenticatedUser.getRole() == 'pm' || role == 'manager'}">
 						<li class="active"><a
-							href="${pageContext.request.contextPath}/#">PM Link 1<span
-								class="sr-only">(current)</span></a></li>
-						<li><a href="${pageContext.request.contextPath}/#">PM
-								Link 2</a></li>
-						<li><a href="${pageContext.request.contextPath}/#">PM
-								Link 3</a></li>
+							href="${pageContext.request.contextPath}/PmPositionsDashboard">Positions</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/PMCreateOrder_form">Create
+								Order</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/PmNewOrderview">Orders</a></li>
 					</c:when>
 					<c:otherwise>
 					</c:otherwise>

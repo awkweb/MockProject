@@ -1,5 +1,7 @@
 package com.java.dao;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -38,6 +40,19 @@ public class UserDao {
 					.setParameter("username", username)
 					.getSingleResult();
 			return user;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public List<User> getTraders() {
+		String sql = "FROM User u WHERE u.role = :role OR u.role = :role2";
+		try {
+			List<User> traders = entityManager.createQuery(sql, User.class)
+					.setParameter("role", "et")
+					.setParameter("role2", "hybrid")
+					.getResultList();
+			return traders;
 		} catch (NoResultException e) {
 			return null;
 		}

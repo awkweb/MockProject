@@ -3,6 +3,7 @@ package com.java.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
@@ -10,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.java.pojo.Block;
 import com.java.pojo.Order;
+import com.java.pojo.Portfolio;
+import com.java.pojo.Security;
 import com.java.pojo.User;
 
 @Repository
@@ -103,6 +106,42 @@ public class OrderDao {
 				.executeUpdate();
 		Boolean success = result != 0;
 		return success;
+	}
+	
+	public List<Order> getEquitiesInPortfolio(Order order) {
+		String symbol = order.getSecurity().getSymbol();
+		Portfolio port = order.getPortfolio();
+		
+		String sql = "FROM Order o WHERE o.portfolio = :portfolio";
+		try {
+			List<Order> orders = entityManager.createQuery(sql, Order.class)
+					.setParameter("portfolio", port)
+					.getResultList();
+			return orders;
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
+	
+	public Long getTotalEquityOwned(Order order) {
+		Portfolio port = order.getPortfolio();
+		Security symbol = order.getSecurity();
+		
+	
+		String sql = "SELECT SUM(o.totalQty) FROM Order o WHERE o.portfolio = :portfolio AND o.security = :symbol";
+		try {
+			long totalQtyofEquity = entityManager.createQuery(sql,
+					Long.class)
+					.setParameter("portfolio", port)
+					.setParameter("symbol", symbol)
+					.getSingleResult();
+			
+			return totalQtyofEquity;
+		} catch (NoResultException e) {
+			return -1L;
+		} catch (NullPointerException n){
+			return 0L;
+		}
 	}
 
 }

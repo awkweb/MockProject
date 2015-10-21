@@ -102,5 +102,13 @@ public class OrderManager {
 	public Boolean updateOrderPriceForIdAndType(String id, String type, float price) {
 		return orderDao.updateOrderPriceForIdAndType(id, type, price);
 	}
+	
+	public List<Order> getEquitiesInPortfolio(Order order) {
+		return orderDao.getEquitiesInPortfolio(order);
+	}
+	
+	public long getTotalEquityOwned(Order order){
+		return orderDao.getTotalEquityOwned(order);
+	}
 
 }

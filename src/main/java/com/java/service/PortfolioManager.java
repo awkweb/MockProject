@@ -1,5 +1,7 @@
 package com.java.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.java.dao.PortfolioDao;
@@ -10,10 +12,13 @@ public class PortfolioManager {
 
 	//@Autowired
 	PortfolioDao portfolioDao;
-	
+
 	public Portfolio getUserDetails(String portId) {
 		return portfolioDao.getPortfolioDetails(portId);
 	}
 
-	
+	public List<Portfolio> getPortfolios(String id) {
+		return portfolioDao.getPortfolios(id);
+	}
+
 }

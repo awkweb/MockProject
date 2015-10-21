@@ -12,10 +12,16 @@
 
 	<definition name="trader-layout.definition" template="/WEB-INF/jsp/layouts/traderLayout.jsp">
 		<put-attribute name="head" value="/WEB-INF/jsp/includes/head.jsp" />
-		<put-attribute name="popup" value="" />
 		<put-attribute name="title" value="" />
 		<put-attribute name="navbar" value="/WEB-INF/jsp/includes/navbar.jsp" />
 		<put-attribute name="toolbar" value="" />
+		<put-attribute name="content" value="" />
+	</definition>
+	
+	<definition name="pm-layout.definition" template="/WEB-INF/jsp/layouts/pmLayout.jsp">
+		<put-attribute name="head" value="/WEB-INF/jsp/includes/head.jsp" />
+		<put-attribute name="title" value="" />
+		<put-attribute name="navbar" value="/WEB-INF/jsp/includes/navbar.jsp" />
 		<put-attribute name="content" value="" />
 	</definition>
 
@@ -41,32 +47,87 @@
 		<put-attribute name="toolbar"
 			value="/WEB-INF/jsp/includes/trader/blockBlotterToolbar.jsp" />
 		<put-attribute name="content"
-			value="/WEB-INF/jsp/traderBlockBlotter.jsp" />
+			value="/WEB-INF/jsp/trader/traderBlockBlotter.jsp" />
 	</definition>
 
 	<definition name="open-orders" extends="trader-layout.definition">
 		<put-attribute name="title" value="Open Orders" />
 		<put-attribute name="toolbar"
 			value="/WEB-INF/jsp/includes/trader/openOrdersToolbar.jsp" />
-		<put-attribute name="content" value="/WEB-INF/jsp/traderOpenOrders.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/trader/traderOpenOrders.jsp" />
 	</definition>
 
 	<definition name="execution-blotter" extends="trader-layout.definition">
 		<put-attribute name="title" value="Execution Blotter" />
 		<put-attribute name="content"
-			value="/WEB-INF/jsp/traderExecutionBlotter.jsp" />
+			value="/WEB-INF/jsp/trader/traderExecutionBlotter.jsp" />
 	</definition>
 
 	<definition name="select-block" extends="trader-layout.definition">
 		<put-attribute name="title" value="Select Existing Block" />
 		<put-attribute name="toolbar"
 			value="/WEB-INF/jsp/includes/trader/addToBlockToolbar.jsp" />
-		<put-attribute name="content" value="/WEB-INF/jsp/traderSelectBlock.jsp" />
+		<put-attribute name="content" value="/WEB-INF/jsp/trader/traderSelectBlock.jsp" />
 	</definition>
 
 	<!-- PM -->
 	<definition name="landing" extends="trader-layout.definition">
 		<put-attribute name="content" value="/WEB-INF/jsp/landing.jsp" />
 	</definition>
+	
+	<definition name="create-order-form" extends="pm-layout.definition">
+		<put-attribute name="title" value="Create Order" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/pm/createOrderForm.jsp" />
+	</definition>
+	
+	<definition name="positions" extends="pm-layout.definition">
+		<put-attribute name="title" value="Positions" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/pm/positions.jsp" />
+	</definition>
+	
+	<definition name="order-view" extends="pm-layout.definition">
+		<put-attribute name="title" value="positionsdashboard!" />
+		<put-attribute name="content" value="/WEB-INF/jsp/pm/orderView.jsp" />
+	</definition>
+	
+	<!-- <definition name="pmopenorder" extends="pm-layout.definition">
+		<put-attribute name="title" value="positionsdashboard!" />
+		<put-attribute name="content" value="/WEB-INF/jsp/pmopenorder.jsp" />
+	</definition>
+	
+	<definition name="pmcancelledorder" extends="pm-layout.definition">
+		<put-attribute name="title" value="positionsdashboard!" />
+		<put-attribute name="content" value="/WEB-INF/jsp/pmcancelledorder.jsp" />
+	</definition>
+
+	<definition name="PMEditOrder_form" extends="pm-layout.definition">
+		<put-attribute name="title" value="Edit An Order" />
+		<put-attribute name="content" value="/WEB-INF/jsp/PMEditOrder_form.jsp" />
+	</definition>
+
+	<definition name="pmOrderForm_results" extends="pm-layout.definition">
+		<put-attribute name="title" value="Order Successful" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/pmOrderForm_results.jsp" />
+	</definition>
+	
+	<definition name="ErrorOrder" extends="pm-layout.definition">
+		<put-attribute name="title" value="Order Unsuccessful" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/ErrorOrder.jsp" />
+	</definition>
+	
+	<definition name="PMAmendOrder_form" extends="pm-layout.definition">
+		<put-attribute name="title" value="Amend An Order" />
+		<put-attribute name="content" value="/WEB-INF/jsp/PMAmendOrder_form.jsp" />
+	</definition>
+	
+	<definition name="search" extends="pm-layout.definition">
+		<put-attribute name="title" value="Search" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/search.jsp" />
+	</definition>  -->
 
 </tiles-definitions>
