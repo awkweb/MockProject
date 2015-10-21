@@ -2,96 +2,123 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ page isELIgnored="false"%>
 
+<c:if test="${orderViewError}">
+	<div class="alert alert-danger" role="alert">
+		${orderViewMessage}
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</c:if>
+
+<c:if test="${orderViewSuccess}">
+	<div class="alert alert-success" role="alert">
+		${orderViewMessage}
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+</c:if>
+
 <div>
 
 	<ul class="nav nav-tabs" role="tablist">
-		<li role="presentation active" class="active"><form:form
-				action="PmNewOrderview" method="post">
-				<input type="submit"
-					style="background-color: transparent; width: 15em; height: 2em;"
-					value="New" />
-
-			</form:form></li>
-		<li role="presentation"><form:form action="PmOpenOrderview"
-				method="post">
-				<input type="submit"
-					style="background-color: transparent; width: 15em; height: 2em;"
-					value="Open" />
-
-			</form:form></li>
-		<li role="presentation"><form:form action="PmCancelledOrderview"
-				method="post">
-				<input type="submit"
-					style="background-color: transparent; width: 15em; height: 2em;"
-					value="Cancelled" />
-
-			</form:form></li>
-
-
-
-
-		<div class="col-sm-3 col-sm-offset-8">
-			<div class="btn-group btn-group-justified" role="group"
-				aria-label="...">
-				<div class="btn-group" role="group">
-					<button id="cancelorderbutton" type="button"
-						class="btn btn-default">Cancel</button>
-				</div>
-			</div>
-		</div>
-
-
+		<li role="presentation" class="active"><a id="newTab" href="#new"
+			aria-controls="new" role="tab" data-toggle="tab">New</a></li>
+		<li role="presentation"><a id="openTab" href="#open" aria-controls="open"
+			role="tab" data-toggle="tab">Open</a></li>
+		<li role="presentation"><a id="cancelledTab" href="#cancelled"
+			aria-controls="cancelled" role="tab" data-toggle="tab">Cancelled</a></li>
 	</ul>
 
 	<div class="tab-content">
-		<br>
-		<div role="tabpanel" class="tab-pane fade in active" id="New">
-			<table class="table table-bordered table-hover table-responsive">
-				<tr>
-					<th>Select</th>
-					<th>Order Id</th>
-					<th>Symbol</th>
-
-					<th>Average Price</th>
-
-					<th>Total Quantity</th>
-					<th>Status</th>
-					<th></th>
-
-				</tr>
-
-
-				<c:forEach items="${pmorderlist}" var="order">
+		<div role="tabpanel" class="tab-pane active" id="new">
+			<br>
+			<div class="panel panel-default">
+				<table class="table table-bordered table-hover table-responsive">
 					<tr>
-						<td><input type="checkbox" class="ordercheckbox"
-							name="checkboxOptions" id="${order.getOrderId()}" value="row1"></td>
-						<td><c:out value="${order.getOrderId()}" /></td>
-						<td><c:out value="${order.getSecurity().getSymbol()}" /></td>
-						<td><c:out value="${order.getSecurity().getMarketPrice()}" /></td>
-						<td><c:out value="${order.getTotalQty()}" /></td>
-						<td><c:out value="${order.getStatus()}" /></td>
-						<td class="text-center"><a id="editOrder"
-							data-id="${order.getOrderId()}" role="button">Edit</a></td>
-
+						<th class="text-center"><input type="checkbox"
+							class="ordercheckbox" name="checkboxOptions" id="tag"
+							value="row1"></th>
+						<th>Order Id</th>
+						<th>Symbol</th>
+						<th>Average Price</th>
+						<th>Total Quantity</th>
+						<th></th>
 					</tr>
-				</c:forEach>
 
-
-			</table>
-			<div class="col-sm-3 col-sm-offset-8">
-				<div class="btn-group btn-group-justified" role="group"
-					aria-label="...">
-					<div class="btn-group" role="group">
-						<button id="sendorderbutton" type="button" class="btn btn-default">Send
-							For Trade</button>
-					</div>
-
-				</div>
+					<c:forEach items="${newOrders}" var="order">
+						<tr>
+							<td class="text-center"><input type="checkbox"
+								class="ordercheckbox" name="checkboxOptions"
+								id="${order.getOrderId()}" value="row1"></td>
+							<td>${order.getOrderId()}</td>
+							<td>${order.getSecurity().getSymbol()}</td>
+							<td>${order.getSecurity().getMarketPrice()}</td>
+							<td>${order.getTotalQty()}</td>
+							<td class="text-center"><a id="editOrder"
+								data-id="${order.getOrderId()}" role="button">Edit</a></td>
+						</tr>
+					</c:forEach>
+				</table>
 			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="open">
+			<br>
+			<div class="panel panel-default">
+				<table class="table table-bordered table-hover table-responsive">
+					<tr>
+						<th class="text-center"><input type="checkbox"
+							class="ordercheckbox" name="checkboxOptions" id="tag"
+							value="row1"></th>
+						<th>Order Id</th>
+						<th>Symbol</th>
+						<th>Average Price</th>
+						<th>Total Quantity</th>
+						<th>Status</th>
+						<th></th>
+					</tr>
 
+					<c:forEach items="${openOrders}" var="order">
+						<tr>
+							<td class="text-center"><input type="checkbox"
+								class="ordercheckbox" name="checkboxOptions"
+								id="${order.getOrderId()}" value="row1"></td>
+							<td>${order.getOrderId()}</td>
+							<td>${order.getSecurity().getSymbol()}</td>
+							<td>${order.getSecurity().getMarketPrice()}</td>
+							<td>${order.getTotalQty()}</td>
+							<td>${order.getStatus()}</td>
+							<td class="text-center"><a id="editOrder"
+								data-id="${order.getOrderId()}" role="button">Edit</a></td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="cancelled">
+			<br>
+			<div class="panel panel-default">
+				<table class="table table-bordered table-hover table-responsive">
+					<tr>
+						<th>Order Id</th>
+						<th>Symbol</th>
+						<th>Average Price</th>
+						<th>Total Quantity</th>
+					</tr>
 
-
-
+					<c:forEach items="${cancelledOrders}" var="order">
+						<tr>
+							<td>${order.getOrderId()}</td>
+							<td>${order.getSecurity().getSymbol()}</td>
+							<td>${order.getSecurity().getMarketPrice()}</td>
+							<td>${order.getTotalQty()}</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

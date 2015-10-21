@@ -23,8 +23,8 @@ public class OrderViewManager {
 		orderdao.updatestatus(choice);
 	}
 
-	public void updateordercancel(List<String> choice){
-		orderdao.updatestatuscancel(choice);
+	public Boolean updateOrderToStatus(String id, String status) {
+		return orderdao.updateOrderToStatus(id, status);
 	}
 
 }

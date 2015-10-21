@@ -82,13 +82,8 @@ public class TraderBlockBlotterViewController {
 		}
 
 		blockManager.setQtyForBlockWithBlockId(blockid,block.calculateTotalQty());
-
-
-
-
 		blockManager.setQtyForBlockWithBlockId(blockid, block.calculateTotalQty());
 		
-
 		if (!orderRemoveResults.contains(false)) {
 			model.addAttribute("blockBlotterSuccess", true);
 			model.addAttribute("blockBlotterMessage", "Success! Order(s) were removed!");

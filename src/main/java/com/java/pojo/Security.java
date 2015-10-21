@@ -16,7 +16,6 @@ public class Security implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String symbol;
 
 	@Column(name="closing_price")

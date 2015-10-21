@@ -17,6 +17,7 @@
 			</div>
 		</div>
 		
+		<tiles:insertAttribute name="toolbar" />
 		<tiles:insertAttribute name="content" />
 	</div>
 	<script src="${pageContext.request.contextPath}/static/js/pm.js"></script>

@@ -11,87 +11,101 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.pojo.Order;
 import com.java.pojo.User;
+import com.java.service.OrderManager;
 import com.java.service.OrderViewManager;
 
-
 @Controller
+@SessionAttributes(value = {"orderViewError", "orderViewSuccess", "orderViewMessage"})
 public class PmOrderViewController {
-
+	
+	static int counter = 0;
+	
+	@Autowired
+	private OrderManager orderManager;
+	
 	@Autowired
 	private OrderViewManager orderViewManager;
 
 	@RequestMapping(value="/order-view")
-	public ModelAndView LoadDashBoard(HttpSession session, Model model) {
+	public String LoadDashBoard(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("authenticatedUser");
-		List<Order> pmorderlist=new ArrayList<Order>();
-		pmorderlist= orderViewManager.getPmOrderDetails(user.getUserId(), "New");
-		model.addAttribute("pmorderlist", pmorderlist);
-		ModelAndView model1 = new ModelAndView("orderView");
-		model1.addObject("pmorderlist", pmorderlist);
-
-		return model1;
+		List<Order> newOrders = orderViewManager.getPmOrderDetails(user.getUserId(), "New");
+		List<Order> openOrders = orderViewManager.getPmOrderDetails(user.getUserId(), "Open");
+		List<Order> cancelledOrders = orderViewManager.getPmOrderDetails(user.getUserId(), "Cancelled");
+		
+		// Ideally just get the orders and switch in order-view, i.e. user.getOrders()
+		model.addAttribute("newOrders", newOrders);
+		model.addAttribute("openOrders", openOrders);
+		model.addAttribute("cancelledOrders", cancelledOrders);
+		
+		manageAlertForSessionAndModelWithName(session, model, "orderViewError");
+		manageAlertForSessionAndModelWithName(session, model, "orderViewSuccess");
+		
+		return "order-view";
 	}
 
-	@RequestMapping(value = "/sendorderbutton",method=RequestMethod.POST, consumes="application/json")
-	public String updateneworder(@RequestBody String myArray,HttpSession session) {
+	@RequestMapping(value = "/cancel-order",method=RequestMethod.POST, consumes="application/json")
+	public String updatecancelorder(@RequestBody String myArray, HttpSession session, Model model) {
 		List<String> idlist = new ArrayList<String>();
 		System.out.println("array="+myArray);
 		for(String id : myArray.substring(1,myArray.length()-1).split(",")){
-
 			idlist.add(id.substring(1,id.length()-1));
 		}
-		System.out.println(idlist);
-		orderViewManager.updateorder(idlist);
-
-		return "orderView";
+		
+		List<Boolean> results = new ArrayList<Boolean>();
+		for (String id : idlist) {
+			orderViewManager.updateOrderToStatus(id, "Cancelled");
+		}
+		
+		for (String id : idlist) {
+			orderManager.removeOrderFromBlockWithOrderId(id);
+		}
+		
+		if (!results.contains(false)) {
+			model.addAttribute("orderViewSuccess", true);
+			model.addAttribute("orderViewMessage", "Success! Order(s) were cancelled!");
+		} else {
+			model.addAttribute("orderViewError", true);
+			model.addAttribute("orderViewMessage", "Error cancelling order(s).");
+		}
+		counter = 0;
+		
+		return "order-view";
 	}
-
-	@RequestMapping(value = "/cancelorderbutton",method=RequestMethod.POST, consumes="application/json")
-	public String updatecancelorder(@RequestBody String myArray,HttpSession session) {
+	
+	@RequestMapping(value = "/sendorderbutton", method=RequestMethod.POST, consumes="application/json")
+	public String updateneworder(@RequestBody String myArray, HttpSession session, Model model) {
 		List<String> idlist = new ArrayList<String>();
 		System.out.println("array="+myArray);
 		for(String id : myArray.substring(1,myArray.length()-1).split(",")){
-
 			idlist.add(id.substring(1,id.length()-1));
 		}
-		System.out.println(idlist);
-		orderViewManager.updateordercancel(idlist);
+		
+		List<Boolean> results = new ArrayList<Boolean>();
+		for (String id : idlist) {
+			orderViewManager.updateOrderToStatus(id, "Open");
+		}
+		
+		for (String id : idlist) {
+			orderManager.removeOrderFromBlockWithOrderId(id);
+		}
+		
+		if (!results.contains(false)) {
+			model.addAttribute("orderViewSuccess", true);
+			model.addAttribute("orderViewMessage", "Success! Order(s) were sent to trader!");
+		} else {
+			model.addAttribute("orderViewError", true);
+			model.addAttribute("orderViewMessage", "Error sending order(s).");
+		}
+		counter = 0;
 
-		return "orderView";
+		return "order-view";
 	}
-
-	@RequestMapping(value = "/cancelorderbutton2",method=RequestMethod.POST, consumes="application/json")
-	public String updatecancelorder2(@RequestBody String myArray,HttpSession session) {
-		List<String> idlist = new ArrayList<String>();
-		System.out.println("array="+myArray);
-		for(String id : myArray.substring(1,myArray.length()-1).split(",")){
-
-			idlist.add(id.substring(1,id.length()-1));
-		}
-		System.out.println(idlist);
-		orderViewManager.updateordercancel(idlist);
-
-		return "pmopenorder";
-	}
-
-	/*	@RequestMapping(value = "/editorderbutton",method=RequestMethod.POST, consumes="application/json")
-	public ModelAndView editorder(@RequestBody String myArray,HttpSession session) {
-		List<String> idlist = new ArrayList<String>();
-		System.out.println("array="+myArray);
-		for(String id : myArray.substring(1,myArray.length()-1).split(",")){
-
-			idlist.add(id.substring(1,id.length()-1));
-		}
-		ModelAndView model1 = new ModelAndView("PMEditOrder_form");
-		model1.addObject("idlist", idlist);
-
-		return model1;
-
-	}*/
 
 	@RequestMapping(value = "/editorderbutton2",method=RequestMethod.POST, consumes="application/json")
 	public ModelAndView editorder2(@RequestBody String myArray,HttpSession session) {
@@ -106,26 +120,27 @@ public class PmOrderViewController {
 
 		return model1;
 	}
-
-
-	@RequestMapping(value="/PmOpenOrderview")
-	public ModelAndView LoadOpenDashBoard(Model model) {
-		List<Order> pmorderlist=new ArrayList<Order>();
-		pmorderlist= orderViewManager.getPmOrderDetails("1", "Open");
-		model.addAttribute("pmorderlist", pmorderlist);
-		ModelAndView model1 = new ModelAndView("pmopenorder");
-		model1.addObject("pmorderlist", pmorderlist);
-		return model1;
-	}
-
-	@RequestMapping(value="/PmCancelledOrderview")
-	public ModelAndView LoadCancelledDashBoard(Model model) {
-		List<Order> pmorderlist=new ArrayList<Order>();
-		pmorderlist= orderViewManager.getPmOrderDetails("1", "Cancelled");
-		model.addAttribute("pmorderlist", pmorderlist);
-		ModelAndView model1 = new ModelAndView("pmcancelledorder");
-		model1.addObject("pmorderlist", pmorderlist);
-		return model1;
+	
+	public static void manageAlertForSessionAndModelWithName(HttpSession session, Model model,
+			String name) {
+		Object sessionCheck;
+		boolean flag;
+		sessionCheck = session.getAttribute(name);
+		if (sessionCheck != null) {
+			try {
+				flag = (boolean) session.getAttribute(name);
+				if (flag) {
+					if (counter >= 1) {
+						model.addAttribute(name, false);
+						counter = 0;
+					} else {
+						counter++;
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

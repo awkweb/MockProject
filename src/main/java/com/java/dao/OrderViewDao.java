@@ -68,24 +68,16 @@ public class OrderViewDao {
 	}
 
 	@Transactional
-	public void updatestatuscancel(List<String> choice){
-		int i=0;
-
-		System.out.println(choice);
-		for(String orderid : choice){
-			Order order=entityManager.find(Order.class, orderid);
-
-			System.out.println(order.getOrderId());
-			order.setStatus("Cancelled");
-			System.out.println(order.getStatus());
-			entityManager.merge(order);
-			i++;
-			System.out.println();
-
-		}
-
-
+	public Boolean updateOrderToStatus(String id, String status) {	
+		String sql = "UPDATE Order "
+				+ "SET status = :status "
+				+ "WHERE order_id = :orderid";
+		int result = entityManager.createQuery(sql)
+				.setParameter("status", status)
+				.setParameter("orderid", id)
+				.executeUpdate();
+		Boolean success = result != 0;
+		return success;
 	}
-
 
 }

@@ -1,20 +1,18 @@
 package com.java.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpSession;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java.pojo.Order;
@@ -27,8 +25,9 @@ import com.java.service.SecurityManager;
 import com.java.service.UserManager;
 
 @Controller
-@SessionAttributes(value = { "passedOrder" })
-public class PmEditOrderViewController {
+public class PmCreateOrderViewController {
+
+	Calendar calendar = Calendar.getInstance();
 
 	@Autowired
 	private OrderManager orderManager;
@@ -42,73 +41,49 @@ public class PmEditOrderViewController {
 	@Autowired
 	private PortfolioManager portfolioManager;
 
-	@RequestMapping(value = "/PMEditOrder_form", method = RequestMethod.GET)
+	@RequestMapping(value = "/create-order", method = RequestMethod.GET)
 	public ModelAndView loadEmptyModelBeanOrder(Model model) {
-		model.addAttribute("pageHeader", "Edit Order");
-		return new ModelAndView("PMEditOrder_form", "order", new Order());
+		model.addAttribute("pageHeader", "Create Order");
+		return new ModelAndView("create-order", "order", new Order());
 	}
 
-	@RequestMapping(value = "/PMAmendOrder_form", method = RequestMethod.GET)
-	public ModelAndView loadEmptyModelBeanOrderAmend(Model model) {
-		model.addAttribute("pageHeader", "Amend Order");
-		return new ModelAndView("PMAmendOrder_form", "order", new Order());
-	}
-
-	@RequestMapping(value = "/editorderbutton", method = RequestMethod.POST, consumes = "application/json")
-	public ModelAndView editorder(@RequestBody String json,
-			HttpSession session, Model model) {
-		Order editOrder = orderManager.getOrderWithId(json);
-		model.addAttribute("passedOrder", editOrder);
-
-		return new ModelAndView("PMEditOrder_form", "order", new Order());
-	}
-	
-	@RequestMapping(value = "/amendorderbutton", method = RequestMethod.POST, consumes = "application/json")
-	public ModelAndView amendtorder(@RequestBody String json,
-			HttpSession session, Model model) {
-		Order editOrder = orderManager.getOrderWithId(json);
-		model.addAttribute("passedOrder", editOrder);
-
-		return new ModelAndView("PMAmendOrder_form", "order", new Order());
-	}
-
-	@RequestMapping(value = "/editdetails", method = RequestMethod.POST)
-	public String addOrder(@ModelAttribute("order") Order order, Model model, HttpSession session) {
-		User user = (User) session.getAttribute("authenticatedUser");
+	@RequestMapping(value = "/orderdetails", method = RequestMethod.POST)
+	public String addOrder(@ModelAttribute("order") Order order, Model model) {
 		model.addAttribute("symbol", order.getSymbol2());
 		model.addAttribute("side", order.getSide());
 		model.addAttribute("quantity", order.getTotalQty());
 
 		User trader = userManager.getUserWithId(order.getTraderId2());
 		Portfolio port = portfolioManager.getUserDetails(order.getPortId2());
-
-		User pm = userManager.getUserWithId(user.getUserId());
-
-		Security security = securityManager.getSecurityDetails(order
+		
+		//set signed in PM here
+		User pm = userManager.getUserWithId("1");
+		Security security = securityManager.getSecurityDetailsFromName(order
 				.getSymbol2());
-		System.out.println(security);
-		order.setSecurity(security);
 
+		order.setSecurity(security);
 		order.setPortfolio(port);
 		order.setUser2(trader);
 		order.setUser1(pm);
-
+		order.setStatus("New");
+		
 		int sellQty = order.getTotalQty() * -1;
 
 		long totalqtyowned = orderManager.getTotalEquityOwned(order);
-
-		// update when flag is true
+		
+		// persist only when flag is true
 		boolean flag;
+		
 		String redirect = "";
 		String errorMessage = "";
-
+		
 		if (order.getSide().equals("Sell")
 				&& order.getTotalQty() < totalqtyowned
-				&& getEquitiesInPortfolio(order).contains(
-						order.getSecurity().getSymbol())) {
+				&& getEquitiesInPortfolio(order).contains(order.getSecurity().getSymbol()))
+				  {
 			System.out.println("first check");
 			flag = true;
-		} else if (order.getSide().equals("Buy")) {
+		} else if(order.getSide().equals("Buy")){
 			System.out.println("Second check");
 			flag = true;
 		} else {
@@ -120,14 +95,11 @@ public class PmEditOrderViewController {
 			if (order.getSide().equals("Sell")) {
 				order.setTotalQty(sellQty);
 			}
-			orderManager.updateOrder(order);
-		} else if (flag == false) {
-			if (order.getTotalQty() > totalqtyowned) {
+			orderManager.saveOrder(order);			
+		} else if(flag==false){
+			if(order.getTotalQty() > totalqtyowned){
 				errorMessage = "You don't own enough equity to sell the quantity entered";
-			}
-			if (order.getTotalQty() > totalqtyowned) {
-				errorMessage = "You don't own enough equity to sell the quantity entered";
-			}
+			}			
 			model.addAttribute("ErrorMessage", errorMessage);
 			model.addAttribute("totalowned", totalqtyowned);
 			redirect = "ErrorOrder";
@@ -180,6 +152,28 @@ public class PmEditOrderViewController {
 		return traderIds;
 	}
 
+	@ModelAttribute("symbolList")
+	public Map<String, String> provideEquitySymbol() {
+		List<Security> symbols = securityManager.getSecurities();
+		Map<String, String> symbolWithName = new TreeMap<String, String>();
+		for (Security sec : symbols) {
+			symbolWithName.put(sec.getName(), sec.getSymbol());
+		}
+		return symbolWithName;
+	}
+
+	
+	//Need to pass user id of who is signed in here
+	@ModelAttribute("portfolioList")
+	public Map<String, String> provideEquityPortfolio() {
+		List<Portfolio> portfolioList = portfolioManager.getPortfolios("1");
+		Map<String, String> portfolios = new HashMap<String, String>();
+		for (Portfolio port : portfolioList) {
+			portfolios.put(port.getPortId(), port.getName());
+		}
+		return portfolios;
+	}
+
 	@ModelAttribute("accountTypeList")
 	public List<String> provideEquityAccountType() {
 		List<String> accountTypeList = new ArrayList<String>();
@@ -188,14 +182,4 @@ public class PmEditOrderViewController {
 		return accountTypeList;
 	}
 
-	@ModelAttribute("portfolioList")
-	public Map<String, String> provideEquityPortfolio(HttpSession session) {
-		User user = (User) session.getAttribute("authenticatedUser");
-		List<Portfolio> portfolioList = portfolioManager.getPortfolios(user.getUserId());
-		Map<String, String> portfolios = new HashMap<String, String>();
-		for (Portfolio port : portfolioList) {
-			portfolios.put(port.getPortId(), port.getName());
-		}
-		return portfolios;
-	}
 }

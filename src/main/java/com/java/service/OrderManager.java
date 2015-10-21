@@ -56,7 +56,7 @@ public class OrderManager {
 		for (Order order : allorders) {
 
 			for (Block pb : pblocks) {
-				if (pb.getSide().equals(order.getSide()) && pb.getSymbol().equals(order.getSymbol())) {
+				if (pb.getSide().equals(order.getSide()) && pb.getSymbol().equals(order.getSecurity().getSymbol())) {
 					pb.getOrders().add(order);
 					pb.setTotalQty(pb.getTotalQty() + order.getTotalQty());
 					added = true;
@@ -64,7 +64,7 @@ public class OrderManager {
 				}
 			}
 			if (!added) {
-				Block newTemp = new Block(order.getSymbol(), order.getSide(), "Proposed", user,new ArrayList<Order>());
+				Block newTemp = new Block(order.getSecurity().getSymbol(), order.getSide(), "Proposed", user,new ArrayList<Order>());
 				newTemp.getOrders().add(order);
 				newTemp.setTotalQty(order.getTotalQty());
 				pblocks.add(newTemp);
@@ -80,11 +80,11 @@ public class OrderManager {
 		if (selected4Block.size() > 1) {
 			for (int i = 0; i < selected4Block.size(); i++) {
 				temp = selected4Block.get(i);
-				System.out.println(temp.getSymbol() + " "
-						+ selected4Block.get(i++).getSymbol());
+				System.out.println(temp.getSecurity().getSymbol() + " "
+						+ selected4Block.get(i++).getSecurity().getSymbol());
 				// checks whether the symbols are not the same
-				if (temp.getSymbol().compareTo(
-						selected4Block.get(i++).getSymbol()) != 0) {
+				if (temp.getSecurity().getSymbol().compareTo(
+						selected4Block.get(i++).getSecurity().getSymbol()) != 0) {
 					return false;
 				} else {
 					i--;

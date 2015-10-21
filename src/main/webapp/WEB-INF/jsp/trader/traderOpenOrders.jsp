@@ -82,7 +82,7 @@
 					<c:forEach items="${block.getOrders()}" var="order">
 						<tr>
 							<td class="text-center"><input type="checkbox" class="ordercheckbox"
-								value="${order.getOrderId()}" data-type="order" data-checkid="${order.getSide()}_${order.getSymbol()}"></td>
+								value="${order.getOrderId()}" data-type="order" data-checkid="${order.getSide()}_${order.getSecurity().getSymbol()}"></td>
 							<td>${order.getOrderId()}</td>
 							<td>${order.getUser2().getFName()}
 								${order.getUser2().getLName()}</td>

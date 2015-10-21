@@ -61,7 +61,7 @@ public class BlockDao {
 				+ "AND b.status = 'new'";
 		List<Block> blocks = entityManager.createQuery(sql, Block.class)
 				.setParameter("side", order.getSide())
-				.setParameter("symbol", order.getSymbol())
+				.setParameter("symbol", order.getSecurity().getSymbol())
 				.getResultList();
 		return blocks;
 	}

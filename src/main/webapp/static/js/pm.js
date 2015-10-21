@@ -1,3 +1,35 @@
+$('#newTab').click(function(event) {
+	console.log("Pressed")
+});
+
+$('#cancelorderbutton').click(function(event) {
+	event.preventDefault();
+	var selectedOrders = $(".ordercheckbox:checked").map(function() {
+		return this.id;
+	}).toArray();
+	console.log(selectedOrders);
+	
+	if (selectedOrders.length > 0) {
+		if (confirm('Are you sure you would like to cancel order(s)?')) {
+			$.ajax({
+				type : "POST",
+				url : "/mock/cancel-order",
+				contentType : "application/json",
+				data : JSON.stringify(selectedOrders),
+				success : function(result) {
+					console.log("success");
+					location.reload();
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log(jqXHR.status);
+					console.log(textStatus);
+					console.log(errorThrown);
+				}
+			})
+		}
+	}
+});
+
 $('#sendorderbutton').click(function(event) {
 	event.preventDefault();
 	var selectedOrders = $(".ordercheckbox:checked").map(function() {
@@ -9,58 +41,6 @@ $('#sendorderbutton').click(function(event) {
 		$.ajax({
 			type : "POST",
 			url : "/mock/sendorderbutton",  //controller mapping
-			contentType : "application/json",
-			data : JSON.stringify(selectedOrders),
-			success : function(result) {
-				console.log("success");
-				location.reload();
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log(jqXHR.status);
-				console.log(textStatus);
-				console.log(errorThrown);
-			}
-		})
-	}
-});
-
-$('#cancelorderbutton').click(function(event) {
-	event.preventDefault();
-	var selectedOrders = $(".ordercheckbox:checked").map(function() {
-		return this.id;
-	}).toArray();
-	console.log(selectedOrders);
-	console.log("Cancelling orders");
-	if (selectedOrders.length > 0) {
-		$.ajax({
-			type : "POST",
-			url : "/mock/cancelorderbutton",  //controller mapping
-			contentType : "application/json",
-			data : JSON.stringify(selectedOrders),
-			success : function(result) {
-				console.log("success");
-				location.reload();
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log(jqXHR.status);
-				console.log(textStatus);
-				console.log(errorThrown);
-			}
-		})
-	}
-});
-
-$('#cancelorderbutton2').click(function(event) {
-	event.preventDefault();
-	var selectedOrders = $(".ordercheckbox:checked").map(function() {
-		return this.id;
-	}).toArray();
-	console.log(selectedOrders);
-	console.log("Cancelling orders");
-	if (selectedOrders.length > 0) {
-		$.ajax({
-			type : "POST",
-			url : "/mock/cancelorderbutton2",  
 			contentType : "application/json",
 			data : JSON.stringify(selectedOrders),
 			success : function(result) {

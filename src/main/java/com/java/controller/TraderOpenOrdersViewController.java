@@ -58,7 +58,7 @@ public class TraderOpenOrdersViewController {
 
 		boolean canCreateBlock = orderManager.canAddToBlock(selected4Block);
 		if (canCreateBlock == true) {
-			Block newBlock = new Block(selected4Block.get(0).getSymbol(), selected4Block.get(0).getSide(), "new",
+			Block newBlock = new Block(selected4Block.get(0).getSecurity().getSymbol(), selected4Block.get(0).getSide(), "new",
 					selected4Block.get(0).getUser2(), selected4Block);
 			newBlock.setTotalQty(newBlock.calculateTotalQty());
 			blockManager.saveBlock(newBlock);

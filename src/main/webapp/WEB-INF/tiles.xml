@@ -22,6 +22,7 @@
 		<put-attribute name="head" value="/WEB-INF/jsp/includes/head.jsp" />
 		<put-attribute name="title" value="" />
 		<put-attribute name="navbar" value="/WEB-INF/jsp/includes/navbar.jsp" />
+		<put-attribute name="toolbar" value="" />
 		<put-attribute name="content" value="" />
 	</definition>
 
@@ -75,12 +76,6 @@
 		<put-attribute name="content" value="/WEB-INF/jsp/landing.jsp" />
 	</definition>
 	
-	<definition name="create-order-form" extends="pm-layout.definition">
-		<put-attribute name="title" value="Create Order" />
-		<put-attribute name="content"
-			value="/WEB-INF/jsp/pm/createOrderForm.jsp" />
-	</definition>
-	
 	<definition name="positions" extends="pm-layout.definition">
 		<put-attribute name="title" value="Positions" />
 		<put-attribute name="content"
@@ -88,8 +83,15 @@
 	</definition>
 	
 	<definition name="order-view" extends="pm-layout.definition">
-		<put-attribute name="title" value="positionsdashboard!" />
+		<put-attribute name="title" value="Orders" />
+		<put-attribute name="toolbar" value="/WEB-INF/jsp/includes/pm/orderViewToolbar.jsp" />
 		<put-attribute name="content" value="/WEB-INF/jsp/pm/orderView.jsp" />
+	</definition>
+	
+	<definition name="create-order" extends="pm-layout.definition">
+		<put-attribute name="title" value="Create Order" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/pm/createOrderForm.jsp" />
 	</definition>
 	
 	<!-- <definition name="pmopenorder" extends="pm-layout.definition">

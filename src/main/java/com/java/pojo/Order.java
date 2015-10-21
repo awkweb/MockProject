@@ -1,9 +1,21 @@
 package com.java.pojo;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -47,8 +59,6 @@ public class Order implements Serializable {
 
 	@Column(name="stop_price")
 	private float stopPrice;
-
-	private String symbol;
 
 	private Timestamp timestamp;
 
@@ -196,14 +206,6 @@ public class Order implements Serializable {
 		this.stopPrice = stopPrice;
 	}
 
-	public String getSymbol() {
-		return this.symbol;
-	}
-
-	public void setSymbol(String symbol) {
-		this.symbol = symbol;
-	}
-	
 	public Security getSecurity() {
 		return this.security;
 	}
@@ -322,7 +324,7 @@ public class Order implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", side=" + side + ", symbol=" + symbol + ", totalQty=" + totalQty + ", Block ="+block+"]";
+		return "Order [orderId=" + orderId + ", side=" + side + "totalQty=" + totalQty + ", Block ="+block+"]";
 	}
 
 	@Transient

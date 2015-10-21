@@ -32,13 +32,13 @@
 					</c:when>
 					<c:when
 						test="${authenticatedUser.getRole() == 'pm' || role == 'manager'}">
-						<li class="active"><a
-							href="${pageContext.request.contextPath}/PmPositionsDashboard">Positions</a></li>
 						<li><a
-							href="${pageContext.request.contextPath}/PMCreateOrder_form">Create
+							href="${pageContext.request.contextPath}/positions">Positions</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/order-view">Orders</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/create-order">Create
 								Order</a></li>
-						<li><a
-							href="${pageContext.request.contextPath}/PmNewOrderview">Orders</a></li>
 					</c:when>
 					<c:otherwise>
 					</c:otherwise>
