@@ -41,8 +41,13 @@ public class PortfolioDao {
 					Portfolio.class)
 					.setParameter("user", pm)
 					.getResultList();
+			
+			for(Portfolio port : Portfolios){
+				System.out.println(port.getName()+" "+port.getPmID());
+			}
 			return Portfolios;
 		} catch (NoResultException e) {
+			System.out.println("gets null");
 			return null;
 		}
 	}

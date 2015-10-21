@@ -57,7 +57,7 @@ public class OrderManager {
 		for (Order order : allorders) {
 			
 			for (Block pb : pblocks) {
-				System.out.println(pb.getSide()+"_"+pb.getSymbol()+"_"+pb.getOrders().get(0).getOrdertype()+"_"+pb.getLimitPrice());
+				
 
 				if (pb.getSide().equals(order.getSide()) && pb.getSymbol().equals(order.getSecurity().getSymbol())) {
 					if (pb.getOrders().get(0).getOrdertype()
@@ -106,7 +106,7 @@ public class OrderManager {
 					newTemp.setStopPrice(order.getStopPrice());
 				}
 				pblocks.add(newTemp);
-			System.out.println(newTemp.getSide()+"_"+newTemp.getSymbol());
+			
 			}
 			added = false;
 
@@ -118,12 +118,10 @@ public class OrderManager {
 		Order temp1, temp2;
 		if (selected4Block.size() > 1) {
 			for (int i = 0; i < selected4Block.size() - 1; i++) {
-				System.out.println(selected4Block.size());
+			
 				temp1 = selected4Block.get(i);
 				temp2 = selected4Block.get(i + 1);
 
-				System.out.println(temp1.getSecurity().getSymbol().toString() + " "
-						+ temp2.getSecurity().getSymbol().toString());
 
 				// check if order symbol are not the same
 				if ((temp1.getSecurity().getSymbol().compareTo(temp2.getSecurity().getSymbol()) != 0)) {

@@ -36,9 +36,7 @@ public class TraderOpenOrdersViewController {
 		User user = (User) session.getAttribute("authenticatedUser");
 		List<Order> orders = orderManager.getOpenOrdersforUser(user);
 		
-		for(Order order : orders){
-			System.out.println(order.getSymbol2()+" "+order.getSide());
-		}
+
 		List<Block> proposedBlocks = orderManager.getProposedBlocksWithOrders(orders, user);
 
 		session.setAttribute("proposedBlocks", proposedBlocks);
@@ -46,9 +44,6 @@ public class TraderOpenOrdersViewController {
 		manageAlertForSessionAndModelWithName(session, model, "openOrdersError");
 		manageAlertForSessionAndModelWithName(session, model, "openOrdersSuccess");
 		
-		for (Block block: proposedBlocks){
-			System.out.println(block.getSymbol()+"_"+block.getSide()+"  has limit:"+block.getLimitPrice()+" and stop:"+block.getStopPrice());
-		}
 		return "open-orders";
 	}
 
@@ -92,7 +87,7 @@ public class TraderOpenOrdersViewController {
 
 			idlist.add(Integer.parseInt(id.substring(1, id.length() - 1)));
 		}
-		System.out.println(idlist);
+
 		Order order = orderManager.getOrderWithId("" + idlist.get(0));
 		List<Block> blocklist = blockManager.getBlocksForOrder(order);
 
@@ -109,7 +104,6 @@ public class TraderOpenOrdersViewController {
 
 	@RequestMapping(value = "/select-block")
 	public String popupBlocks(HttpSession session) {
-		System.out.println("Switching to select Blocks");
 		return "select-block";
 	}
 

@@ -123,12 +123,12 @@ function loadFunc(){
 									</form:select></td>
 							</tr>
 
-							<%-- <tr>
+							<tr>
 								<td><form:label path="portId2">Portfolio: </form:label></td>
 								<td><form:select style="width: 95%" id="portfolio" path="portId2" name="portfolio">
 										<form:options items="${portfolioList}"></form:options>
 									</form:select></td>
-							</tr> --%>
+							</tr>
 						</table>
 					</div>
 

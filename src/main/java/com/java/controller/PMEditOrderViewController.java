@@ -82,7 +82,7 @@ public class PmEditOrderViewController {
 
 		Security security = securityManager.getSecurityDetails(order
 				.getSymbol2());
-		System.out.println(security);
+
 		order.setSecurity(security);
 
 		order.setPortfolio(port);
@@ -128,7 +128,7 @@ public class PmEditOrderViewController {
 			model.addAttribute("totalowned", totalqtyowned);
 			redirect = "ErrorOrder";
 		}
-		return redirect;
+		return  "forward:" + "order-view";
 	}
 
 	public List<String> getEquitiesInPortfolio(Order order) {
@@ -184,15 +184,16 @@ public class PmEditOrderViewController {
 		return accountTypeList;
 	}
 	
-//	@ModelAttribute("portfolioList")
-//	public Map<String, String> provideEquityPortfolio() {
-//		List<Portfolio> portfolioList = portfolioManager.getPortfolios("1");
-//		System.out.println("HELLO");
-//		Map<String, String> portfolios = new HashMap<String, String>();
-//		for (Portfolio port : portfolioList) {
-//			portfolios.put(port.getPortId(), port.getName());
-//		}
-//		return portfolios;
-//	}
+	@ModelAttribute("portfolioList")
+	public Map<String, String> provideEquityPortfolio(HttpSession session) {
+		User user = (User) session.getAttribute("authenticatedUser");
+		List<Portfolio> portfolioList = portfolioManager.getPortfolios(user.getUserId());
+	
+		Map<String, String> portfolios = new HashMap<String, String>();
+		for (Portfolio port : portfolioList) {
+			portfolios.put(port.getPortId(), port.getName());
+		}
+		return portfolios;
+	}
 	
 }
