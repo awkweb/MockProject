@@ -138,29 +138,22 @@ public class TraderBlockBlotterViewController {
 	}
 
 	@RequestMapping(value = "/send-block", method = RequestMethod.POST)
-	public String sendBlock(@RequestBody String json) {
+	public String sendBlock(@RequestBody String json, Model model) {
 		String[] filteredJson = json.substring(1, json.length() - 1).split(",");
 		String blockId = filteredJson[0].substring(1, filteredJson[0].length() - 1);
 
 		Block block = blockManager.getBlockWithId(blockId);
-		BlockBroker blockBroker = new BlockBroker(block.getBlockId(), block.getExecutedQty(),
-				block.getLimitPrice(), block.getOpenQty(), block.getStatus(), block.getStopPrice(),
-				block.getTimestamp(), block.getTotalQty());
 
-		Messenger messenger;
-		try {
-			messenger = new Messenger();
-			messenger.send(blockBroker);
-		} catch (NamingException e1) {
-			e1.printStackTrace();
-		} catch (JMSException e1) {
-			e1.printStackTrace();
-		} catch (JAXBException e1) {
-			e1.printStackTrace();
-		}
-
-		blockManager.setStatusForBlockWithBlockId(block.getBlockId(), "sent for execution");
+		Boolean result = blockManager.setStatusForBlockWithBlockId(block.getBlockId(), "sent for execution");
 		// Create Executeblock for block
+		if (result) {
+			model.addAttribute("blockBlotterSuccess", true);
+			model.addAttribute("blockBlotterMessage", "Success! Block sent for execution.");
+		} else {
+			model.addAttribute("blockBlotterError", true);
+			model.addAttribute("blockBlotterMessage", "Error sending block.");
+		}
+		counter = 0;
 
 		return "block-blotter";
 	}

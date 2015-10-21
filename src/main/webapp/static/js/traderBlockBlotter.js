@@ -66,6 +66,7 @@ $("#sendBlock").click(function(event){
 			data: JSON.stringify(blockId),
 			success: function(result){
 				console.log("success");
+				location.reload();
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				console.log(jqXHR.status);
