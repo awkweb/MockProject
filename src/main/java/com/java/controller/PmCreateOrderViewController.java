@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,8 +49,8 @@ public class PmCreateOrderViewController {
 		return new ModelAndView("create-order", "order", new Order());
 	}
 
-	@RequestMapping(value = "/orderdetails", method = RequestMethod.POST)
-	public String addOrder(@ModelAttribute("order") Order order, Model model) {
+	@RequestMapping(value = "/create-order-submit", method = RequestMethod.POST)
+	public String addOrder(@ModelAttribute("order") Order order, Model model, HttpSession session) {
 		model.addAttribute("symbol", order.getSymbol2());
 		model.addAttribute("side", order.getSide());
 		model.addAttribute("quantity", order.getTotalQty());
@@ -57,7 +59,8 @@ public class PmCreateOrderViewController {
 		Portfolio port = portfolioManager.getUserDetails(order.getPortId2());
 		
 		//set signed in PM here
-		User pm = userManager.getUserWithId("1");
+		User user = (User) session.getAttribute("authenticatedUser");
+		User pm = userManager.getUserWithId(user.getUserId());
 		Security security = securityManager.getSecurityDetailsFromName(order
 				.getSymbol2());
 
@@ -162,11 +165,10 @@ public class PmCreateOrderViewController {
 		return symbolWithName;
 	}
 
-	
-	//Need to pass user id of who is signed in here
 	@ModelAttribute("portfolioList")
-	public Map<String, String> provideEquityPortfolio() {
-		List<Portfolio> portfolioList = portfolioManager.getPortfolios("1");
+	public Map<String, String> provideEquityPortfolio(HttpSession session) {
+		User user = (User) session.getAttribute("authenticatedUser");
+		List<Portfolio> portfolioList = portfolioManager.getPortfolios(user.getUserId());
 		Map<String, String> portfolios = new HashMap<String, String>();
 		for (Portfolio port : portfolioList) {
 			portfolios.put(port.getPortId(), port.getName());
