@@ -22,7 +22,6 @@
 				<table class="table table-bordered table-hover table-responsive">
 					<tr>
 
-						<th>Portfolio Name</th>
 						<th>Security</th>
 						<th>Total Quantity</th>
 						<th>Average Price</th>
@@ -34,7 +33,6 @@
 						<c:if test="${pname == pmpos.getPortfolioname()}">
 
 							<tr>
-								<td><c:out value="${pmpos.getPortfolioname()}" /></td>
 								<td><c:out value="${pmpos.getSecurity()}" /></td>
 								<c:choose>
 									<c:when test="${pmpos.getQty() lt 0}">
