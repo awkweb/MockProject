@@ -68,6 +68,7 @@ public class TraderBlockBlotterViewController {
 		for(String id : filteredJson) {
 			orderIds.add(id.substring(1, id.length() - 1));
 		}
+		System.out.println(orderIds);
 		String blockid = orderManager.getOrderWithId(orderIds.get(0)).getBlock().getBlockId();
 		
 		List<Boolean> orderRemoveResults = new ArrayList<Boolean>();

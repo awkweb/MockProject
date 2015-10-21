@@ -1,6 +1,6 @@
 $("#removeOrders").click(function(event){
 	event.preventDefault();
-	var orderIds = $("input:checkbox:checked").map(function(){
+	var orderIds = $(".ordercheckbox:checked").map(function(){
 		return this.value;
 	}).toArray();
 
