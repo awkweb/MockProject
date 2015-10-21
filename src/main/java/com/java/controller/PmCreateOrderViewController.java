@@ -94,7 +94,7 @@ public class PmCreateOrderViewController {
 			flag = false;
 		}
 		if (flag == true) {
-			redirect = "pmOrderForm_results";
+			redirect = "order-view";
 			if (order.getSide().equals("Sell")) {
 				order.setTotalQty(sellQty);
 			}
@@ -107,7 +107,7 @@ public class PmCreateOrderViewController {
 			model.addAttribute("totalowned", totalqtyowned);
 			redirect = "ErrorOrder";
 		}
-		return redirect;
+		return "forward:order-view";
 	}
 
 	public List<String> getEquitiesInPortfolio(Order order) {

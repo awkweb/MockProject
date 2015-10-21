@@ -69,9 +69,10 @@ public class OrderViewDao {
 
 	@Transactional
 	public Boolean updateOrderToStatus(String id, String status) {	
+		System.out.println("dao updateOrderToStatus");
 		String sql = "UPDATE Order "
 				+ "SET status = :status "
-				+ "WHERE order_id = :orderid";
+				+ "WHERE orderId = :orderid";
 		int result = entityManager.createQuery(sql)
 				.setParameter("status", status)
 				.setParameter("orderid", id)
