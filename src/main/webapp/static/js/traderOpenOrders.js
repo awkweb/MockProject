@@ -37,7 +37,7 @@ $("#addtoblockbutton").click(function(event) {
 			data : JSON.stringify(selectedOrders),
 			success : function(result) {
 				console.log("success");
-				location.reload();
+				// location.reload();
 				location.href = "/mock/select-block";
 
 			},

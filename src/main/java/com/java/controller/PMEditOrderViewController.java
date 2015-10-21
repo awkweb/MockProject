@@ -41,35 +41,26 @@ public class PmEditOrderViewController {
 
 	@Autowired
 	private PortfolioManager portfolioManager;
-
-	@RequestMapping(value = "/PMEditOrder_form", method = RequestMethod.GET)
-	public ModelAndView loadEmptyModelBeanOrder(Model model) {
-		model.addAttribute("pageHeader", "Edit Order");
-		return new ModelAndView("PMEditOrder_form", "order", new Order());
-	}
-
-	@RequestMapping(value = "/PMAmendOrder_form", method = RequestMethod.GET)
-	public ModelAndView loadEmptyModelBeanOrderAmend(Model model) {
-		model.addAttribute("pageHeader", "Amend Order");
-		return new ModelAndView("PMAmendOrder_form", "order", new Order());
-	}
-
-	@RequestMapping(value = "/editorderbutton", method = RequestMethod.POST, consumes = "application/json")
+	
+	@RequestMapping(value = "/edit-order", method = RequestMethod.POST, consumes = "application/json")
 	public ModelAndView editorder(@RequestBody String json,
 			HttpSession session, Model model) {
+		System.out.println("START EDIT-ORDER MAPPING");
 		Order editOrder = orderManager.getOrderWithId(json);
 		model.addAttribute("passedOrder", editOrder);
-
-		return new ModelAndView("PMEditOrder_form", "order", new Order());
+		
+		System.out.println(editOrder.toString());
+		return new ModelAndView("edit-order", "order", new Order());
 	}
 	
-	@RequestMapping(value = "/amendorderbutton", method = RequestMethod.POST, consumes = "application/json")
+	@RequestMapping(value = "/amend-order", method = RequestMethod.POST, consumes = "application/json")
 	public ModelAndView amendtorder(@RequestBody String json,
 			HttpSession session, Model model) {
+		System.out.println("amend-order");
 		Order editOrder = orderManager.getOrderWithId(json);
 		model.addAttribute("passedOrder", editOrder);
 
-		return new ModelAndView("PMAmendOrder_form", "order", new Order());
+		return new ModelAndView("amend-order", "order", new Order());
 	}
 
 	@RequestMapping(value = "/editdetails", method = RequestMethod.POST)
@@ -191,6 +182,7 @@ public class PmEditOrderViewController {
 	@ModelAttribute("portfolioList")
 	public Map<String, String> provideEquityPortfolio(HttpSession session) {
 		User user = (User) session.getAttribute("authenticatedUser");
+		System.out.println(user.getUserId());
 		List<Portfolio> portfolioList = portfolioManager.getPortfolios(user.getUserId());
 		Map<String, String> portfolios = new HashMap<String, String>();
 		for (Portfolio port : portfolioList) {
@@ -198,4 +190,5 @@ public class PmEditOrderViewController {
 		}
 		return portfolios;
 	}
+	
 }

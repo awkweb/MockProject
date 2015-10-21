@@ -40,7 +40,7 @@
 				<table class="table table-bordered table-hover table-responsive">
 					<tr>
 						<th class="text-center"><input type="checkbox"
-							class="ordercheckbox" name="checkboxOptions" id="tag"
+							name="checkboxNew" id="checkboxNew"
 							value="row1"></th>
 						<th>Order Id</th>
 						<th>Symbol</th>
@@ -51,9 +51,8 @@
 
 					<c:forEach items="${newOrders}" var="order">
 						<tr>
-							<td class="text-center"><input type="checkbox"
-								class="ordercheckbox" name="checkboxOptions"
-								id="${order.getOrderId()}" value="row1"></td>
+							<td class="text-center"><input type="checkbox" class="ordercheckbox"
+								id="${order.getOrderId()}" value="row1" data-checkid="subNewOrders"></td>
 							<td>${order.getOrderId()}</td>
 							<td>${order.getSecurity().getSymbol()}</td>
 							<td>${order.getSecurity().getMarketPrice()}</td>
@@ -71,28 +70,25 @@
 				<table class="table table-bordered table-hover table-responsive">
 					<tr>
 						<th class="text-center"><input type="checkbox"
-							class="ordercheckbox" name="checkboxOptions" id="tag"
+							name="checkboxOpen" id="checkboxOpen"
 							value="row1"></th>
 						<th>Order Id</th>
 						<th>Symbol</th>
 						<th>Average Price</th>
 						<th>Total Quantity</th>
-						<th>Status</th>
 						<th></th>
 					</tr>
 
 					<c:forEach items="${openOrders}" var="order">
 						<tr>
-							<td class="text-center"><input type="checkbox"
-								class="ordercheckbox" name="checkboxOptions"
-								id="${order.getOrderId()}" value="row1"></td>
+							<td class="text-center"><input type="checkbox" class="ordercheckbox"
+								id="${order.getOrderId()}" value="row1" data-checkid="subOpenOrders"></td>
 							<td>${order.getOrderId()}</td>
 							<td>${order.getSecurity().getSymbol()}</td>
 							<td>${order.getSecurity().getMarketPrice()}</td>
 							<td>${order.getTotalQty()}</td>
-							<td>${order.getStatus()}</td>
-							<td class="text-center"><a id="editOrder"
-								data-id="${order.getOrderId()}" role="button">Edit</a></td>
+							<td class="text-center"><a id="amendOrder"
+								data-id="${order.getOrderId()}" role="button">Amend</a></td>
 						</tr>
 					</c:forEach>
 				</table>

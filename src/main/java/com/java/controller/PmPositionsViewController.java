@@ -26,15 +26,13 @@ public class PmPositionsViewController {
 	@RequestMapping(value="/positions")
 	public ModelAndView LoadDashBoard(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("authenticatedUser");
-		List<PmPosition> positions = new ArrayList<PmPosition>();
-		positions = positionManager.getPositionDetails(user.getUserId());
+		List<PmPosition> positions = positionManager.getPositionDetails(user.getUserId());
 		ModelAndView modelAndView = new ModelAndView("positions");
-
 		modelAndView.addObject("portfoliolist", positions);
+		
 		positions= positionManager.getsingleportfoliodetails(user.getUserId());
 		dropdown();
-		List<String> pnames=new ArrayList<String>();
-		pnames=positionManager.getportnames();
+		List<String> pnames = positionManager.getportnames();
 
 		modelAndView.addObject("pnames", pnames);
 		return modelAndView;

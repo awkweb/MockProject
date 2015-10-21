@@ -1,5 +1,34 @@
 $('#newTab').click(function(event) {
-	console.log("Pressed")
+	$("#sendorderbutton").removeClass("disabled");
+	$("#cancelorderbutton").removeClass("disabled");
+});
+
+$('#openTab').click(function(event) {
+	$("#sendorderbutton").addClass("disabled");
+	$("#cancelorderbutton").removeClass("disabled");
+});
+
+$('#cancelledTab').click(function(event) {
+	$("#sendorderbutton").addClass("disabled");
+	$("#cancelorderbutton").addClass("disabled");
+});
+
+$('#checkboxNew').click(function() {
+	var ordervalue = $(this).attr("id");
+	var checkedStatus = $("input:checkbox[name=checkboxNew]:checked").is(':checked');
+
+	$("input[data-checkid=subNewOrders]").each(function() {
+		$(this).prop('checked', checkedStatus);
+	});
+});
+
+$('#checkboxOpen').click(function() {
+	var ordervalue = $(this).attr("id");
+	var checkedStatus = $("input:checkbox[name=checkboxOpen]:checked").is(':checked');
+
+	$("input[data-checkid=subOpenOrders]").each(function() {
+		$(this).prop('checked', checkedStatus);
+	});
 });
 
 $('#cancelorderbutton').click(function(event) {
@@ -62,13 +91,12 @@ $(document).on("click", "#editOrder", function () {
 
 	$.ajax({
 		type : "POST",
-		url : "/mock/editorderbutton",  
+		url : "/mock/edit-order",  
 		contentType : "application/json",
 		data : JSON.stringify(id),
 		success : function(result) {
 			console.log("success");
-
-			location.href = "/mock/PMEditOrder_form";
+			location.href = "/mock/edit-order";
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR.status);
@@ -84,13 +112,12 @@ $(document).on("click", "#amendOrder", function () {
 
 	$.ajax({
 		type : "POST",
-		url : "/mock/amendorderbutton",  
+		url : "/mock/amend-order",  
 		contentType : "application/json",
 		data : JSON.stringify(id),
 		success : function(result) {
 			console.log("success");
-
-			location.href = "/mock/PMAmendOrder_form";
+			location.href = "/mock/amend-order";
 		},
 		error : function(jqXHR, textStatus, errorThrown) {
 			console.log(jqXHR.status);
@@ -98,34 +125,4 @@ $(document).on("click", "#amendOrder", function () {
 			console.log(errorThrown);
 		}
 	})
-});
-
-$('#editorderbutton2').click(function(event) {
-	event.preventDefault();
-	var selectedOrders = $(".ordercheckbox:checked").map(function() {
-		return this.id;
-	}).toArray();
-
-	console.log(selectedOrders.length);
-	if(selectedOrders.length > 1 ){
-		alert("Only edit one order at a time!!");
-
-	}
-	if (selectedOrders.length = 1) {
-		$.ajax({
-			type : "POST",
-			url : "/mock/editorderbutton2",  
-			contentType : "application/json",
-			data : JSON.stringify(selectedOrders),
-			success : function(result) {
-				console.log("success");
-				location.reload();
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				console.log(jqXHR.status);
-				console.log(textStatus);
-				console.log(errorThrown);
-			}
-		})
-	}
 });

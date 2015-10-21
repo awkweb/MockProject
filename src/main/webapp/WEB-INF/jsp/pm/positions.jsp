@@ -1,40 +1,59 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<ul class="nav nav-tabs" role="tablist">
-	<div>
+<div class="panel-group" id="accordion" role="tablist"
+	aria-multiselectable="true">
+
+	<c:forEach items="${pnames}" var="pname">
+		<div class="panel panel-default">
+			<div class="panel-heading" role="tab" id="headingOne">
+				<h4 class="panel-title">
+					<a class="collapsed" role="button" data-toggle="collapse"
+						data-parent="#accordion" href="#collapse${pname}"
+						aria-expanded=false aria-controls="collapseOne">${pname} </a> <small>
+					</small>
+				</h4>
+			</div>
 
 
-		<form:form modelAttribute="myform" action="result" method="get">
-			<form:select path="nameOfInstitution">
-				<form:option value="NONE"> --SELECT--</form:option>
-				<form:options items="${pnames}"></form:options>
-			</form:select>
+			<div id="collapse${pname}" class="panel-collapse collapse"
+				role="tabpanel" aria-labelledby="headingOne">
 
-		</form:form>
+				<table class="table table-bordered table-hover table-responsive">
+					<tr>
 
-
-	</div>
-
-</ul>
-<table class="table table-bordered table-hover table-responsive">
-	<tr>
-
-		<th>Portfolio Name</th>
-		<th>Security</th>
-		<th>Total Quantity</th>
-		<th>Average Price</th>
+						<th>Portfolio Name</th>
+						<th>Security</th>
+						<th>Total Quantity</th>
+						<th>Average Price</th>
 
 
+					</tr>
+					<c:forEach items="${portfoliolist}" var="pmpos">
 
-	</tr>
-	<c:forEach items="${portfoliolist}" var="pmpos">
-		<tr>
+						<c:if test="${pname == pmpos.getPortfolioname()}">
 
-			<td><c:out value="${pmpos.getPortfolioname()}" /></td>
-			<td><c:out value="${pmpos.getSecurity()}" /></td>
-			<td><c:out value="${pmpos.getQty()}" /></td>
-			<td><c:out value="${pmpos.getAvgprice()}" /></td>
+							<tr>
+								<td><c:out value="${pmpos.getPortfolioname()}" /></td>
+								<td><c:out value="${pmpos.getSecurity()}" /></td>
+								<c:choose>
+									<c:when test="${pmpos.getQty() lt 0}">
+										<td><c:out value="${-pmpos.getQty()}" /></td>
+									</c:when>
+									<c:otherwise>
+										<td><c:out value="${pmpos.getQty()}" /></td>
+									</c:otherwise>
+								</c:choose>
+								<td><c:out value="${pmpos.getAvgprice()}" /></td>
 
-		</tr>
+
+							</tr>
+						</c:if>
+
+
+					</c:forEach>
+				</table>
+
+			</div>
+		</div>
 	</c:forEach>
-</table>
+</div>

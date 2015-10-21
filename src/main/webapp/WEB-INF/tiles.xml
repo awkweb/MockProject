@@ -94,20 +94,17 @@
 			value="/WEB-INF/jsp/pm/createOrderForm.jsp" />
 	</definition>
 	
-	<!-- <definition name="pmopenorder" extends="pm-layout.definition">
-		<put-attribute name="title" value="positionsdashboard!" />
-		<put-attribute name="content" value="/WEB-INF/jsp/pmopenorder.jsp" />
+	<definition name="edit-order" extends="pm-layout.definition">
+		<put-attribute name="title" value="Edit Order" />
+		<put-attribute name="content" value="/WEB-INF/jsp/pm/editOrderForm.jsp" />
 	</definition>
 	
-	<definition name="pmcancelledorder" extends="pm-layout.definition">
-		<put-attribute name="title" value="positionsdashboard!" />
-		<put-attribute name="content" value="/WEB-INF/jsp/pmcancelledorder.jsp" />
+	<definition name="amend-order" extends="pm-layout.definition">
+		<put-attribute name="title" value="Amend Order" />
+		<put-attribute name="content" value="/WEB-INF/jsp/pm/amendOrderForm.jsp" />
 	</definition>
-
-	<definition name="PMEditOrder_form" extends="pm-layout.definition">
-		<put-attribute name="title" value="Edit An Order" />
-		<put-attribute name="content" value="/WEB-INF/jsp/PMEditOrder_form.jsp" />
-	</definition>
+	
+	<!--
 
 	<definition name="pmOrderForm_results" extends="pm-layout.definition">
 		<put-attribute name="title" value="Order Successful" />
@@ -119,11 +116,6 @@
 		<put-attribute name="title" value="Order Unsuccessful" />
 		<put-attribute name="content"
 			value="/WEB-INF/jsp/ErrorOrder.jsp" />
-	</definition>
-	
-	<definition name="PMAmendOrder_form" extends="pm-layout.definition">
-		<put-attribute name="title" value="Amend An Order" />
-		<put-attribute name="content" value="/WEB-INF/jsp/PMAmendOrder_form.jsp" />
 	</definition>
 	
 	<definition name="search" extends="pm-layout.definition">
