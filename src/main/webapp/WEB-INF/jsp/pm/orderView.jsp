@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page isELIgnored="false"%>
 
 <c:if test="${orderViewError}">
@@ -55,7 +56,7 @@
 								id="${order.getOrderId()}" value="row1" data-checkid="subNewOrders"></td>
 							<td>${order.getOrderId()}</td>
 							<td>${order.getSecurity().getSymbol()}</td>
-							<td>${order.getSecurity().getMarketPrice()}</td>
+							<td><fmt:setLocale value="en_US" /> <fmt:formatNumber value="${order.getSecurity().getMarketPrice()}" type="currency"/></td>
 							<td>${order.getTotalQty()<0? -order.getTotalQty():order.getTotalQty()}</td>
 							<td class="text-center"><a id="editOrder"
 								data-id="${order.getOrderId()}" role="button">Edit</a></td>
@@ -85,7 +86,7 @@
 								id="${order.getOrderId()}" value="row1" data-checkid="subOpenOrders"></td>
 							<td>${order.getOrderId()}</td>
 							<td>${order.getSecurity().getSymbol()}</td>
-							<td>${order.getSecurity().getMarketPrice()}</td>
+							<td><fmt:setLocale value="en_US" /> <fmt:formatNumber value="${order.getSecurity().getMarketPrice()}" type="currency"/></td>
 							<td>${order.getTotalQty()<0? -order.getTotalQty():order.getTotalQty()}</td>
 							<td class="text-center"><a id="amendOrder"
 								data-id="${order.getOrderId()}" role="button">Amend</a></td>
@@ -109,7 +110,7 @@
 						<tr>
 							<td>${order.getOrderId()}</td>
 							<td>${order.getSecurity().getSymbol()}</td>
-							<td>${order.getSecurity().getMarketPrice()}</td>
+							<td><fmt:setLocale value="en_US" /> <fmt:formatNumber value="${order.getSecurity().getMarketPrice()}" type="currency"/></td>
 							<td>${order.getTotalQty()<0? -order.getTotalQty():order.getTotalQty()}</td>
 						</tr>
 					</c:forEach>

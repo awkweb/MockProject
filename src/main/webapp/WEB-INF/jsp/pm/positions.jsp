@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="panel-group" id="accordion" role="tablist"
 	aria-multiselectable="true">
@@ -43,7 +44,7 @@
 										<td><c:out value="${pmpos.getQty()}" /></td>
 									</c:otherwise>
 								</c:choose>
-								<td><c:out value="${pmpos.getAvgprice()}" /></td>
+								<td><fmt:setLocale value="en_US" /> <fmt:formatNumber value ="${pmpos.getAvgprice()}" type="currency"/></td>
 
 
 							</tr>
