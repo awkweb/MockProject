@@ -143,5 +143,18 @@ public class OrderDao {
 			return 0L;
 		}
 	}
+	
+	@Transactional
+	public Boolean updateOrderToStatus(String id, String status) {	
+		String sql = "UPDATE Order "
+				+ "SET status = :status "
+				+ "WHERE orderId = :orderid";
+		int result = entityManager.createQuery(sql)
+				.setParameter("status", status)
+				.setParameter("orderid", id)
+				.executeUpdate();
+		Boolean success = result != 0;
+		return success;
+	}
 
 }

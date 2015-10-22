@@ -144,10 +144,14 @@ public class TraderBlockBlotterViewController {
 
 		Block block = blockManager.getBlockWithId(blockId);
 
-		Boolean result = blockManager.setStatusForBlockWithBlockId(block.getBlockId(), "sent for execution");
+		Boolean result = blockManager.setStatusForBlockWithBlockId(block.getBlockId(), "Sent For Execution");
 		Executeblock executeblock = new Executeblock(0, block.getExecutedQty(), block.getOpenQty(), block.getSide(),
-				"Sent for execution", 0.0f, 0.0f, null, block, block.getOrders().get(0), block.getOrders().get(0).getSecurity());
+				"Sent For Execution", 0.0f, 0.0f, null, block, block.getOrders().get(0), block.getOrders().get(0).getSecurity());
 		executeBlockManager.saveExecuteblock(executeblock);
+		
+		for (Order order : block.getOrders()) {
+			orderManager.updateOrderToStatus(order.getOrderId(), "Sent For Execution");
+		}
 		
 		if (result) {
 			model.addAttribute("blockBlotterSuccess", true);

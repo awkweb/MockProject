@@ -77,7 +77,6 @@
 						<th>Account Type</th>
 						<th>Status</th>
 						<th>Notes</th>
-						<th></th>
 					</tr>
 					<c:forEach items="${block.getOrders()}" var="order">
 						<tr>
@@ -107,7 +106,7 @@
 							<c:choose>
 								<c:when test="${order.getNotes().length() > 0}">
 									<td><a tabindex="0" role="button" data-toggle="popover"
-										data-trigger="focus" title="Notes"
+										data-trigger="focus" data-placement="left" title="Notes"
 										data-content="${order.getNotes()}">Display</a></td>
 								</c:when>
 								<c:otherwise>
@@ -115,7 +114,6 @@
 								</c:otherwise>
 							</c:choose>
 
-							<td class="text-center"><a href="#">Edit</a></td>
 						</tr>
 					</c:forEach>
 				</table>

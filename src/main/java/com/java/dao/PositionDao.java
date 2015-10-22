@@ -32,7 +32,7 @@ public class PositionDao {
 
 		List<PmPosition> pmposlist=new ArrayList<PmPosition>();
 		List<Object[]> results1=new ArrayList<Object[]>();
-		String sql = "select o.portfolio.name,o.security.symbol, SUM(o.totalQty),AVG(o.stopPrice)  "
+		String sql = "select o.portfolio.name,o.security.symbol, SUM(o.totalQty),AVG(o.security.marketPrice)  "
 				+ "FROM Order o where o.user1.userId=:pid "
 				+ "GROUP BY o.security.symbol ORDER BY o.portfolio.portId ASC";
 		results1 = (List<Object[]>)entityManager.createQuery(sql).setParameter("pid",pmid).getResultList();

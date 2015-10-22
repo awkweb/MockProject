@@ -33,6 +33,10 @@ public class OrderManager {
 	public Boolean removeOrderFromBlockWithOrderId(String orderId) {		
 		return orderDao.removeOrderFromBlockWithOrderId(orderId);
 	}
+	
+	public Boolean updateOrderToStatus(String id, String status) {
+		return orderDao.updateOrderToStatus(id, status);
+	}
 
 	public List<Order> getOpenOrdersforUser(User user) {
 		return orderDao.getOpenOrdersForUser(user);
