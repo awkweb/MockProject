@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import com.java.dao.ExecuteBlockDao;
 import com.java.pojo.Block;
 import com.java.pojo.Executeblock;
+import com.java.pojo.User;
 
 @Component
 public class ExecuteBlockManager {
@@ -21,6 +22,10 @@ public class ExecuteBlockManager {
 	
 	public List<Executeblock> getExecuteBlocksForBlocks(List<Block> blocks) {
 		return executeblockDao.getExecuteBlocksForBlocks(blocks);
+	}
+	
+	public void saveExecuteblock(Executeblock executeblock) {
+		executeblockDao.saveExecuteblock(executeblock);
 	}
 
 }

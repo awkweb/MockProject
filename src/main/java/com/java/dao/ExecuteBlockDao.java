@@ -45,10 +45,10 @@ public class ExecuteBlockDao {
 		}
 		return  executeBlocks;
 	}
-
+	
 	@Transactional
-	public void saveDetails(Executeblock user) {
-		entityManager.persist(user);
+	public void saveExecuteblock(Executeblock executeblock) {
+		entityManager.persist(executeblock);
 	}
 
 }

@@ -3,10 +3,7 @@ package com.java.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.jms.JMSException;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpSession;
-import javax.xml.bind.JAXBException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.java.messenger.BlockBroker;
-import com.java.messenger.Messenger;
 import com.java.pojo.Block;
+import com.java.pojo.Executeblock;
 import com.java.pojo.Order;
 import com.java.pojo.User;
 import com.java.service.BlockManager;
+import com.java.service.ExecuteBlockManager;
 import com.java.service.OrderManager;
 
 @Controller
@@ -36,6 +33,9 @@ public class TraderBlockBlotterViewController {
 
 	@Autowired
 	private OrderManager orderManager;
+	
+	@Autowired
+	private ExecuteBlockManager executeBlockManager;
 
 	@RequestMapping(value="/block-blotter")
 	public String loadEmptyModelBean(HttpSession session, Model model) {
@@ -145,7 +145,10 @@ public class TraderBlockBlotterViewController {
 		Block block = blockManager.getBlockWithId(blockId);
 
 		Boolean result = blockManager.setStatusForBlockWithBlockId(block.getBlockId(), "sent for execution");
-		// Create Executeblock for block
+		Executeblock executeblock = new Executeblock(0, block.getExecutedQty(), block.getOpenQty(), block.getSide(),
+				"Sent for execution", 0.0f, 0.0f, null, block, block.getOrders().get(0), block.getOrders().get(0).getSecurity());
+		executeBlockManager.saveExecuteblock(executeblock);
+		
 		if (result) {
 			model.addAttribute("blockBlotterSuccess", true);
 			model.addAttribute("blockBlotterMessage", "Success! Block sent for execution.");

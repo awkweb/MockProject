@@ -66,6 +66,25 @@ public class Executeblock implements Serializable {
 	public Executeblock() {
 	}
 
+	public Executeblock(int allocatedQty, int executedQty,
+			int remainingQty, String side, String status, float tradePrice, float transactFee,
+			Timestamp transactionTime, Block block, Order order, Security security) {
+		super();
+		this.allocatedQty = allocatedQty;
+		this.executedQty = executedQty;
+		this.remainingQty = remainingQty;
+		this.side = side;
+		this.status = status;
+		this.tradePrice = tradePrice;
+		this.transactFee = transactFee;
+		this.transactionTime = transactionTime;
+		this.block = block;
+		this.order = order;
+		this.security = security;
+	}
+
+
+
 	public String getExecutionId() {
 		return this.executionId;
 	}
